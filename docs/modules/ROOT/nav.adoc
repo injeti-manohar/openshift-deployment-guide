@@ -1,0 +1,15 @@
+
+
+* xref:index.adoc[Deploying microservices to OpenShift]
+* xref:general-setup.adoc[General Setup]
+* xref:deploying-lagom:deploy-a-lagom-application-to-openshift.adoc[Deploy Lagom microservices to OpenShift]
+** xref:deploying-lagom:example-prerequisites.adoc[Example prerequisites]
+** xref:deploying-lagom:downloading-example.adoc[Downloading the example and getting started]
+** xref:deploying-lagom:setting-up-postgresql.adoc[Setting up PostgreSQL]
+** xref:deploying-lagom:setting-up-kafka.adoc[Setting up Kafka]
+** xref:deploying-lagom:configuring-shopping-cart.adoc[Configuring Shopping Cart]
+** xref:deploying-lagom:configuring-akka-cluster.adoc[Configuring an Akka Cluster]
+** xref:deploying-lagom:building-shopping-cart.adoc[Building Shopping Cart]
+*** xref:deploying-lagom:building-with-sbt.adoc[Building with sbt]
+*** xref:deploying-lagom:building-with-maven.adoc[Building with Maven]
+** xref:deploying-lagom:deploying-shopping-cart.adoc[Deploying Shopping Cart]

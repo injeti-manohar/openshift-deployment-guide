@@ -1,0 +1,75 @@
+= Example-specific prerequisites
+:toc:
+:toc-title: ON THIS PAGE
+:toclevels: 3
+
+The procedures in this tutorial require the following:
+
+* PostgreSQL client
+* The Strimzi operator to deploy Kafka
+
+The remaining sections on this page provide links and instructions for obtaining or installing any of these that you do not have.
+
+== Installing the PostgreSQL client
+
+You can download the installer from: https://www.enterprisedb.com/advanced-downloads. If you use an interactive installer, you can simply install the client without installing the complete database server. 
+
+== Preparing for Kafka
+
+If you have an existing Kafka installation, you can configure that to run the example app. You or an administrator will need to set up a Kafka service named `strimzi-kafka-brokers`, with a TCP port called `clients`, in the same namespace as the service being deployed.
+
+If you don't have a Kafka available to use, Lightbend recommends using Strimzi, a Kubernetes operator that simplifies the installation and deployment process. Administrative privileges are required to install Strimzi. In addition, Strimzi requires Helm. https://www.lightbend.com/lightbend-platform[Lightbend Platform] provides a specially-configured Strimzi installation that is _required_ for production support. The documentation for using the Lightbend supported Strimzi release for production can be found https://developer.lightbend.com/docs/fast-data-platform/current/index.html#strimzi-operator-kafka[here]. 
+
+If your organization does not have Strimzi available, use the following commands to prepare for following this tutorial:
+
+NOTE: The following steps are not for a general nor a production installation, but are specific to the instructions in this tutorial.
+
+. Using a command window, log into the OpenShift cluster as a user that has admin privileges. For Minishift use the following command:
++
+```
+oc login -u system:admin
+```
+. If necessary, install the Helm client on your local machine following these instructions: https://github.com/helm/helm/releases
+. If necessary, install the Helm Tiller server on the cluster:
+.. Create a project for Helm Tiller: `oc new-project tiller`
+.. Set a parameter to point to the Tiller project:
++
+```
+export TILLER_NAMESPACE=tiller
+```
+.. Check your Tiller version: `helm version`
+.. Set a parameter with the Tiller version returned by the previous command, for example for version 2.13.1:
++
+```
+export HELM_VERSION=v2.13.1
+```
+.. Create and apply the Lightbend Tiller template:
++
+```
+oc process -f https://developer.lightbend.com/docs/fast-data-platform/2.1.0-OpenShift/resources/OpenShift/helm-tiller-template.yaml \
+  -p TILLER_NAMESPACE="${TILLER_NAMESPACE}" \
+  -p HELM_VERSION=${HELM_VERSION} | oc create -f 
+```
++ Wait for this process to complete.
+.. Add the Lightbend Helm chart:
++
+```
+helm repo add lightbend https://repo.lightbend.com/helm-charts
+helm repo update
+```
+.. If you haven't already, create a parameter that points at the example project you will be using:
++
+```
+export NAMESPACE=myproject
+```
+
+.. Install Strimzi:
++
+```sh
+include::{examplesdir}/kafka.sh[tag=install-strimzi]
+```
+Now you are ready to deploy Kafka as described later in this guide.
+
+== What's next
+
+Proceed by xref:setting-up-postgresql.adoc[Setting up PostgreSQL]

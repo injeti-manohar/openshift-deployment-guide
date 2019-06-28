@@ -1,0 +1,13 @@
+== Configure your command window
+
+.. Open a command window and change into the directory containing your shopping cart app. For example:
++
+```sh
+cd ~\shopping-cart-java
+```
+
+.. Set the variable in your shell as follows to be able to copy and paste commands from this guide:
++
+```sh
+NAMESPACE=myproject
+```

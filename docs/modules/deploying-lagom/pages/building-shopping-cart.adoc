@@ -1,0 +1,15 @@
+= Building Shopping Cart
+:toc:
+:toc-title: ON THIS PAGE
+:toclevels: 3
+With the Shopping Cart microservice configured to form an Akka Cluster and to run in OpenShift, we are now ready to build and deploy.
+
+
+include::{partialsdir}/building-ovr.adoc[tag=intro]
+
+== What's next
+
+The next steps depend on whether you are using sbt or Maven:
+
+* xref:building-with-sbt.adoc[Building with sbt]
+* xref:building-with-maven.adoc[Building with Maven]

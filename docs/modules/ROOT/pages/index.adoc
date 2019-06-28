@@ -1,0 +1,37 @@
+= Deploying Lightbend applications to OpenShift
+:toc:
+:toc-title: ON THIS PAGE
+:toclevels: 3
+
+This guide provides tutorials for deploying applications built with Akka, Lagom and Play to OpenShift. While targeted at OpenShift, most of the information is also applicable to Kubernetes. Procedures show how to use the OpenShift client command, `oc`. In most cases you can substitute `kubectl`, since `oc` provides a superset of `kubectl` commands.
+
+The instructions are for Linux or macOS. They assume some understanding of OpenShift and Kubernetes, but you need not be an expert. You should have the following basics before trying the examples:
+
+* Understand the purpose of https://www.openshift.com/learn/what-is-openshift/[OpenShift] and https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/[Kubernetes]
+* Be familiar with Kubernetes  https://kubernetes.io/docs/concepts/workloads/pods/pod/[pods], https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/pods_and_services.html[services] and https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/containers_and_images.html[containers]
+* Have experience interacting with `oc` or `kubectl` commands, see https://docs.openshift.com/enterprise/3.0/cli_reference/get_started_cli.html[Getting started with the CLI] 
+
+== Following this guide
+
+We recommend that you work through the example applications in the tutorials at least once. If you later reuse configuration and commands for your own applications, be sure that everything&mdash;in particular, names&mdash;matches those used by your applications.
+
+Where appropriate, tutorials include alternate instructions for: Scala and Java applications; Maven and sbt build tools; and relational databases and Cassandra. Simply skip the pieces that are not relevant to your environment.
+
+The referenced example applications that use a database, use PostgreSQL, and for simplicity, we provide instructions for installing it in OpenShift. For Cassandra and other databases, refer to their official documentation. Similarly, we include instructions for installing Kafka in the same namespace as the example app with a Strimzi operator. Installing Kafka requires administrative privileges for the cluster. If this is not possible because of organizational restrictions, try one of the following:
+
+* Request that someone with administrative privileges run the Strimzi operator for you
+* Install an instance of OpenShift for your own use
+* Use Minishift on your local machine
+
+== Using a different project name
+
+The tutorials use `myproject` as the default namespace for all applications. For convenience, all the commands that need the namespace will use a `NAMESPACE` variable. If you set the variable in your shell as follows, you will be able to copy and paste commands from this guide: 
+
+`NAMESPACE=myproject`
+
+To use a different project name, you will need to supply a different value for the `NAMESPACE` variable. Also, some configuration files hard-code the name `myproject`. So if you are *not* using the `myproject` project name, you’ll need to find and modify those hard-coded values.
+
+
+== What's next
+
+First, follow the steps in xref:general-setup.adoc[General Setup] to prepare your environment.

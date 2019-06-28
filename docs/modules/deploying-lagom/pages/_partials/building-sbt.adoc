@@ -1,0 +1,114 @@
+= Building using sbt
+
+# tag::intro[]
+The https://www.scala-sbt.org/sbt-native-packager/[sbt-native-packager] plugin simplifies packaging Java and Scala applications built with sbt as Docker images.
+# end::intro[]
+
+== Setup
+# tag::setup[]
+To use this plugin in your sbt application:
+
+. Add the following to your `project/plugins.sbt` file:
++
+```scala
+addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "1.3.17")
+```
+
+. Enable the appropriate plugins in your build, by modifying your project in `build.sbt`:
++
+```scala
+enablePlugins(JavaAppPackaging, DockerPlugin)
+```
++
+Here we're telling native packager to package our application as a Java application that can be run from the command line. This will package up all the applications dependencies (jar files), and generate a start script to start the application. To generate this start script, native packager needs to know what the applications main class is.
+
+When the application only has one main class in its source folder, sbt will detect this automatically, but in case there are multiple, or the main class comes from a dependency, it can be set in `build.sbt` like so:
+
+```scala
+mainClass in Compile := Some("com.lightbend.example.Main")
+```
+# end::setup[]
+
+# tag::nosetup[]
+:sectnums:
+
+== Specifying your JDK
+
+If you're a RedHat customer, then you will probably want to use RedHat's certified OpenJDK base image, which is using RHEL. Otherwise, we recommend using the AdoptOpenJDK base image. See xref:example-prerequisites.adoc#_using_a_supported_jdk[Using a supported JDK] for more information.
+
+In the sbt build file add one of the following:
+
+* To use RHEL:
++
+```scala
+dockerBaseImage := "registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift"
+```
+
+* To use the AdoptOpenJDK base image:
++
+```scala
+dockerBaseImage := "adoptopenjdk/openjdk8"
+```
+
+== Using Git hash-based version numbers
+
+This step is optional, but we recommend basing the version number of your application on the current git hash, since this ensures that you will always be able to map the code deployed in production back to the exact version of your application being used.
+
+There are a number of sbt plugins available for generating a version number from a git hash, we're going to use https://github.com/dwijnand/sbt-dynver[`sbt-dynver`]. This plugin incorporates the most recent git tag as the base version number, appends the git hash to that only if there are any changes since that tag, and includes a datetime stamp if there are local changes in the repository.
+
+To add this plugin to your project, add the following to `project/plugins.sbt`:
+
+
+```scala
+addSbtPlugin("com.dwijnand" % "sbt-dynver" % "3.3.0")
+```
+
+For the plugin to work, you need to ensure that you *don't* specify a `version` in your sbt build, since this will overwrite the version that `sbt-dynver` generates. Additionally, `sbt-dynver` generates versions with a `+` character in them (the `+` is used to indicate how many commits have been added since the last tag, so `1.0+4` indicates this is the 1.0 tag plus 4 commits). To replace this with a `-` character, add the following to `build.sbt`:
+
+```scala
+version in ThisBuild ~= (_.replace('+', '-'))
+dynver in ThisBuild ~= (_.replace('+', '-'))
+```
+
+You may also want to configure the sbt native packager to tag your image as the `latest` image, this will be necessary if you're using the `latest` tag in your deployment spec. To do this, enable `dockerUpdateLatest` in `build.sbt`:
+
+```scala
+dockerUpdateLatest := true
+```
+
+== Configuring the Docker username and OpenShift registry
+
+After building the docker image, we will need to deploy it to the OpenShift Docker registry. To do that, we need to configure both the docker username, which should equal the OpenShift `project/namespace`, and the registry. The `dockerUsername` and `dockerRepository` settings configure these two values:
+
+```scala
+dockerUsername := sys.props.get("docker.username")
+dockerRepository := sys.props.get("docker.registry")
+```
+
+In this case, we're reading both variables from system properties, which ensures that the build is not tied to any particular OpenShift installation. We'll supply these system properties when we invoke sbt.
+
+== Building the docker image
+
+Now that everything is set up, we can build our docker image. Run the following:
+```sh
+include::{examplesdir}/building.sh[tag=sbt,indent=0]
+```
+
+This will build the project, tag it, and then push it to the configured OpenShift registry.
+
+
+# end::nosetup[]
+
+# tag::image-stream[]
+
+
+== Configuring OpenShift image lookup
+
+When you push a docker image to OpenShift's internal registry, it will automatically create an image stream that the image can be consumed from.
+
+Since we're using Kubernetes deployments rather than OpenShift deployment configs, in order to ensure that our deployment can consume this from the internal OpenShift registry with an unqualified tag, we need to allow local lookups on it. This can be enabled by running the following command.
+```sh
+include::{examplesdir}/building.sh[tag=image-lookup,indent=0]
+```
+For more information on image stream lookups, see the https://docs.openshift.com/container-platform/latest/dev_guide/managing_images.html#using-is-with-k8s[OpenShift documentation].
+# end::image-stream[]

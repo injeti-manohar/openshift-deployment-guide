@@ -1,0 +1,43 @@
+= Downloading the example app and getting started
+:toc:
+:toc-title: ON THIS PAGE
+:toclevels: 3
+
+The first step is to download the Shopping Cart example. We recommend that you follow the README to run Shopping Cart and familiarise yourself with the code. This will help you be familiar with the behavior when you deploy it on OpenShift. To get started with this tutorial, connect to OpenShift and configure your command window as described below.
+
+== Obtaining Shopping Cart
+
+Clone or download the Shopping Cart zip archive from one of the following GitHub repositories:
+
+* Java: https://github.com/lagom/lagom-samples/tree/1.5.x/shopping-cart/shopping-cart-java
+
+* Scala: https://github.com/lagom/lagom-samples/tree/1.5.x/shopping-cart/shopping-cart-scala
+
+:sectnums:
+== Connect to OpenShift and create a project
+
+How you connect to OpenShift depends on the type of installation:
+
+* If you are using Minishift, assuming that you have started your cluster as described in xref:general-setup.adoc[General setup], create a project named `myproject`. Ignore the rest of this section and skip to xref:setting-up-postgresql.adoc[Setting up PostgreSQL].
+
+* If you are using an OpenShift installation administered by someone else, ask them for the information you need to connect using `oc`. Then enter the information in a command window. (The command typically includes a URL and passes in your user name and password). Using the `oc` command, create a project named 'myproject' (`oc new-project myproject`).
+
+* If you have a URL and your login credentials for OpenShift, follow these steps to create a project using the OpenShift Web Console:
++
+.. Using a browser, log in to the OpenShift Web Console.
+
+.. Click `New Project` to create a new project and name it `myproject`.
+
+.. Open the menu next to your user name in the top right and select `Copy Login Command`
+
+.. Open a command window on your local machine and paste the command.
++
+On success, the prompt lists your new project.
+
+include::{partialsdir}/configure-cmd-window.adoc[]
+
+:sectnums!:
+
+== What's next
+
+xref:setting-up-postgresql.adoc[Setting up PostgreSQL]

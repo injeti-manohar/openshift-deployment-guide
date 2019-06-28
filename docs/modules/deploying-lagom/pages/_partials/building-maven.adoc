@@ -1,0 +1,7 @@
+== include file for maven
+
+# tag::intro[]
+
+Several Maven plugins are available for building and deploying Docker images. We're going to use [Fabric8](https://maven.fabric8.io/).
+
+# end::intro[]

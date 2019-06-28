@@ -1,0 +1,212 @@
+= Configuring an Akka Cluster
+:page-supergroup-build-tool: Build Tool
+:toc:
+:toc-title: ON THIS PAGE
+:toclevels: 3
+
+If you’re using Lagom Persistence or Lagom Pub Sub, you will need to configure your Lagom services to form an Akka Cluster when they start up. An Akka Cluster is a group of `ActorSystem` nodes&mdash;usually running the same code base&mdash;that divide their state and work. In a Lagom application, each microservice forms its own Akka Cluster so that the workload can be distributed between microservice replicas. Lagom persistent entities are distributed across an Akka Cluster so that each entity only resides in memory on one replica at a time. This ensures that commands can be processed on that entity with high performance, strong consistency, and no need to coordinate with other replicas on every write.
+
+
+== Overview of the bootstrap process
+
+Services that use Akka Cluster have different requirements than a typical stateless microservice deployed to OpenShift. To form an Akka Cluster, each microservice replica needs to know which other replicas have been deployed so that they can connect to each other for communication. Akka provides a Cluster Bootstrap library for applications deployed on Kubernetes to discover each other automatically using the Kubernetes API.
+
+
+The general bootstrap process works as follows:
+
+. When Akka Cluster Boostrap starts on a replica, it polls the Kubernetes API to find deployed pods&mdash;until the minimum number of pods specified in configuration have been discovered.
+. It then attempts to connect the Akka HTTP management API running on each discovered pod, and queries to discover whether any of them have already formed an Akka Cluster. If:
++
+* An Akka Cluster has already been formed, the replica will join it.
+* An Akka Cluster has not yet been formed on any of the replicas, a deterministic function decides which replica should initiate it - this function ensures that all replicas going through this process will decide on the same replica.
+** The replica that is chosen to start the Cluster, forms a Cluster with itself.
+** The remaining replicas poll the chosen one until it reports that it has formed an Akka Cluster, then they join it.
+
+For a more detailed description of the Akka Cluster-forming process, see the https://developer.lightbend.com/docs/akka-management/current/bootstrap/details.html[Akka Cluster Bootstrap] documentation.
+
+:sectnums:
+
+== Configure Akka Cluster components
+
+Three components need to be configured to create an Akka Cluster: Akka Cluster, Akka Management HTTP, and Akka Cluster Bootstrap. These components are automatically added by Lagom (v1.5 and higher) to microservices using Lagom Persistence or Lagom Pub Sub, or if you explicitly enable Akka Cluster. The following sections explain their roles, how they fit together, and the extra configuration required for production deployment.
+
+=== Akka Cluster
+
+Lagom handles most of the Akka Cluster configuration. However, we do need to configure a clean shutdown in the case where a microservice fails to join a cluster. Akka should shut down after a given timeout and we need to tell Lagom to exit the JVM when that happens.
+
+The shutdown configuration is very important. Cluster formation status determines when the microservice is ready to receive traffic with a readiness health check probe. Kubernetes won’t restart an application based on the readiness probe. Therefore, if the cluster fails to form, we must stop the container and let Kubernetes recreate it.
+
+To configure the timeout and JVM termination, `prod-application.conf` contains the following:
+
+```conf
+# after 60s of unsuccessful attempts to form a cluster,
+# the actor system will shut down
+akka.cluster.shutdown-after-unsuccessful-join-seed-nodes = 60s
+
+# exit jvm on actor system termination
+# this will allow Kubernetes to restart the pod
+lagom.cluster.exit-jvm-when-system-terminated = on
+```
+
+=== Akka Management HTTP
+
+Akka Management HTTP provides an HTTP API for querying the status of the Akka Cluster. The Cluster Bootstrap process uses this API, as do the health checks to ensure requests don’t get routed until the microservices have joined the cluster.
+
+The default configuration for Akka Management HTTP is suitable for use in Kubernetes, it will bind to a default port of `8558` on the pod's external IP address. This component is already included and configured by Lagom, so nothing more is required.
+
+=== Cluster Bootstrap
+
+Cluster Bootstrap uses Akka discovery to find other `ActorSystem` nodes (microservice replicas). However, the discovery method and configuration used in Cluster Bootstrap will often be different from the method used for looking up other services during normal operation. Cluster Bootstrap needs to discover `ActorSystem` nodes even if they aren’t ready to handle requests yet, such as during cluster formation.
+
+This could create a chicken and egg problem if we were to use a method such as DNS. The Kubernetes DNS server, by default, will only return pods that are ready to handle requests. Hence, Kubernetes won’t tell us which microservice replicas are available to form an Akka Cluster with until they are ready, and those replicas won’t pass a readiness check until they’ve formed an Akka Cluster.
+
+The simplest solution is to use the Kubernetes API, which  returns all microservice replicas regardless of their readiness state. The build files have been modified with a dependency for the `akka-discovery-kubernetes-api`:
+
+[.tabset]
+Maven::
++
+[source,xml]
+----
+<dependency>
+  <groupId>com.lightbend.akka.discovery</groupId>
+  <artifactId>akka-discovery-kubernetes-api_2.12</artifactId>
+  <version>1.0.0</version>
+</dependency>
+----
+sbt::
++
+[source,scala]
+----
+libraryDependencies ++= Seq(
+  "com.lightbend.akka.discovery" %% "akka-discovery-kubernetes-api" % "1.0.0"
+)
+----
+
+
+
+The discovery mechanism is also configured in `prod-application.conf`:
+
+```conf
+akka.management {
+  cluster.bootstrap {
+    contact-point-discovery {
+      discovery-method = kubernetes-api
+      service-name = "shopping-cart" <1>
+      required-contact-point-nr = ${REQUIRED_CONTACT_POINT_NR} <2>
+    }
+  }
+}
+```
+
+Note that:
+
+<1> The `service-name` needs to match the app label applied to your pods in the deployment spec.
+<2> The `required-contact-point-nr` has been configured to read the `REQUIRED_CONTACT_POINT_NR` environment variable. This is the number of `ActorSystem` nodes that Akka Cluster Bootstrap must discover before it will form a cluster. It’s very important to get this number right. Let’s say it was configured to be two, and you deployed five for this application, and all five started at once. It’s possible, due to eventual consistency in the Kubernetes API, that two of the `ActorSystem` nodes might discover each other, and decide to form a Cluster, and the other two nodes might discover each other, and also decide to form a Cluster. The result will be two separate Akka Clusters, and this can have disastrous results. For this reason, we’ll pass the `required-contact-point-nr` in the deployment spec, which will be the same place that we’ll configure the number of replicas. This will help us ensure that the number of replicas equals the required contact point number&mdash;the safe way to form one, and only one, Akka Cluster on bootstrap.
+
+== Set up Role-based Access Control
+
+By default, pods are unable to use the Kubernetes API because they are not authenticated to do so. In order to allow the application's microservice replicas to form an Akka Cluster using the Kubernetes API, we need to define some Role-Based Access Control (RBAC) roles and bindings.
+
+RBAC allows the configuration of access control using two key concepts: roles, and role bindings. A _role_ is a set of permissions to use the Kubernetes API to access information. For example, you might give a `pod-reader` role permissions to list, to get, and to watch operations on the pods resource in a particular namespace. By default, permission applies to the same namespace that the role is configured in.
+
+The `shopping-cart.yaml` file defines pod-reader role as follows:
+
+```yaml
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: pod-reader
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "watch", "list"]
+```
+
+A _role_binding_ binds a role to a subject. A _subject_ can be a user or a group. A user can be a human, or a service account. A _service account_ is an account created by Kubernetes for resources, such as applications running in pods, to access the Kubernetes API. Each namespace has a default service account that pods that don’t explicitly declare a service account can use. Otherwise, you can define your own service accounts. Kubernetes automatically injects the credentials of a pod's service account into that pod's filesystem, allowing the pod to use them to make authenticated requests on the Kubernetes API.
+
+Since we are just using the default service account, we need to bind our role to it so that our pod will be able to access the Kubernetes API as a pod-reader:
+
+```yaml
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: read-pods
+subjects:
+- kind: User
+  name: system:serviceaccount:myproject:default
+roleRef:
+  kind: Role
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io
+```
+
+NOTE: The service account name, `system:serviceaccount:myproject:default`, contains the `myproject` namespace. If you are using a different project name, you’ll need to update it accordingly.
+
+****
+TIP: Using secrets with RBAC
+
+When using role-based access control, the `pod-reader` role will grant access to read all pods in the `myproject` namespace&mdash;not just the pods for your application. This includes the deployment specs, and any environment variables hard coded in them. If you pass secrets through  environment variables, rather than using the Kubernetes secrets API, then your application&dash;and every other app that uses the default service account&dash;will be able to see these secrets. This is a good reason to never pass secrets directly in deployment specs. Instead, pass them through the Kubernetes secrets API.
+
+If this is a concern, one solution might be to create a separate namespace for each application you wish to deploy. However, the configuration overhead of doing this is very high, and it’s not the intended use for namespaces.
+****
+
+== Define replicas and contact points
+
+In the cluster bootstrap configuration, we used a `REQUIRED_CONTACT_POINT_NR` environment variable. Let’s configure that now in our spec. It needs to match the number of replicas that we’re going to deploy. If you’re really strapped for resources in your cluster, you might set this to 1, but for the purposes of this demo we strongly recommend that you set it to 3 or more so that you can see an Akka Cluster form.
+
+In `shopping-cart.yaml`, the following sets the replicas to 3:
+```yaml
+apiVersion: "apps/v1beta2"
+kind: Deployment
+metadata:
+  name: shopping-cart
+  labels:
+    app: shopping-cart
+spec:
+  replicas: 3
+```
+
+In the environment variables section, the `REQUIRED_CONTACT_POINT_NR` environment variable must match:
+```yaml
+- name: REQUIRED_CONTACT_POINT_NR
+  value: "3"
+```
+== Enable two types of health checks
+
+Akka Management HTTP includes health check routes that will expose liveness and readiness health checks on the `/alive` and `/ready` routes, respectively. In Kubernetes, if an application is live, it means it is running and hasn’t crashed. But it may not necessarily be ready to serve requests. For example, it might not yet have connected to a database, or, it may not have formed a cluster.
+
+By separating liveness and readiness, Akka gives Kubernetes a better ability to distinguish between fatal and transient errors. A crash is a fatal error. Transient errors might include an inability to contact resources that the application depends on. In this way, Kubernetes can make more intelligent decisions about whether an application needs to be restarted, or if it just needs to be given time to sort itself out.
+
+The `/alive` and `/ready` routes expose information resulting from multiple internal checks. For example, by depending on `akka-management-cluster-http`, the health checks will take cluster membership status into consideration and check to ensure that an Akka Cluster has been formed. Lagom also includes these routes for `akka-management-cluster-http`. So, the readiness check will take the Cluster membership status into consideration.
+
+Finally, we need to tell Kubernetes the two different health checks by configuring the following:
+
+* A name for the management port. While not strictly necessary, this allows us to refer to it by name in the probes, rather than repeating the port number each time.
+* A wait of 20 seconds before Kubernetes attempts to probe anything, this gives our cluster a chance to start before Kubernetes starts trying to ask us if it’s ready.
+* A high failure threshold of 10, since in some scenarios, particularly if you haven’t assigned a lot of CPU to your pods, it can take a long time for the cluster to start.
+
+```yaml
+ports:
+  - name: management
+    containerPort: 8558
+readinessProbe:
+  httpGet:
+    path: "/ready"
+    port: management
+  periodSeconds: 10
+  failureThreshold: 10
+  initialDelaySeconds: 20
+livenessProbe:
+  httpGet:
+    path: "/alive"
+    port: management
+  periodSeconds: 10
+  failureThreshold: 10
+  initialDelaySeconds: 20
+```
+
+:sectnums!:
+
+== What's next
+
+Now that you've learned about many of the important configuration options, it's time for xref:building-shopping-cart.adoc[Building Shopping Cart].

@@ -1,0 +1,7 @@
+== include file for docker
+
+# tag::image-stream[]
+
+Placeholder. This file is wrong but I'm just working around a runtime error.
+
+# end::image-stream[]

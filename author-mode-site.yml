@@ -1,0 +1,24 @@
+site:
+  title: "Lightbend Deployment Tutorials"
+  url: https://developer.lightbend.com/guides/deployment-tutorials
+  start_page: Tutorials:ROOT:index.adoc
+
+   
+content:
+  sources:
+  - url: ./
+    branches: [HEAD]
+    start-path: docs 
+  
+ui:
+  bundle:
+    url: ./ui-bundle.beta.zip
+    snapshot: true
+
+asciidoc:
+  attributes:
+    doc-title: Lagom Deployment Tutorial
+    pub-date: 'May 2019'
+      
+output:
+   clean: true

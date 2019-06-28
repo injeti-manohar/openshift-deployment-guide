@@ -1,0 +1,24 @@
+= Deploy Lagom microservices to OpenShift
+
+We will use the Lagom Shopping Cart example application for this tutorial. It is available for both Java and Scala, and uses a PostgreSQL database. Shopping Cart just provides a REST API, not a user interface, so we will interact with it using `curl`.
+
+The following shows the build artifacts and runtime deployment architecture for Shopping Cart. The Shopping Cart example has two microservices; one that manages shopping carts, and one that tracks inventory levels. The shopping cart microservice communicates with the inventory microservice using Kafka. When a user completes the purchase, the shopping cart microservice sends a message to the inventory microservice.
+
+image::ShoppingCartDeploy.png[Shopping Cart artifacts and deployment architecture]
+
+
+
+== What's next
+
+Before you start this tutorial, be sure to complete the xref:ROOT:general-setup.adoc[General Setup] instructions. Shopping Cart tutorial procedures include:
+
+. xref:example-prerequisites.adoc[Example-specific prerequisites]
+. xref:downloading-example.adoc[Downloading the example app and getting started]
+. xref:setting-up-postgresql.adoc[Setting up PostgreSQL]
+. xref:setting-up-kafka.adoc[Setting up Kafka]
+. xref:configuring-shopping-cart.adoc[Configuring Shopping Cart]
+. xref:configuring-akka-cluster.adoc[Configuring an Akka Cluster]
+. xref:building-shopping-cart.adoc[Building Shopping Cart]
+. xref:deploying-shopping-cart.adoc[Deploying Shopping Cart]
+
+First, take care of the xref:example-prerequisites.adoc[Example-specific prerequisites].

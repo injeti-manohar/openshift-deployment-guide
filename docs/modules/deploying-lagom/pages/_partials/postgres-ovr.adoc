@@ -1,0 +1,11 @@
+The first consideration when setting up a database should be determining how many database servers to run and how they will be distributed across pods. Microservices should have isolated data stores, that is, they should not share the same database tables. Ideally, this isolation should be enforced. As shown in the following illustration, PostgreSQL offers three different levels of isolation. 
+
+image::PostgreSQLIsolationLevels.png[PostgreSQL Isolation Levels]
+
+* One database server per service&mdash;the highest level of isolation. A new PostgreSQLpod is deployed for each microservice that needs it. Each pod can be sized exactly according to its needs, and the pod shares no resources, CPU or memory, with PostgreSQL pods for other services.
+
+* One database per microservice on a single database server. Multiple databases, one for each service, are provisioned on a single PostgreSQL pod. Additionally, a user is created for each service, and this user is granted access only to the database for that service. This allows a moderate level of isolation, different databases can be configured to use different volume mounts and are reasonably portable between database services. However, because they share CPU and RAM, those using too many resources can negatively impact the others.
+
+* One database schema per microservice on a single database. In this setup, a single PostgreSQL pod is provisioned, with a single database, and multiple schemas are created in that database. Additionally, a user is created for each service, and this user is granted access only to the schema for that service. This allows the least level of isolation. Since all are on the same database, access-level rights provide the only isolation between the stores.
+
+Choosing the most appropriate setup depends on your use case and organization. A combination of isolation levels might be appropriate. For example, sharing a single pod might be a good start to minimise resource usage. As load grows on the services, you might need to split out into multiple pods. And, a large organisation may decide to isolate by teams, so each team uses at least one pod. If teams manage multiple services, there might be many databases on each pod.

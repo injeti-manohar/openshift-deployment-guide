@@ -1,0 +1,85 @@
+= General setup
+:toc:
+:toc-title: ON THIS PAGE
+:toclevels: 3
+
+Ideally, you should try the tutorials using a realistic OpenShift cluster&mdash;for example, one deployed to Amazon Web Services, Google Cloud Platform, or Azure. This provides a more realistic demonstration and relieves you from the constraints of local machine resources. However, if this is not feasible, perhaps due to the hosting cost, you can follow this guide using Minishift running locally.
+
+NOTE: Minishift has some significant limitations around resources such as memory and CPU. In some cases, you will have to deploy with only one replica, when in production you should really use at least three. If running multiple microservices, you will have to assign only small fractions of CPU resources to each, and this slows down the start up process.
+
+We will generate several passwords using `ssl`. To follow the tutorial with a Java application, we recommend using a JDK supported by Lightbend. If you do not already have them installed, the sections on this page provide links for obtaining ssl, a supported JDK, OpenShift, and Minishift.
+
+== Obtaining ssl
+
+Several open source `ssl` libraries are available. You can download OpenSSL from https://www.openssl.org/source/[https://www.openssl.org].
+
+== Using a supported JDK
+
+By default, sbt native packager uses the `openjdk` latest Docker image from DockerHub. At time of writing, this will give you OpenJDK 11, and the Debian OpenJDK build, neither of which are certified by Lightbend. See the  https://developer.lightbend.com/docs/reactive-platform/2.0/supported-java-versions/index.html[full list of Lightbend certified JDK builds and versions].
+
+If you're a RedHat customer, then you will probably want to use RedHat's certified OpenJDK base image, which is using RHEL. These OpenJDK builds are also certified by Lightbend for use with Lightbend products. Otherwise, we recommend installing and using the AdoptOpenJDK base image.
+
+== Setting up OpenShift
+
+You will need to have the OpenShift or OKD client installed on your local machine to run `oc` commands.
+
+If, in addition, you need to install OpenShift, follow the official instructions for installing the distribution of your choice:
+
+* https://docs.okd.io/latest/getting_started/administrators.html[OKD] - the open source distribution of OpenShift
+* https://docs.openshift.com/container-platform/latest/getting_started/install_openshift.html[OpenShift Container Platform] - RedHat's commercially supported OpenShift distribution that requires a license
+* https://docs.okd.io/latest/minishift/getting-started/installing.html[Minishift] - the development distribution of OpenShift that allows you to run on your local machine
+
+The Lightbend Platform for OpenShift is tested and supported on OpenShift 3.11.
+
+=== Accessing a Docker Registry
+
+Your environment must be configured to push Docker images to the default cluster registry. The registry must be reachable from your local machine. In many cases, this requires https://docs.openshift.com/container-platform/latest/dev_guide/managing_images.html#accessing-the-internal-registry[exposing your OpenShift installation's internal registry] to the outside world and https://docs.openshift.com/container-platform/latest/install_config/registry/accessing_registry.html#access-logging-in-to-the-registry[logging in]. Typically, once this is done, your docker registry will be available at a URL similar to: `docker-registry-default.myopenshift.example.com`.
+
+If OpenShift has been set up and configured for you, contact the administrator to get the URL. On the other hand, if you are setting up your own cluster, see the link above to make sure that you've addressed this.
+
+== Running Minishift
+
+If you must use Minishift, we recommend you configure it with more resources than the  default 2GB of RAM and 2 CPUs. If you also use Minishift for other purposes, you may want to create a custom profile for the examples in this guide. You can also pass a memory argument when you start Minishift, but with a profile, you do not have to remember to pass the argument every time you delete and restart your Minishift instance.
+
+Create a custom profile named `lightbend` as follows:
+
+. Create and enable the profile:
++
+```sh
+minishift profile set lightbend
+```
+
+. Configure how much RAM should be allocated to Minishift, let’s allocate it 6GB:
++
+```sh
+minishift config set memory 6GB
+```
++
+
+. Start Minishift:
++
+```sh
+minishift start
+```
+
+. Ensure that the `oc` binary is on your path, and that your environment is configured to use the Minishift VMS docker host:
++
+```sh
+eval $(minishift oc-env) #<1>
+eval $(minishift docker-env) #<2>
+```
++
+<1> Modifies your `PATH` to include the `oc` binary.
+<2> Sets `DOCKER_*` environment variables to tell Docker which host to use and how to authenticate when building images.
+
+IMPORTANT: Since these commands just modify environment variables in your current shell session, you need to rerun them if you open a new terminal window, or any time you delete and restart your Minishift instance.
+
+
+
+== What's next
+
+Choose one of the following examples:
+
+* Akka HTTP (coming soon!)
+* xref:deploying-lagom:deploy-a-lagom-application-to-openshift.adoc[Deploy Lagom microservices to OpenShift]
+* Play (coming soon!)

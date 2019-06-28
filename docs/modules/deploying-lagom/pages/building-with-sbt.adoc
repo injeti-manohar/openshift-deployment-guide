@@ -1,0 +1,20 @@
+= Building with sbt
+
+:toc:
+:toc-title: ON THIS PAGE
+:toclevels: 3
+
+include::{partialsdir}/building-sbt.adoc[tag=intro] 
+This plugin is automatically enabled and configured by the Lagom sbt plugin. The following sections describe build-specific configuration.
+
+include::{partialsdir}/building-sbt.adoc[tag=nosetup]
+
+:sectnums:
+
+include::{partialsdir}/building-sbt.adoc[tag=image-stream]
+
+:sectnums!:
+
+== What's next
+
+With the images built and registered, let's move on to xref:deploying-shopping-cart.adoc[Deploying Shopping Cart] 
