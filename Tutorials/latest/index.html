@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deploying Lightbend applications to OpenShift :: Lightbend Deployment Tutorials</title>
+    <link rel="canonical" href="https://developer.lightbend.com/guides/deployment-tutorials/Tutorials/latest/index.html">
+    <meta name="generator" content="Antora 2.0.0">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https:www.lightbend.com"><img class="header-logo" src="../../_/img/lightbend-reverse.svg"></a>
+      <a href="https://developer.lightbend.com/guides/deployment-tutorials" id="site-id" class="site-id">Documentation</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Resource A</a>
+            <a class="navbar-item" href="#">Resource B</a>
+            <a class="navbar-item" href="#">Resource C</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="main-wrapper">
+<div class="navigation-container" data-component="Tutorials" data-version="latest">
+  <aside class="navigation">
+    <div class="panels">
+<div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Tutorials</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="index.html">Deploying microservices to OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="general-setup.html">General Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="deploying-lagom/deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-lagom/example-prerequisites.html">Example prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-lagom/downloading-example.html">Downloading the example and getting started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-lagom/setting-up-postgresql.html">Setting up PostgreSQL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-lagom/setting-up-kafka.html">Setting up Kafka</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-lagom/configuring-shopping-cart.html">Configuring Shopping Cart</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-lagom/configuring-akka-cluster.html">Configuring an Akka Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="deploying-lagom/building-shopping-cart.html">Building Shopping Cart</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="deploying-lagom/building-with-sbt.html">Building with sbt</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="deploying-lagom/building-with-maven.html">Building with Maven</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-lagom/deploying-shopping-cart.html">Deploying Shopping Cart</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Tutorials</span>
+    <span class="version">latest</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Tutorials</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+  <main class="main">
+<div class="toolbar" role="navigation">
+  <button class="navigation-toggle"></button>
+  <a href="index.html" class="home-link is-current"></a>
+<nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="index.html">Tutorials</a></li>
+    <li class="crumb"><a href="index.html">Deploying microservices to OpenShift</a></li>
+  </ul>
+</nav>
+</div>
+    <div class="col-content">
+<article class="doc">
+			<h1>Deploying Lightbend applications to OpenShift</h1>
+
+		<fieldset class="supergroup-switch">
+		</fieldset>
+		
+		<div id="toc" class="toc">
+<div id="toctitle">ON THIS PAGE</div>
+<ul class="sectlevel1">
+<li><a href="#_following_this_guide">Following this guide</a></li>
+<li><a href="#_using_a_different_project_name">Using a different project name</a></li>
+<li><a href="#_whats_next">What&#8217;s next</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This guide provides tutorials for deploying applications built with Akka, Lagom and Play to OpenShift. While targeted at OpenShift, most of the information is also applicable to Kubernetes. Procedures show how to use the OpenShift client command, <code>oc</code>. In most cases you can substitute <code>kubectl</code>, since <code>oc</code> provides a superset of <code>kubectl</code> commands.</p>
+</div>
+<div class="paragraph">
+<p>The instructions are for Linux or macOS. They assume some understanding of OpenShift and Kubernetes, but you need not be an expert. You should have the following basics before trying the examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Understand the purpose of <a href="https://www.openshift.com/learn/what-is-openshift/">OpenShift</a> and <a href="https://kubernetes.io/docs/concepts/overview/what-is-kubernetes/">Kubernetes</a></p>
+</li>
+<li>
+<p>Be familiar with Kubernetes  <a href="https://kubernetes.io/docs/concepts/workloads/pods/pod/">pods</a>, <a href="https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/pods_and_services.html">services</a> and <a href="https://docs.openshift.com/enterprise/3.0/architecture/core_concepts/containers_and_images.html">containers</a></p>
+</li>
+<li>
+<p>Have experience interacting with <code>oc</code> or <code>kubectl</code> commands, see <a href="https://docs.openshift.com/enterprise/3.0/cli_reference/get_started_cli.html">Getting started with the CLI</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_following_this_guide"><a class="anchor" href="#_following_this_guide"></a>Following this guide</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We recommend that you work through the example applications in the tutorials at least once. If you later reuse configuration and commands for your own applications, be sure that everything&mdash;in particular, names&mdash;matches those used by your applications.</p>
+</div>
+<div class="paragraph">
+<p>Where appropriate, tutorials include alternate instructions for: Scala and Java applications; Maven and sbt build tools; and relational databases and Cassandra. Simply skip the pieces that are not relevant to your environment.</p>
+</div>
+<div class="paragraph">
+<p>The referenced example applications that use a database, use PostgreSQL, and for simplicity, we provide instructions for installing it in OpenShift. For Cassandra and other databases, refer to their official documentation. Similarly, we include instructions for installing Kafka in the same namespace as the example app with a Strimzi operator. Installing Kafka requires administrative privileges for the cluster. If this is not possible because of organizational restrictions, try one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Request that someone with administrative privileges run the Strimzi operator for you</p>
+</li>
+<li>
+<p>Install an instance of OpenShift for your own use</p>
+</li>
+<li>
+<p>Use Minishift on your local machine</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_a_different_project_name"><a class="anchor" href="#_using_a_different_project_name"></a>Using a different project name</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The tutorials use <code>myproject</code> as the default namespace for all applications. For convenience, all the commands that need the namespace will use a <code>NAMESPACE</code> variable. If you set the variable in your shell as follows, you will be able to copy and paste commands from this guide:</p>
+</div>
+<div class="paragraph">
+<p><code>NAMESPACE=myproject</code></p>
+</div>
+<div class="paragraph">
+<p>To use a different project name, you will need to supply a different value for the <code>NAMESPACE</code> variable. Also, some configuration files hard-code the name <code>myproject</code>. So if you are <strong>not</strong> using the <code>myproject</code> project name, you’ll need to find and modify those hard-coded values.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First, follow the steps in <a href="general-setup.html" class="page">General Setup</a> to prepare your environment.</p>
+</div>
+</div>
+</div>
+</article><aside class="toc sidebar">
+  <div class="toc-menu"></div>
+</aside>
+    </div>
+  </main>
+</div><script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/highlight.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="../../_/js/vendor/groups.js"></script>
+<script>hljs.initHighlighting()</script>
+  </body>
+</html>

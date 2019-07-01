@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>General setup :: Lightbend Deployment Tutorials</title>
+    <link rel="canonical" href="https://developer.lightbend.com/guides/deployment-tutorials/Tutorials/latest/general-setup.html">
+    <meta name="generator" content="Antora 2.0.0">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https:www.lightbend.com"><img class="header-logo" src="../../_/img/lightbend-reverse.svg"></a>
+      <a href="https://developer.lightbend.com/guides/deployment-tutorials" id="site-id" class="site-id">Documentation</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Resource A</a>
+            <a class="navbar-item" href="#">Resource B</a>
+            <a class="navbar-item" href="#">Resource C</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="main-wrapper">
+<div class="navigation-container" data-component="Tutorials" data-version="latest">
+  <aside class="navigation">
+    <div class="panels">
+<div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html">Tutorials</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="index.html">Deploying microservices to OpenShift</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="general-setup.html">General Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="deploying-lagom/deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-lagom/example-prerequisites.html">Example prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-lagom/downloading-example.html">Downloading the example and getting started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-lagom/setting-up-postgresql.html">Setting up PostgreSQL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-lagom/setting-up-kafka.html">Setting up Kafka</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-lagom/configuring-shopping-cart.html">Configuring Shopping Cart</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-lagom/configuring-akka-cluster.html">Configuring an Akka Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="deploying-lagom/building-shopping-cart.html">Building Shopping Cart</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="deploying-lagom/building-with-sbt.html">Building with sbt</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="deploying-lagom/building-with-maven.html">Building with Maven</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-lagom/deploying-shopping-cart.html">Deploying Shopping Cart</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Tutorials</span>
+    <span class="version">latest</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Tutorials</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+  <main class="main">
+<div class="toolbar" role="navigation">
+  <button class="navigation-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="index.html">Tutorials</a></li>
+    <li class="crumb"><a href="general-setup.html">General Setup</a></li>
+  </ul>
+</nav>
+</div>
+    <div class="col-content">
+<article class="doc">
+			<h1>General setup</h1>
+
+		<fieldset class="supergroup-switch">
+		</fieldset>
+		
+		<div id="toc" class="toc">
+<div id="toctitle">ON THIS PAGE</div>
+<ul class="sectlevel1">
+<li><a href="#_obtaining_ssl">Obtaining ssl</a></li>
+<li><a href="#_using_a_supported_jdk">Using a supported JDK</a></li>
+<li><a href="#_setting_up_openshift">Setting up OpenShift</a>
+<ul class="sectlevel2">
+<li><a href="#_accessing_a_docker_registry">Accessing a Docker Registry</a></li>
+</ul>
+</li>
+<li><a href="#_running_minishift">Running Minishift</a></li>
+<li><a href="#_whats_next">What&#8217;s next</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ideally, you should try the tutorials using a realistic OpenShift cluster&mdash;for example, one deployed to Amazon Web Services, Google Cloud Platform, or Azure. This provides a more realistic demonstration and relieves you from the constraints of local machine resources. However, if this is not feasible, perhaps due to the hosting cost, you can follow this guide using Minishift running locally.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Minishift has some significant limitations around resources such as memory and CPU. In some cases, you will have to deploy with only one replica, when in production you should really use at least three. If running multiple microservices, you will have to assign only small fractions of CPU resources to each, and this slows down the start up process.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>We will generate several passwords using <code>ssl</code>. To follow the tutorial with a Java application, we recommend using a JDK supported by Lightbend. If you do not already have them installed, the sections on this page provide links for obtaining ssl, a supported JDK, OpenShift, and Minishift.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_obtaining_ssl"><a class="anchor" href="#_obtaining_ssl"></a>Obtaining ssl</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Several open source <code>ssl</code> libraries are available. You can download OpenSSL from <a href="https://www.openssl.org/source/">https://www.openssl.org</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_a_supported_jdk"><a class="anchor" href="#_using_a_supported_jdk"></a>Using a supported JDK</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default, sbt native packager uses the <code>openjdk</code> latest Docker image from DockerHub. At time of writing, this will give you OpenJDK 11, and the Debian OpenJDK build, neither of which are certified by Lightbend. See the  <a href="https://developer.lightbend.com/docs/reactive-platform/2.0/supported-java-versions/index.html">full list of Lightbend certified JDK builds and versions</a>.</p>
+</div>
+<div class="paragraph">
+<p>If you&#8217;re a RedHat customer, then you will probably want to use RedHat&#8217;s certified OpenJDK base image, which is using RHEL. These OpenJDK builds are also certified by Lightbend for use with Lightbend products. Otherwise, we recommend installing and using the AdoptOpenJDK base image.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_setting_up_openshift"><a class="anchor" href="#_setting_up_openshift"></a>Setting up OpenShift</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You will need to have the OpenShift or OKD client installed on your local machine to run <code>oc</code> commands.</p>
+</div>
+<div class="paragraph">
+<p>If, in addition, you need to install OpenShift, follow the official instructions for installing the distribution of your choice:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.okd.io/latest/getting_started/administrators.html">OKD</a> - the open source distribution of OpenShift</p>
+</li>
+<li>
+<p><a href="https://docs.openshift.com/container-platform/latest/getting_started/install_openshift.html">OpenShift Container Platform</a> - RedHat&#8217;s commercially supported OpenShift distribution that requires a license</p>
+</li>
+<li>
+<p><a href="https://docs.okd.io/latest/minishift/getting-started/installing.html">Minishift</a> - the development distribution of OpenShift that allows you to run on your local machine</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The Lightbend Platform for OpenShift is tested and supported on OpenShift 3.11.</p>
+</div>
+<div class="sect2">
+<h3 id="_accessing_a_docker_registry"><a class="anchor" href="#_accessing_a_docker_registry"></a>Accessing a Docker Registry</h3>
+<div class="paragraph">
+<p>Your environment must be configured to push Docker images to the default cluster registry. The registry must be reachable from your local machine. In many cases, this requires <a href="https://docs.openshift.com/container-platform/latest/dev_guide/managing_images.html#accessing-the-internal-registry">exposing your OpenShift installation&#8217;s internal registry</a> to the outside world and <a href="https://docs.openshift.com/container-platform/latest/install_config/registry/accessing_registry.html#access-logging-in-to-the-registry">logging in</a>. Typically, once this is done, your docker registry will be available at a URL similar to: <code>docker-registry-default.myopenshift.example.com</code>.</p>
+</div>
+<div class="paragraph">
+<p>If OpenShift has been set up and configured for you, contact the administrator to get the URL. On the other hand, if you are setting up your own cluster, see the link above to make sure that you&#8217;ve addressed this.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_running_minishift"><a class="anchor" href="#_running_minishift"></a>Running Minishift</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you must use Minishift, we recommend you configure it with more resources than the  default 2GB of RAM and 2 CPUs. If you also use Minishift for other purposes, you may want to create a custom profile for the examples in this guide. You can also pass a memory argument when you start Minishift, but with a profile, you do not have to remember to pass the argument every time you delete and restart your Minishift instance.</p>
+</div>
+<div class="paragraph">
+<p>Create a custom profile named <code>lightbend</code> as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create and enable the profile:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">minishift profile set lightbend</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Configure how much RAM should be allocated to Minishift, let’s allocate it 6GB:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">minishift config set memory 6GB</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Start Minishift:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">minishift start</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Ensure that the <code>oc</code> binary is on your path, and that your environment is configured to use the Minishift VMS docker host:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">eval $(minishift oc-env) <i class="conum" data-value="1"></i><b>(1)</b>
+eval $(minishift docker-env) <i class="conum" data-value="2"></i><b>(2)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Modifies your <code>PATH</code> to include the <code>oc</code> binary.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Sets <code>DOCKER_*</code> environment variables to tell Docker which host to use and how to authenticate when building images.</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Since these commands just modify environment variables in your current shell session, you need to rerun them if you open a new terminal window, or any time you delete and restart your Minishift instance.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Choose one of the following examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Akka HTTP (coming soon!)</p>
+</li>
+<li>
+<p><a href="deploying-lagom/deploy-a-lagom-application-to-openshift.html" class="page">Deploy Lagom microservices to OpenShift</a></p>
+</li>
+<li>
+<p>Play (coming soon!)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</article><aside class="toc sidebar">
+  <div class="toc-menu"></div>
+</aside>
+    </div>
+  </main>
+</div><script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/highlight.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="../../_/js/vendor/groups.js"></script>
+<script>hljs.initHighlighting()</script>
+  </body>
+</html>

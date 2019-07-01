@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deploying and interacting with Shopping Cart :: Lightbend Deployment Tutorials</title>
+    <link rel="canonical" href="https://developer.lightbend.com/guides/deployment-tutorials/Tutorials/latest/deploying-lagom/deploying-shopping-cart.html">
+    <meta name="generator" content="Antora 2.0.0">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https:www.lightbend.com"><img class="header-logo" src="../../../_/img/lightbend-reverse.svg"></a>
+      <a href="https://developer.lightbend.com/guides/deployment-tutorials" id="site-id" class="site-id">Documentation</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Resource A</a>
+            <a class="navbar-item" href="#">Resource B</a>
+            <a class="navbar-item" href="#">Resource C</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="main-wrapper">
+<div class="navigation-container" data-component="Tutorials" data-version="latest">
+  <aside class="navigation">
+    <div class="panels">
+<div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Tutorials</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Deploying microservices to OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../general-setup.html">General Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="example-prerequisites.html">Example prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="downloading-example.html">Downloading the example and getting started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setting-up-postgresql.html">Setting up PostgreSQL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setting-up-kafka.html">Setting up Kafka</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuring-shopping-cart.html">Configuring Shopping Cart</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuring-akka-cluster.html">Configuring an Akka Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="building-shopping-cart.html">Building Shopping Cart</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="building-with-sbt.html">Building with sbt</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="building-with-maven.html">Building with Maven</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="deploying-shopping-cart.html">Deploying Shopping Cart</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Tutorials</span>
+    <span class="version">latest</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Tutorials</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+  <main class="main">
+<div class="toolbar" role="navigation">
+  <button class="navigation-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="../index.html">Tutorials</a></li>
+    <li class="crumb"><a href="deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a></li>
+    <li class="crumb"><a href="deploying-shopping-cart.html">Deploying Shopping Cart</a></li>
+  </ul>
+</nav>
+</div>
+    <div class="col-content">
+<article class="doc">
+			<h1>Deploying and interacting with Shopping Cart</h1>
+
+		<fieldset class="supergroup-switch">
+		</fieldset>
+		
+		<div id="toc" class="toc">
+<div id="toctitle">ON THIS PAGE</div>
+<ul class="sectlevel1">
+<li><a href="#_deploy_the_shopping_cart_microservice">Deploy the Shopping Cart microservice</a></li>
+<li><a href="#_view_cluster_startup_in_the_logs">View cluster startup in the logs</a>
+<ul class="sectlevel2">
+<li><a href="#_things_to_check_if_a_cluster_doesnt_form">Things to check if a cluster doesn&#8217;t form</a></li>
+</ul>
+</li>
+<li><a href="#_interact_with_the_shopping_cart_service">Interact with the Shopping Cart service</a></li>
+<li><a href="#_deploy_the_inventory_microservice">Deploy the Inventory microservice</a></li>
+<li><a href="#_summary">Summary</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>We&#8217;ve created the configuration files and configured them to form the Akka Cluster. We&#8217;ve built the docker image and pushed it to the OpenShift registry. Now, we&#8217;re ready to deploy.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you haven&#8217;t been creating the files as you go for the guide, but rather are relying on the existing files distributed with the sample app, make sure you have performed the following easy to miss steps:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If you are not using the <code>myproject</code> namespace, the <code>RoleBinding</code> value in the deployment spec <a href="configuring-akka-cluster.html#_set_up_role_based_access_control" class="page">needs to have the namespace updated</a> for the user name.</p>
+</li>
+<li>
+<p>You need to have <a href="configuring-shopping-cart.html#_add_play_application_secret" class="page">created the application secret</a>.</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deploy_the_shopping_cart_microservice"><a class="anchor" href="#_deploy_the_shopping_cart_microservice"></a>Deploy the Shopping Cart microservice</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>It is a simple <code>oc</code> command to deploy the microservice.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Deploy as follows:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc apply -f deploy/shopping-cart.yaml</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>View the pods:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc get pods</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Remember, it could take a few minutes to get the Akka Cluster formed. When it does, you should see something like the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">shopping-cart-756894d68d-9sltd         0/1       Running   0          9s
+shopping-cart-756894d68d-bccdv         0/1       Running   0          9s
+shopping-cart-756894d68d-d8h5j         0/1       Running   0          9s</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+If you encounter an error, delete the deployment and start again.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_view_cluster_startup_in_the_logs"><a class="anchor" href="#_view_cluster_startup_in_the_logs"></a>View cluster startup in the logs</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The logs can be very useful for diagnosing cluster startup problems. To analyze them, it is good to understand what messages will be logged when, and what information they should contain.</p>
+</div>
+<div class="paragraph">
+<p>By default, the logging during startup is fairly noisy. You may wish to set the logging to a higher threshold, such as <code>warn</code>, to make the logs quieter, but for now, the verbosity makes it easier to understand what is happening. Also, you will see a lot of info messages when features that depend on the cluster start up, but a cluster has not yet been formed. Typically these messages come from cluster singleton or shard region actors. These messages will stop soon after the cluster is formed, and can be safely ignored.</p>
+</div>
+<div class="paragraph">
+<p>To view the logs, run:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc logs -f deployment/shopping-cart</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This command shows the logs for the first container in the deployment.</p>
+</div>
+<div class="paragraph">
+<p>You can also pass the name of a specific pod from the list returned by <code>oc get pods</code> to see the logs for that pod (the actual name is random so you&#8217;ll need to copy from your output, not use the name in this guide):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc log -f pods/shopping-cart-756894d68d-9sltd</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Below is a curated selection of log messages, with much of the extraneous information (such as timestamps, threads, logger names) removed. The messages with callouts are explained below.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">[info] Remoting started; listening on addresses:[akka.tcp://application@172.17.0.12:2552] <i class="conum" data-value="1"></i><b>(1)</b>
+[info] Cluster Node [akka.tcp://application@172.17.0.12:2552] - Started up successfully
+[info] Bootstrap using `akka.discovery` method: kubernetes-api
+[info] Binding Akka Management (HTTP) endpoint to: 172.17.0.12:8558
+[info] Using self contact point address: http://172.17.0.12:8558 <i class="conum" data-value="2"></i><b>(2)</b>
+[info] Looking up [Lookup(shopping-cart,Some(management),Some(tcp))] <i class="conum" data-value="3"></i><b>(3)</b>
+[info] Querying for pods with label selector: [app=shopping-cart]. Namespace: [myproject]. Port: [management] <i class="conum" data-value="4"></i><b>(4)</b>
+[info] Located service members based on: [Lookup(shopping-cart,Some(management),Some(tcp))]:
+[ResolvedTarget(172-17-0-12.myproject.pod.cluster.local,Some(8558),Some(/172.17.0.12)), ResolvedTarget(172-17-0-11.myproject.pod.cluster.local,Some(8558),Some(/172.17.0.11)), ResolvedTarget(172-17-0-13.myproject.pod.cluster.local,Some(8558),Some(/172.17.0.13))] <i class="conum" data-value="5"></i><b>(5)</b>
+[info] Discovered [3] contact points, confirmed [0], which is less than the required [3], retrying <i class="conum" data-value="6"></i><b>(6)</b>
+[info] Contact point [akka.tcp://application@172.17.0.13:2552] returned [0] seed-nodes [] <i class="conum" data-value="7"></i><b>(7)</b>
+[info] Bootstrap request from 172.17.0.12:47312: Contact Point returning 0 seed-nodes ([TreeSet()]) <i class="conum" data-value="8"></i><b>(8)</b>
+[info] Exceeded stable margins without locating seed-nodes, however this node 172.17.0.12:8558 is NOT the lowest address out of the discovered endpoints in this deployment, thus NOT joining self. Expecting node [ResolvedTarget(172-17-0-11.myproject.pod.cluster.local,Some(8558),Some(/172.17.0.11))] to perform the self-join and initiate the cluster. <i class="conum" data-value="9"></i><b>(9)</b>
+[info] Contact point [akka.tcp://application@172.17.0.11:2552] returned [1] seed-nodes [akka.tcp://application@172.17.0.11:2552] <i class="conum" data-value="10"></i><b>(10)</b>
+[info] Joining  [akka.tcp://application@172.17.0.12:2552] to existing cluster [akka.tcp://application@172.17.0.11:2552] <i class="conum" data-value="11"></i><b>(11)</b>
+[info] Cluster Node [akka.tcp://application@172.17.0.12:2552] - Welcome from [akka.tcp://application@172.17.0.11:2552] <i class="conum" data-value="12"></i><b>(12)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>Init messages - showing that remoting has started on port 2552. The IP address should be the pod&#8217;s IP address from which other pods can access it, while the port number should match the configured remoting number, which defaults to 2552.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Init messages for Akka Management - the IP address should be the pod&#8217;s IP address, while the port number should be the port number you&#8217;ve configured for Akka Management to use, which defaults to 8558.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The Cluster Bootstrap process is starting. The service name should match your configured service name in Cluster Bootstrap, and the port should match your configured port name. This and subsequent messages will be repeated many times as Cluster Bootstrap polls Kubernetes and the other pods to determine what pods have been started, and whether and where an Akka Cluster has been formed.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>This message comes from the Kubernetes API implementation of Akka discovery, the label selector should be one that will return your pods, and the namespace should match your application&#8217;s namespace.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>The Kubernetes API has returned three services, including the current one.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>What Cluster Bootstrap has decided to do with the three services. It found three, but has not yet confirmed whether any of them have joined a cluster. It will continue looking them up, and attempting to contact them, until a Cluster has been formed, or can be started.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>This message will appear many times, it&#8217;s the result of probing one of the contact points to find out if it has formed a cluster.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="8"></i><b>8</b></td>
+<td>This message will also appear many times, it&#8217;s the result of this pod being probed by another pod to find out if it has formed a Cluster.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="9"></i><b>9</b></td>
+<td>This message may or may not appear, depending on how fast your pods are able to start given the amount of resources. It&#8217;s simply informing you that the pod hasn&#8217;t located a seed node yet, but it&#8217;s not going to try and form a Cluster since it&#8217;s not the pod with the lowest IP address.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="10"></i><b>10</b></td>
+<td>Eventually, this message will change to report that one of the pods has formed an Akka Cluster.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="11"></i><b>11</b></td>
+<td>The pod has decided to join an existing Cluster.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="12"></i><b>12</b></td>
+<td>The pod has joined the Cluster.</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Following these messages, you may still see some messages warning that messages can&#8217;t be routed. It still may take some time for Cluster singletons and other Akka Cluster features to decide which pod to start up on, but before long, the logs should go quiet as the cluster starts.</p>
+</div>
+<div class="paragraph">
+<p>The logs above show those of a pod that wasn&#8217;t the pod to start the cluster. As mentioned earlier, the default strategy that Akka Cluster Bootstrap uses when it starts and finds that there is no existing cluster is to get the pod with the lowest IP address to start the cluster. In the example above, that pod has an IP address of <code>172.17.0.11</code>, and you can see at line 10 that it eventually returns itself as a seed node, which results in this pod joining it.</p>
+</div>
+<div class="paragraph">
+<p>If you look in the logs of that pod, you&#8217;ll see a message like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">[info] Initiating new cluster, self-joining [akka.tcp://application@172.17.0.11:2552].
+   Other nodes are expected to locate this cluster via continued contact-point probing.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This message will appear after a timeout called the stable margin, which defaults to 5 seconds, at that point, the pod has seen that there have been no changes to the number of pods deployed for 5 seconds, and so given that it has the lowest IP address, it considers it safe to start a new Akka Cluster.</p>
+</div>
+<div class="sect2">
+<h3 id="_things_to_check_if_a_cluster_doesnt_form"><a class="anchor" href="#_things_to_check_if_a_cluster_doesnt_form"></a>Things to check if a cluster doesn&#8217;t form</h3>
+<div class="paragraph">
+<p>If an Akka Cluster is failing to form, carefully check over the logs for the following things:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure the right IP addresses are in use. If you see <code>localhost</code> or <code>127.0.0.1</code> used anywhere, that is generally an indication of a misconfiguration.</p>
+</li>
+<li>
+<p>Ensure that the namespace, service name, label selector, port name and protocol all match your deployment spec.</p>
+</li>
+<li>
+<p>Ensure that the port numbers match what you&#8217;ve configured both in the configuration files and in your deployment spec.</p>
+</li>
+<li>
+<p>Ensure that the required contact point number matches your configuration and the number of replicas you have deployed.</p>
+</li>
+<li>
+<p>Ensure that pods are successfully polling each other, looking for messages such as <code>Contact point [&#8230;&#8203;] returned&#8230;&#8203;</code> for outgoing polls and <code>Bootstrap request from &#8230;&#8203;</code> for incoming polls from other pods.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_interact_with_the_shopping_cart_service"><a class="anchor" href="#_interact_with_the_shopping_cart_service"></a>Interact with the Shopping Cart service</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once the Shopping Cart microservice is running, and a Cluster has formed, the state should change to ready, this can be seen when running <code>oc get pods</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">shopping-cart-756894d68d-9sltd         1/1       Running   0          9s
+shopping-cart-756894d68d-bccdv         1/1       Running   0          9s
+shopping-cart-756894d68d-d8h5j         1/1       Running   0          9s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now you can interact with the microservice as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Expose it to the outside world using the <code>oc expose</code> command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc expose svc/shopping-cart</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Find the hostname to access it by getting the routes:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc get routes/shopping-cart</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">shopping-cart   shopping-cart-myproject.192.168.42.246.nip.io  shopping-cart  http   None</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you&#8217;re using Minishift, your hostname will contain a domain name like <code>192.168.42.246.nip.io</code>, but not exactly the same as the Minishift IP address is selected at random on startup. Otherwise, it will be the domain name that your OpenShift cluster is running on. For convenient, let&#8217;s put the hostname in a shell variable, this will allow you to copy/paste the following commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">SHOPPING_CART_HOST=$(oc get route shopping-cart -o jsonpath='{.spec.host}')</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Try a simple GET request on the shopping cart service:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">curl http://$SHOPPING_CART_HOST/shoppingcart/123</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the response, you should see something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{"id":"123","items":[],"checkedOut":false}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Add some items to the shopping cart:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">curl -H "Content-Type: application/json" -X POST -d '{"productId": "456", "quantity": 2}' http://$SHOPPING_CART_HOST/shoppingcart/123
+curl -H "Content-Type: application/json" -X POST -d '{"productId": "789", "quantity": 3}' http://$SHOPPING_CART_HOST/shoppingcart/123
+curl http://$SHOPPING_CART_HOST/shoppingcart/123</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Checkout the shopping cart</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">curl http://$SHOPPING_CART_HOST/shoppingcart/123/checkout -X POST</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At this point, the shopping cart service should publish a message to Kafka. Let&#8217;s deploy the Inventory microservice to consume that message.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deploy_the_inventory_microservice"><a class="anchor" href="#_deploy_the_inventory_microservice"></a>Deploy the Inventory microservice</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We won&#8217;t go into the details of how to configure the inventory service and its deployment descriptor since it&#8217;s just a subset of what&#8217;s needed for the shopping cart service - it doesn&#8217;t need to form a cluster, it doesn&#8217;t have a database, it just has a single node and needs to connect to Kafka. After you have enabled the build for the Inventory microservice,  build and push the inventory service to the docker registry:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 85.7143%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">sbt</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">sbt -Ddocker.username=$NAMESPACE -Ddocker.registry=$DOCKER_REPO_URL inventory/docker:publish</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maven</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">mvn -Ddocker.useOpenShiftAuth -Ddocker.registry=$DOCKER_REPO_URL/$NAMESPACE -am -pl inventory package docker:push</code></pre>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Configure the image lookup, create the application secret, apply the deployment spec, and expose the service:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc set image-lookup inventory
+oc create secret generic inventory-application-secret --from-literal=secret="$(openssl rand -base64 48)"
+oc apply -f deploy/inventory.yaml
+oc expose svc/inventory</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Find the inventory service hostname and set it in a shell variable:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">INVENTORY_HOST=$(oc get route inventory -o jsonpath='{.spec.host}')</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Use the shell variable to query the inventory of one of the products that we just checked out from the shopping cart:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">curl http://$INVENTORY_HOST/inventory/456</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Since earlier we added two of product <code>456</code> to our shopping cart, and we haven&#8217;t added anything to the inventory for that product id, if the inventory service has successfully consumed the checkout message, we expect the current inventory to be -2.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_summary"><a class="anchor" href="#_summary"></a>Summary</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As you can see, deploying a stateful service to ensure responsiveness, scalability, and reliability at both the orchestration and application level includes the configuration of multiple components. A <a href="https://www.lightbend.com/lightbend-platform-subscription">Lightbend Platform subscripion</a> offers assistance and support to ensure your success.</p>
+</div>
+</div>
+</div>
+</article><aside class="toc sidebar">
+  <div class="toc-menu"></div>
+</aside>
+    </div>
+  </main>
+</div><script src="../../../_/js/site.js"></script>
+<script src="../../../_/js/vendor/highlight.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="../../../_/js/vendor/groups.js"></script>
+<script>hljs.initHighlighting()</script>
+  </body>
+</html>

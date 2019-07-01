@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setting up PostgreSQL :: Lightbend Deployment Tutorials</title>
+    <link rel="canonical" href="https://developer.lightbend.com/guides/deployment-tutorials/Tutorials/latest/deploying-lagom/setting-up-postgresql.html">
+    <meta name="generator" content="Antora 2.0.0">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https:www.lightbend.com"><img class="header-logo" src="../../../_/img/lightbend-reverse.svg"></a>
+      <a href="https://developer.lightbend.com/guides/deployment-tutorials" id="site-id" class="site-id">Documentation</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Resource A</a>
+            <a class="navbar-item" href="#">Resource B</a>
+            <a class="navbar-item" href="#">Resource C</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="main-wrapper">
+<div class="navigation-container" data-component="Tutorials" data-version="latest">
+  <aside class="navigation">
+    <div class="panels">
+<div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Tutorials</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Deploying microservices to OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../general-setup.html">General Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="example-prerequisites.html">Example prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="downloading-example.html">Downloading the example and getting started</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="setting-up-postgresql.html">Setting up PostgreSQL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setting-up-kafka.html">Setting up Kafka</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuring-shopping-cart.html">Configuring Shopping Cart</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuring-akka-cluster.html">Configuring an Akka Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="building-shopping-cart.html">Building Shopping Cart</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="building-with-sbt.html">Building with sbt</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="building-with-maven.html">Building with Maven</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-shopping-cart.html">Deploying Shopping Cart</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Tutorials</span>
+    <span class="version">latest</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Tutorials</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+  <main class="main">
+<div class="toolbar" role="navigation">
+  <button class="navigation-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="../index.html">Tutorials</a></li>
+    <li class="crumb"><a href="deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a></li>
+    <li class="crumb"><a href="setting-up-postgresql.html">Setting up PostgreSQL</a></li>
+  </ul>
+</nav>
+</div>
+    <div class="col-content">
+<article class="doc">
+			<h1>Setting up PostgreSQL</h1>
+
+		<fieldset class="supergroup-switch">
+		</fieldset>
+		
+		<div id="toc" class="toc">
+<div id="toctitle">ON THIS PAGE</div>
+<ul class="sectlevel1">
+<li><a href="#_ensuring_the_proper_level_of_isolation">Ensuring the proper level of isolation</a></li>
+<li><a href="#_database_schema_overview">Database schema overview</a></li>
+<li><a href="#deploy-oc">Deploy PostgreSQL with OpenShift</a></li>
+<li><a href="#create-pod">1. Create a PostgreSQL pod</a></li>
+<li><a href="#_provision_the_postgresql_database">2. Provision the PostgreSQL database</a></li>
+<li><a href="#_whats_next">What&#8217;s next</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>For simplicity, this guide describes how to deploy PostgreSQL using OpenShift in the same cluster as the example. But first, it is important to understand how to insure the proper level of isolation for each microservice in production.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ensuring_the_proper_level_of_isolation"><a class="anchor" href="#_ensuring_the_proper_level_of_isolation"></a>Ensuring the proper level of isolation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The first consideration when setting up a database should be determining how many database servers to run and how they will be distributed across pods. Microservices should have isolated data stores, that is, they should not share the same database tables. Ideally, this isolation should be enforced. As shown in the following illustration, PostgreSQL offers three different levels of isolation.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/PostgreSQLIsolationLevels.png" alt="PostgreSQL Isolation Levels">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>One database server per service&mdash;the highest level of isolation. A new PostgreSQLpod is deployed for each microservice that needs it. Each pod can be sized exactly according to its needs, and the pod shares no resources, CPU or memory, with PostgreSQL pods for other services.</p>
+</li>
+<li>
+<p>One database per microservice on a single database server. Multiple databases, one for each service, are provisioned on a single PostgreSQL pod. Additionally, a user is created for each service, and this user is granted access only to the database for that service. This allows a moderate level of isolation, different databases can be configured to use different volume mounts and are reasonably portable between database services. However, because they share CPU and RAM, those using too many resources can negatively impact the others.</p>
+</li>
+<li>
+<p>One database schema per microservice on a single database. In this setup, a single PostgreSQL pod is provisioned, with a single database, and multiple schemas are created in that database. Additionally, a user is created for each service, and this user is granted access only to the schema for that service. This allows the least level of isolation. Since all are on the same database, access-level rights provide the only isolation between the stores.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Choosing the most appropriate setup depends on your use case and organization. A combination of isolation levels might be appropriate. For example, sharing a single pod might be a good start to minimise resource usage. As load grows on the services, you might need to split out into multiple pods. And, a large organisation may decide to isolate by teams, so each team uses at least one pod. If teams manage multiple services, there might be many databases on each pod.</p>
+</div>
+<div class="paragraph">
+<p>The Shopping Cart application only has one service that accesses the database, so any of these options would work. However, we’ll use a flexible setup, modeled on the second level of isolation, that makes it easy to add databases to the database pod as needed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_database_schema_overview"><a class="anchor" href="#_database_schema_overview"></a>Database schema overview</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Lagom will automatically create database tables if they do not exist. However, we do not recommended this in production, since it&#8217;s generally considered bad practice to allow an application database account to perform DDL statements. Instead, we&#8217;ll manually create the database schema.</p>
+</div>
+<div class="paragraph">
+<p>The shopping cart application uses Akka persistence with the <a href="https://github.com/dnvriend/akka-persistence-jdbc">Akka persistence JDBC</a> backend. This requires two tables: a journal table, which contains all entity events; and a snapshot table, which contains snapshots of the state every so many events. The schema for these tables on PostgreSQL can be found in the <a href="https://github.com/dnvriend/akka-persistence-jdbc/blob/master/src/test/resources/schema/postgres/postgres-schema.sql">Akka persistence JDBC repository</a>.</p>
+</div>
+<div class="paragraph">
+<p>In addition, Lagom needs an offset table, which is used to track the progress of read side processors and Kafka publishers through the event log. This schema is part of the Shopping Cart project, in <code>schemas/shopping-cart.sql</code>. We&#8217;ll load the script using the <code>psql</code> client later.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deploy-oc"><a class="anchor" href="#deploy-oc"></a>Deploy PostgreSQL with OpenShift</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>OpenShift provides images for deploying PostgreSQL out of the box, which simplifies pod creation. Detailed documentation on using this image can be found <a href="https://docs.openshift.com/container-platform/latest/using_images/db_images/postgresql.html">here</a>. Follow these steps to prepare the database:</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="create-pod"><a class="anchor" href="#create-pod"></a>1. Create a PostgreSQL pod</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After you have connected to your OpenShift project, follow these steps to create the database pod:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Create an ephemeral database service called <code>postgresql</code> with the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc new-app -e POSTGRESQL_USER=PostgreSQL -e POSTGRESQL_PASSWORD=sdfasdfsad -e POSTGRESQL_DATABASE=shopping_cart postgresql</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This database is using ephemeral persistence, meaning that if the pod is restarted, all data will be lost. Refer to the PostgreSQL documentation for details on how to deploy persistent databases.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You should see a messge that the service was created. We did not set an <code>admin</code> password when creating the database because this would have hard coded it in the spec for the pod, making it readable to anyone that could read pods. Instead, we’re going to create a Kubernetes secret containing it, and then we’ll update the deployment to use that secret.</p>
+</div>
+</li>
+<li>
+<p>Create the secret with a random password:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc create secret generic postgresql-admin-password --from-literal=password="$(openssl rand -base64 24)"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Patch the deployment config just created to use the admin password configured in the service.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc patch deploymentconfig postgresql --patch '{"spec": {"template": {"spec": {"containers": [
+  {"name": "postgresql", "env": [
+    {"name": "POSTGRESQL_ADMIN_PASSWORD", "valueFrom":
+      {"secretKeyRef": {"name": "postgresql-admin-password", "key": "password"}}
+    }
+  ]}
+]}}}}'</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Use the following command to watch the database come up:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc get pods -w</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Depending on how quickly the new pod comes up, you might see the old database terminate as the new deployment config is applied.</p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_provision_the_postgresql_database"><a class="anchor" href="#_provision_the_postgresql_database"></a>2. Provision the PostgreSQL database</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We now need to create the database user, password, and the schema. To create our database, we’ll need to access PostgreSQL. There are two ways to do this:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Port forwarding, where you open a port on your local machine, and then use the <code>psql</code> client installed on your local machine to connect to it.</p>
+</li>
+<li>
+<p>Shell into the PostgreSQL pod using <code>oc rsh</code>, and use the <code>psql</code> client installed on the pod to connect to the database.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>We will use the first approach. It is simpler because the <code>psql</code> client on your local machine can access SQL scripts locally on your machine. To run a script when you shell into the pod, you would first need to copy the script there using <code>oc rsync</code>.</p>
+</div>
+<div class="paragraph">
+<p>Follow these steps to provision the database:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Create the password, again using the secret API:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc create secret generic postgres-shopping-cart --from-literal=username=shopping_cart --from-literal=password="$(openssl rand -base64 24)"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On success, the prompt responds that the password has been created.</p>
+</div>
+</li>
+<li>
+<p>Retrieve the secret.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc get secret postgres-shopping-cart -o jsonpath='{.data.password}' | base64 --decode</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Copy the decoded secret from the command window and save it for later use.</p>
+</li>
+<li>
+<p>Start the port forward:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc port-forward svc/postgresql 15432:5432 &amp;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This starts the forwarding in the background, it will output some logs when the tunnel is established, and each time it receives a new connection.</p>
+</div>
+<div class="paragraph">
+<p>Now we can just run the <code>psql</code> command to connect as the PostgreSQL <code>admin</code> user. The PostgreSQL image we’re using is configured to trust all connections from <code>localhost</code>, and since the port forward command results in connections to it being made on the database as <code>localhost</code>, we can connect as any user without a password. We’ll directly feed it a script to create a database user, and grant that user access to just read/write operations on the database, so they won’t be able to execute any DDL statements.</p>
+</div>
+</li>
+<li>
+<p>Connect to the <code>postgres</code> default database:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">psql -h localhost -p 15432 -U postgres</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On success, a <code>postgres=#</code> prompt appears.</p>
+</div>
+</li>
+<li>
+<p>Using the secret you saved previously, substitute it for <code>&lt;secret&gt;</code> in the following command to create the user and password for the <code>shopping_cart</code> database:</p>
+<div class="paragraph">
+<p>CREATE USER shopping_cart WITH PASSWORD '&lt;secret&gt;';</p>
+</div>
+</li>
+<li>
+<p>Set the permission for this user and create the schema from the example script:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sql hljs" data-lang="sql">REVOKE CONNECT ON DATABASE shopping_cart FROM PUBLIC;
+GRANT CONNECT ON DATABASE shopping_cart TO shopping_cart;
+
+\connect shopping_cart;
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+GRANT USAGE ON SCHEMA public TO shopping_cart;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public
+  GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO shopping_cart;
+ALTER DEFAULT PRIVILEGES IN SCHEMA public
+  GRANT SELECT, USAGE ON SEQUENCES TO shopping_cart;
+
+\include schemas/shopping-cart.sql;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The prompt changes to reflect that you are connected to the <code>shopping_cart</code> database.</p>
+</div>
+</li>
+<li>
+<p>Type <code>\q</code> to exit.</p>
+</li>
+<li>
+<p>Terminate the port forwarding session:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">kill %1</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Next, follow the instructions for: <a href="setting-up-kafka.html" class="page">Setting up Kafka</a>.</p>
+</div>
+</div>
+</div>
+</article><aside class="toc sidebar">
+  <div class="toc-menu"></div>
+</aside>
+    </div>
+  </main>
+</div><script src="../../../_/js/site.js"></script>
+<script src="../../../_/js/vendor/highlight.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="../../../_/js/vendor/groups.js"></script>
+<script>hljs.initHighlighting()</script>
+  </body>
+</html>

@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuring Shopping Cart :: Lightbend Deployment Tutorials</title>
+    <link rel="canonical" href="https://developer.lightbend.com/guides/deployment-tutorials/Tutorials/latest/deploying-lagom/configuring-shopping-cart.html">
+    <meta name="generator" content="Antora 2.0.0">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https:www.lightbend.com"><img class="header-logo" src="../../../_/img/lightbend-reverse.svg"></a>
+      <a href="https://developer.lightbend.com/guides/deployment-tutorials" id="site-id" class="site-id">Documentation</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Resource A</a>
+            <a class="navbar-item" href="#">Resource B</a>
+            <a class="navbar-item" href="#">Resource C</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="main-wrapper">
+<div class="navigation-container" data-component="Tutorials" data-version="latest">
+  <aside class="navigation">
+    <div class="panels">
+<div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Tutorials</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Deploying microservices to OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../general-setup.html">General Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="example-prerequisites.html">Example prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="downloading-example.html">Downloading the example and getting started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setting-up-postgresql.html">Setting up PostgreSQL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setting-up-kafka.html">Setting up Kafka</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="configuring-shopping-cart.html">Configuring Shopping Cart</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuring-akka-cluster.html">Configuring an Akka Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="building-shopping-cart.html">Building Shopping Cart</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="building-with-sbt.html">Building with sbt</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="building-with-maven.html">Building with Maven</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-shopping-cart.html">Deploying Shopping Cart</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Tutorials</span>
+    <span class="version">latest</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Tutorials</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+  <main class="main">
+<div class="toolbar" role="navigation">
+  <button class="navigation-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="../index.html">Tutorials</a></li>
+    <li class="crumb"><a href="deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a></li>
+    <li class="crumb"><a href="configuring-shopping-cart.html">Configuring Shopping Cart</a></li>
+  </ul>
+</nav>
+</div>
+    <div class="col-content">
+<article class="doc">
+			<h1>Configuring Shopping Cart</h1>
+
+		<fieldset class="supergroup-switch">
+		</fieldset>
+		
+		<div id="toc" class="toc">
+<div id="toctitle">ON THIS PAGE</div>
+<ul class="sectlevel1">
+<li><a href="#_view_the_configuration_files">1. View the configuration files</a></li>
+<li><a href="#_add_play_application_secret">2. Add Play application secret</a></li>
+<li><a href="#_view_the_configuration_to_connect_to_postgresql">3. View the configuration to connect to PostgreSQL</a></li>
+<li><a href="#_view_the_configuration_to_connect_to_kafka">4. View the configuration to connect to Kafka</a></li>
+<li><a href="#_configure_the_service_locator">5. Configure the service locator</a></li>
+<li><a href="#_whats_next">What&#8217;s next</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Shopping Cart example is already configured to run. In this section, we want to point your attention to the necessary pieces that you would need to provide for your own application. Preparation for production includes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Creating a production configuration file for the Shopping Cart microservice</p>
+</li>
+<li>
+<p>Defining a deployment spec for OpenShift</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The production configuration of Lagom and the deployment spec are tightly coupled; many items in the two files correspond. Rather than document the two types of configuration separately, this guide interweaves them, making it easier to understand the relationships between them.</p>
+</div>
+<div class="paragraph">
+<p>The sample app includes the complete configuration file and deployment spec in their final form. This guide includes just snippets to show you the most relevant configuration. In this guide, we&#8217;ll review the most details for the <code>shopping-cart</code> microservice. The <code>inventory</code> microservice is trivial, it doesn&#8217;t talk to a database, it doesn&#8217;t do any clustering, and everything it needs is a subset of what the <code>shopping-cart</code> microservice needs. You can refer to the sample app for the <code>inventory</code> microservice configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_view_the_configuration_files"><a class="anchor" href="#_view_the_configuration_files"></a>1. View the configuration files</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First, let&#8217;s look at the production configuration file for the Shopping Cart microservice and a barebones OpenShift deployment spec:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>From the example&#8217;s <code>shopping-cart/src/main/resources</code> directory, open the file named <code>prod-application.conf</code>.</p>
+</li>
+<li>
+<p>Notice the following contents:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-conf hljs" data-lang="conf">include "application" <i class="conum" data-value="1"></i><b>(1)</b>
+
+play {
+ server {
+   pidfile.path = "/dev/null" <i class="conum" data-value="2"></i><b>(2)</b>
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This line includes Shopping Cart&#8217;s main <code>application.conf</code> file. Any subsequent configuration will override the configuration from <code>application.conf</code>. This pattern allows us to keep our main, non-specific configuration in <code>application.conf</code>, while keeping production-specific configuration separate.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Setting <code>play.server.pidfile.path = /dev/null</code> <a href="https://www.playframework.com/documentation/2.7.x/ProductionConfiguration#Changing-the-path-of-RUNNING_PID">disables</a> the use of a <code>pidFile</code>. A <code>pidFile</code> is not necessary for a process running in a container.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Open the <code>shopping-cart.yaml</code> from the <code>deploy</code> directory.</p>
+</li>
+<li>
+<p>Note the numbered items, which are explained below:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"> apiVersion: "apps/v1"
+ kind: Deployment <i class="conum" data-value="1"></i><b>(1)</b>
+ metadata:
+  name: shopping-cart
+ spec:
+  selector:
+    matchLabels:
+      app: shopping-cart <i class="conum" data-value="2"></i><b>(2)</b>
+
+  template:
+    metadata:
+      labels:
+        app: shopping-cart
+    spec:
+      containers:
+        - name: shopping-cart
+          image: "shopping-cart:latest" <i class="conum" data-value="3"></i><b>(3)</b>
+          env:
+            - name: JAVA_OPTS <i class="conum" data-value="4"></i><b>(4)</b>
+              value: "-Xms256m -Xmx256m -Dconfig.resource=prod-application.conf"
+          resources:
+            limits:
+              memory: 512Mi <i class="conum" data-value="5"></i><b>(5)</b>
+            requests:
+              cpu: 0.25 <i class="conum" data-value="6"></i><b>(6)</b>
+              memory: 512Mi
+ ---
+ apiVersion: v1
+ kind: Service
+ metadata:
+  name: shopping-cart
+ spec:
+  ports:
+    - name: http
+      port: 80 <i class="conum" data-value="7"></i><b>(7)</b>
+      targetPort: 9000
+  selector:
+    app: shopping-cart
+  type: LoadBalancer</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This line defines a Kubernetes <code>Deployment</code>, a logical grouping of pods that represent a single microservice using the same template. They support <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.11/#deploymentstrategy-v1-apps">configurable rolling updates</a>, meaning that the deployment will be gradually upgraded, rather than upgrading every pod at once and incurring an outage.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>We label the pod in the <code>template</code> with <code>app: shopping-cart</code>. This must match the the deployment&#8217;s <code>matchLabels</code> and also the <code>selector</code> in the Kubernetes Service configuration, so that the deployment knows which pods it owns and should maintain and upgrade, and so the Kubernetes Service knows which pods to include in its Service resolution.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The image we&#8217;re using is <code>shopping-cart:latest</code>. This corresponds to the name and version of the microservice in our build. We discuss how to select an appropriate version number below.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>We use the <code>JAVA_OPTS</code> environment variable to pass the configuration to tell Lagom to use the <code>prod-application.conf</code> configuration file, rather than the default <code>application.conf</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>We&#8217;ve configured a maximum of 256mb of memory for the JVM heap size, while the container gets 512mb. The container gets more memory than the JVM heap because the JVM will consume other memory for: class file metadata, thread stacks, compiled code, and JVM specific libraries.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>We&#8217;ve only requested minimal CPU for the container. This is suitable for a local deployment, but you should increase it for real production deployments. Note that we also haven&#8217;t set a CPU limit, this is because the Akka documentation <a href="https://doc.akka.io/docs/akka/2.5/additional/deploy.html#resource-limits">recommends that JVMs do not set a CPU limit</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>The Kubernetes Service exposes HTTP on port <code>80</code>, and directs it to port <code>9000</code> on the pods. Port <code>9000</code> is Lagom&#8217;s default HTTP port.</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Image version number
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The deployment spec above uses an image version tag of <code>latest</code>. The <code>latest</code> tag does not automatically refer to the latest deployed version of an image, it simply is the default tag that is used when no tag is specified. We could have just used <code>shopping-cart</code>, and this would mean the same thing as <code>shopping-cart:latest</code>. For development, this is convenient.</p>
+</div>
+<div class="paragraph">
+<p>For production, the use of the <code>latest</code> tag is considered bad practice. We recommend using actual version number, one that gets updated each time you deploy. In the <a href="building-shopping-cart.html" class="page">Building Shopping Cart</a> section of this guide we will describe how to configure your build to base its version number off the current <code>git</code> commit hash. This is especially convenient for continuous deployment scenarios, since a human doesn&#8217;t need to be involved in selecting a unique version number. After building the image, you can take the version number generated in that step and update the image referenced in the spec accordingly.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_add_play_application_secret"><a class="anchor" href="#_add_play_application_secret"></a>2. Add Play application secret</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Play Framework requires a secret key which is used to sign its session cookie, a JSON Web Token. To do this, we&#8217;ll generate a secret, store it in the Kubernetes Secret API, and then update our configuration and spec to consume it.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Generate the secret:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc create secret generic shopping-cart-application-secret --from-literal=secret="$(openssl rand -base64 48)"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Note that the <code>prod-application.conf</code> file contains the logic to consume the secret via an environment variable:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-conf hljs" data-lang="conf">play {
+  http.secret.key = "${APPLICATION_SECRET}"
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Note that the <code>shopping-cart.yaml</code> file also uses the secret:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: APPLICATION_SECRET
+  valueFrom:
+    secretKeyRef:
+        name: shopping-cart-application-secret
+        key: secret</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_view_the_configuration_to_connect_to_postgresql"><a class="anchor" href="#_view_the_configuration_to_connect_to_postgresql"></a>3. View the configuration to connect to PostgreSQL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In <a href="setting-up-postgresql.html" class="page">Setting up PostgreSQL</a> we described the requirements the sample app and this guide have for a PostgreSQL service, including the requirement for the service to be called <code>postgresql</code>, and for there to be a secret called <code>postgres-shopping-cart</code>. Now we need to check that Shopping Cart is configure to connect to that service and consume the secret.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>In <code>prod-application.conf</code>, find the following configuration:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-conf hljs" data-lang="conf">db.default {
+    url = ${POSTGRESQL_URL}
+    username = ${POSTGRESQL_USERNAME}
+    password = ${POSTGRESQL_PASSWORD}
+}
+
+lagom.persistence.jdbc.create-tables.auto = false</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will override the defaults defined for development in <code>application.conf</code>. You can see that we&#8217;ve disabled the automatic creating of tables, since we&#8217;ve already created them.</p>
+</div>
+</li>
+<li>
+<p>The <code>shopping-cart.yaml</code> file also needs three environment variables: the URL, username, and password. The first is hard coded into the spec, and the second two we&#8217;ll consume as secrets. Find the following lines to verify:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: POSTGRESQL_URL
+  value: "jdbc:postgresql://postgresql/shopping_cart"
+- name: POSTGRESQL_USERNAME
+  valueFrom:
+    secretKeyRef:
+        name: postgres-shopping-cart
+        key: username
+- name: POSTGRESQL_PASSWORD
+  valueFrom:
+    secretKeyRef:
+        name: postgres-shopping-cart
+        key: password</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you used a different name for the PostgreSQL database deployment, or for the Kubernetes secrets, you&#8217;ll need to update the spec accordingly.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_view_the_configuration_to_connect_to_kafka"><a class="anchor" href="#_view_the_configuration_to_connect_to_kafka"></a>4. View the configuration to connect to Kafka</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In <a href="setting-up-kafka.html" class="page">Setting up Kafka</a>, we described the requirements for a Kafka instance. Lagom will automatically read an environment variable called <code>KAFKA_SERVICE_NAME</code> if present, so there&#8217;s nothing to add in the Shopping Cart configuration file.</p>
+</div>
+<div class="paragraph">
+<p>We just need <code>shopping-cart.yaml</code> to pass the environment variable, pointing to the Kafka service we provisioned. The actual service name that we need to configure needs to match the SRV lookup for the Kafka broker. Our Kafka broker defines a TCP port called <code>clients</code>. To lookup the IP address or host name and port number, we need to use a service name of <code>_clients._tcp.strimzi-kafka-brokers</code>.</p>
+</div>
+<div class="paragraph">
+<p>Find the following lines in <code>shopping-cart.yaml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: KAFKA_SERVICE_NAME
+  value: "_clients._tcp.strimzi-kafka-brokers"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configure_the_service_locator"><a class="anchor" href="#_configure_the_service_locator"></a>5. Configure the service locator</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Lagom uses a service locator to look up other microservices. The service locator takes the service name defined in a Lagom service descriptor and translates it into an address to use for communication. In development, when you are running with the <code>runAll</code> command, Lagom starts up its own development service locator, and injects that into each microservice. You don&#8217;t have to worry about service lookup until production. Once out of the development environment, you need to provide a service locator yourself.</p>
+</div>
+<div class="paragraph">
+<p>Akka provides an API called <a href="https://doc.akka.io/docs/akka/current/discovery/index.html">Akka Discovery</a> that includes a number of backends. Several are compatible with a Kubernetes environment. We&#8217;re going to use a service locator implementation built on Akka Discovery, and then we&#8217;re going to use the DNS implementation of Akka discovery to discover other services.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If using Maven, check the project <code>pom.xml</code> to make sure the value <code>scala.binary.version</code> is defined there and set to the value of <code>2.12</code>.</p>
+</li>
+<li>
+<p>Check the <code>pom.xml</code> in each microservice implementation project or the declaration for each microservice implementation project in <code>build.sbt</code> to make sure the following dependency exists:</p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 85.7143%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java with Maven</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+  &lt;groupId&gt;com.lightbend.lagom&lt;/groupId&gt;
+  &lt;artifactId&gt;lagom-javadsl-akka-discovery-service-locator_${scala.binary.version}&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java with sbt</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">libraryDependencies +=
+  "com.lightbend.lagom" %% "lagom-javadsl-akka-discovery-service-locator" % "1.5.1"</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scala with sbt</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">libraryDependencies +=
+  "com.lightbend.lagom" %% "lagom-scaladsl-akka-discovery-service-locator" % "1.5.1"</code></pre>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>In the <code>prod-application.conf</code> file, the following configures Akka discovery to use DNS as the discovery method:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-conf hljs" data-lang="conf">akka.discovery.method = akka-dns</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you&#8217;re using Java with Lagom&#8217;s Guice backend, this completes the service locator configuration. The <code>lagom-javadsl-akka-discovery</code> module automatically loads a Guice module that provides the service locator implementation. If you&#8217;re using Scala, you will need to wire in the service locator yourself.</p>
+</div>
+</li>
+<li>
+<p>For Scala, modify your production application cake to mix the Akka discovery service locator components in. Open <code>com/example/shoppingcart/impl/ShoppingCartLoader.scala</code> from the <code>shopping-cart/src/main/scala</code> directory, and modify the <code>load</code> method as follows:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">import com.lightbend.lagom.scaladsl.akkadiscovery.AkkaDiscoveryComponents
+
+override def load(context: LagomApplicationContext): LagomApplication =
+    new ShoppingCartApplication(context) with AkkaDiscoveryComponents</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With the microservice configuration and the deployment spec ready, we need to add the Shopping Cart configuration necessary for <a href="configuring-akka-cluster.html" class="page">Forming an Akka Cluster</a>.</p>
+</div>
+</div>
+</div>
+</article><aside class="toc sidebar">
+  <div class="toc-menu"></div>
+</aside>
+    </div>
+  </main>
+</div><script src="../../../_/js/site.js"></script>
+<script src="../../../_/js/vendor/highlight.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="../../../_/js/vendor/groups.js"></script>
+<script>hljs.initHighlighting()</script>
+  </body>
+</html>

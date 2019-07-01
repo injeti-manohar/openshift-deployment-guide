@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Setting up Kafka :: Lightbend Deployment Tutorials</title>
+    <link rel="canonical" href="https://developer.lightbend.com/guides/deployment-tutorials/Tutorials/latest/deploying-lagom/setting-up-kafka.html">
+    <meta name="generator" content="Antora 2.0.0">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https:www.lightbend.com"><img class="header-logo" src="../../../_/img/lightbend-reverse.svg"></a>
+      <a href="https://developer.lightbend.com/guides/deployment-tutorials" id="site-id" class="site-id">Documentation</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Resource A</a>
+            <a class="navbar-item" href="#">Resource B</a>
+            <a class="navbar-item" href="#">Resource C</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="main-wrapper">
+<div class="navigation-container" data-component="Tutorials" data-version="latest">
+  <aside class="navigation">
+    <div class="panels">
+<div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Tutorials</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Deploying microservices to OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../general-setup.html">General Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="example-prerequisites.html">Example prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="downloading-example.html">Downloading the example and getting started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setting-up-postgresql.html">Setting up PostgreSQL</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="setting-up-kafka.html">Setting up Kafka</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuring-shopping-cart.html">Configuring Shopping Cart</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuring-akka-cluster.html">Configuring an Akka Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="building-shopping-cart.html">Building Shopping Cart</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="building-with-sbt.html">Building with sbt</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="building-with-maven.html">Building with Maven</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-shopping-cart.html">Deploying Shopping Cart</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Tutorials</span>
+    <span class="version">latest</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Tutorials</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+  <main class="main">
+<div class="toolbar" role="navigation">
+  <button class="navigation-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="../index.html">Tutorials</a></li>
+    <li class="crumb"><a href="deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a></li>
+    <li class="crumb"><a href="setting-up-kafka.html">Setting up Kafka</a></li>
+  </ul>
+</nav>
+</div>
+    <div class="col-content">
+<article class="doc">
+			<h1>Setting up Kafka</h1>
+
+		<fieldset class="supergroup-switch">
+		</fieldset>
+		
+		<div id="toc" class="toc">
+<div id="toctitle">ON THIS PAGE</div>
+<ul class="sectlevel1">
+<li><a href="#_deploying_with_three_replicas">Deploying with three replicas</a>
+<ul class="sectlevel2">
+<li><a href="#_deploying_to_minishift_with_one_replica">Deploying to Minishift with one replica</a></li>
+</ul>
+</li>
+<li><a href="#_viewing_the_deployment">Viewing the deployment</a></li>
+<li><a href="#_whats_next">What&#8217;s next</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before deploying Kafka, you should have followed the steps in <a href="example-prerequisites.html#_preparing_for_kafka" class="page">Preparing for Kafka</a>.</p>
+</div>
+<div class="paragraph">
+<p>If you&#8217;re deploying to a real cluster with many physical machines, it&#8217;s best to deploy with three Kafka replicas to get the feel for a realistic production setup. The spec below deploys three Kafka replicas, one ZooKeeper, and uses ephemeral storage (so if your pods are destroyed, they lose their data). The Shopping Cart example contains this configuration in the file <code>deploy/kafka.yaml</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: kafka.strimzi.io/v1alpha1
+kind: Kafka
+metadata:
+  name: strimzi
+spec:
+  kafka:
+    replicas: 3
+    listeners:
+      plain: {}
+      tls: {}
+    config:
+      offsets.topic.replication.factor: 3
+      transaction.state.log.replication.factor: 3
+      transaction.state.log.min.isr: 2
+    storage:
+      type: ephemeral
+  zookeeper:
+    replicas: 1
+    storage:
+      type: ephemeral
+  entityOperator:
+    topicOperator: {}
+    userOperator: {}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you&#8217;re deploying to Minishift, you&#8217;ll likely find that by the time all the ZooKeeper and Kafka instances are deployed, along with all the auxiliary services deployed by the operator, your machine has no resources left for anything else, such as your application, to use. So instead you can use a spec that only deploys one Kafka replica and one ZooKeeper replica. In addition, we&#8217;ll need to change the replication factors to one, since with only one replica, we can&#8217;t replicate more than once. The following shows the relevant sections of the <code>deploy\kafka-single.yaml</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">...
+  kafka:
+    replicas: 1
+
+...
+    config:
+      offsets.topic.replication.factor: 1
+      transaction.state.log.replication.factor: 1
+      transaction.state.log.min.isr: 1
+    storage:
+      type: ephemeral
+  zookeeper:
+    replicas: 1
+    storage:
+      type: ephemeral
+...</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_deploying_with_three_replicas"><a class="anchor" href="#_deploying_with_three_replicas"></a>Deploying with three replicas</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Enter the following command to deploy with the <code>kafka.yaml</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc apply -f deploy/kafka.yaml -n $NAMESPACE</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_deploying_to_minishift_with_one_replica"><a class="anchor" href="#_deploying_to_minishift_with_one_replica"></a>Deploying to Minishift with one replica</h3>
+<div class="paragraph">
+<p>Enter the following command to deploy with the <code>kafka-single.yaml</code> file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc apply -f deploy/kafka-single.yaml -n $NAMESPACE</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_viewing_the_deployment"><a class="anchor" href="#_viewing_the_deployment"></a>Viewing the deployment</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Once you&#8217;ve deployed your Kafka instance, you can watch it come up by running:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc get pods -w -n myproject</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should eventually see something like the following output, with the number of Kafka and ZooKeeper pods corresponding to the number of replicas you configured.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">strimzi-entity-operator-6bc7f6985c-q29p5   3/3     Running   0          44s
+strimzi-kafka-0                            2/2     Running   1          91s
+strimzi-kafka-1                            2/2     Running   1          91s
+strimzi-kafka-2                            2/2     Running   1          91s
+strimzi-zookeeper-0                        2/2     Running   0          2m30s
+strimzi-cluster-operator-78f8bf857-kpmhb   1/1     Running   0          3m10s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It&#8217;s also useful to see what services have been deployed:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc get services -n myproject</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This should show at least:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">strimzi-kafka-bootstrap    ClusterIP   172.30.231.126   &lt;none&gt;        9091/TCP,9092/TCP,9093/TCP,9404/TCP   2m
+strimzi-kafka-brokers      ClusterIP   None             &lt;none&gt;        9091/TCP,9092/TCP,9093/TCP            2m
+strimzi-zookeeper-client   ClusterIP   172.30.226.168   &lt;none&gt;        9404/TCP,2181/TCP                     3m
+strimzi-zookeeper-nodes    ClusterIP   None             &lt;none&gt;        2181/TCP,2888/TCP,3888/TCP            3m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see, there is a service called <code>strimzi-kafka-brokers</code>, this is the service that Kafka clients are going to connect to.</p>
+</div>
+<div class="paragraph">
+<p>Once Kafka is deployed and running, you no longer need to be logged in as an administrator, so log back in as your old user. If using Minishift, that means logging in as the developer user:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc login -u developer</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With the database and Kafka running, the next step is <a href="configuring-shopping-cart.html" class="page">Configuring Shopping Cart</a>.</p>
+</div>
+</div>
+</div>
+</article><aside class="toc sidebar">
+  <div class="toc-menu"></div>
+</aside>
+    </div>
+  </main>
+</div><script src="../../../_/js/site.js"></script>
+<script src="../../../_/js/vendor/highlight.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="../../../_/js/vendor/groups.js"></script>
+<script>hljs.initHighlighting()</script>
+  </body>
+</html>

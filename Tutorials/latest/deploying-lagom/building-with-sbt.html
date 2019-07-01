@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Building with sbt :: Lightbend Deployment Tutorials</title>
+    <link rel="canonical" href="https://developer.lightbend.com/guides/deployment-tutorials/Tutorials/latest/deploying-lagom/building-with-sbt.html">
+    <meta name="generator" content="Antora 2.0.0">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https:www.lightbend.com"><img class="header-logo" src="../../../_/img/lightbend-reverse.svg"></a>
+      <a href="https://developer.lightbend.com/guides/deployment-tutorials" id="site-id" class="site-id">Documentation</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Home</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Products</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Product A</a>
+            <a class="navbar-item" href="#">Product B</a>
+            <a class="navbar-item" href="#">Product C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Services</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Service A</a>
+            <a class="navbar-item" href="#">Service B</a>
+            <a class="navbar-item" href="#">Service C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Resource A</a>
+            <a class="navbar-item" href="#">Resource B</a>
+            <a class="navbar-item" href="#">Resource C</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="main-wrapper">
+<div class="navigation-container" data-component="Tutorials" data-version="latest">
+  <aside class="navigation">
+    <div class="panels">
+<div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Tutorials</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Deploying microservices to OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../general-setup.html">General Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="example-prerequisites.html">Example prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="downloading-example.html">Downloading the example and getting started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setting-up-postgresql.html">Setting up PostgreSQL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setting-up-kafka.html">Setting up Kafka</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuring-shopping-cart.html">Configuring Shopping Cart</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuring-akka-cluster.html">Configuring an Akka Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="building-shopping-cart.html">Building Shopping Cart</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="3">
+    <a class="nav-link" href="building-with-sbt.html">Building with sbt</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="building-with-maven.html">Building with Maven</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-shopping-cart.html">Deploying Shopping Cart</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Tutorials</span>
+    <span class="version">latest</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Tutorials</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+  <main class="main">
+<div class="toolbar" role="navigation">
+  <button class="navigation-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="../index.html">Tutorials</a></li>
+    <li class="crumb"><a href="deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a></li>
+    <li class="crumb"><a href="building-shopping-cart.html">Building Shopping Cart</a></li>
+    <li class="crumb"><a href="building-with-sbt.html">Building with sbt</a></li>
+  </ul>
+</nav>
+</div>
+    <div class="col-content">
+<article class="doc">
+			<h1>Building with sbt</h1>
+
+		<fieldset class="supergroup-switch">
+		</fieldset>
+		
+		<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="https://www.scala-sbt.org/sbt-native-packager/">sbt-native-packager</a> plugin simplifies packaging Java and Scala applications built with sbt as Docker images.
+This plugin is automatically enabled and configured by the Lagom sbt plugin. The following sections describe build-specific configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_specifying_your_jdk"><a class="anchor" href="#_specifying_your_jdk"></a>1. Specifying your JDK</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you&#8217;re a RedHat customer, then you will probably want to use RedHat&#8217;s certified OpenJDK base image, which is using RHEL. Otherwise, we recommend using the AdoptOpenJDK base image. See <a href="example-prerequisites.html#_using_a_supported_jdk" class="page">Using a supported JDK</a> for more information.</p>
+</div>
+<div class="paragraph">
+<p>In the sbt build file add one of the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To use RHEL:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">dockerBaseImage := "registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>To use the AdoptOpenJDK base image:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">dockerBaseImage := "adoptopenjdk/openjdk8"</code></pre>
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_using_git_hash_based_version_numbers"><a class="anchor" href="#_using_git_hash_based_version_numbers"></a>2. Using Git hash-based version numbers</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This step is optional, but we recommend basing the version number of your application on the current git hash, since this ensures that you will always be able to map the code deployed in production back to the exact version of your application being used.</p>
+</div>
+<div class="paragraph">
+<p>There are a number of sbt plugins available for generating a version number from a git hash, we&#8217;re going to use <a href="https://github.com/dwijnand/sbt-dynver"><code>sbt-dynver</code></a>. This plugin incorporates the most recent git tag as the base version number, appends the git hash to that only if there are any changes since that tag, and includes a datetime stamp if there are local changes in the repository.</p>
+</div>
+<div class="paragraph">
+<p>To add this plugin to your project, add the following to <code>project/plugins.sbt</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">addSbtPlugin("com.dwijnand" % "sbt-dynver" % "3.3.0")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For the plugin to work, you need to ensure that you <strong>don&#8217;t</strong> specify a <code>version</code> in your sbt build, since this will overwrite the version that <code>sbt-dynver</code> generates. Additionally, <code>sbt-dynver</code> generates versions with a <code>+</code> character in them (the <code>+</code> is used to indicate how many commits have been added since the last tag, so <code>1.0+4</code> indicates this is the 1.0 tag plus 4 commits). To replace this with a <code>-</code> character, add the following to <code>build.sbt</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">version in ThisBuild ~= (_.replace('+', '-'))
+dynver in ThisBuild ~= (_.replace('+', '-'))</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You may also want to configure the sbt native packager to tag your image as the <code>latest</code> image, this will be necessary if you&#8217;re using the <code>latest</code> tag in your deployment spec. To do this, enable <code>dockerUpdateLatest</code> in <code>build.sbt</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">dockerUpdateLatest := true</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuring_the_docker_username_and_openshift_registry"><a class="anchor" href="#_configuring_the_docker_username_and_openshift_registry"></a>3. Configuring the Docker username and OpenShift registry</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>After building the docker image, we will need to deploy it to the OpenShift Docker registry. To do that, we need to configure both the docker username, which should equal the OpenShift <code>project/namespace</code>, and the registry. The <code>dockerUsername</code> and <code>dockerRepository</code> settings configure these two values:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">dockerUsername := sys.props.get("docker.username")
+dockerRepository := sys.props.get("docker.registry")</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case, we&#8217;re reading both variables from system properties, which ensures that the build is not tied to any particular OpenShift installation. We&#8217;ll supply these system properties when we invoke sbt.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_building_the_docker_image"><a class="anchor" href="#_building_the_docker_image"></a>4. Building the docker image</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that everything is set up, we can build our docker image. Run the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">sbt -Ddocker.username=$NAMESPACE -Ddocker.registry=$DOCKER_REPO_URL shopping-cart/docker:publish</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will build the project, tag it, and then push it to the configured OpenShift registry.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuring_openshift_image_lookup"><a class="anchor" href="#_configuring_openshift_image_lookup"></a>5. Configuring OpenShift image lookup</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>When you push a docker image to OpenShift&#8217;s internal registry, it will automatically create an image stream that the image can be consumed from.</p>
+</div>
+<div class="paragraph">
+<p>Since we&#8217;re using Kubernetes deployments rather than OpenShift deployment configs, in order to ensure that our deployment can consume this from the internal OpenShift registry with an unqualified tag, we need to allow local lookups on it. This can be enabled by running the following command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc set image-lookup shopping-cart</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For more information on image stream lookups, see the <a href="https://docs.openshift.com/container-platform/latest/dev_guide/managing_images.html#using-is-with-k8s">OpenShift documentation</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With the images built and registered, let&#8217;s move on to <a href="deploying-shopping-cart.html" class="page">Deploying Shopping Cart</a></p>
+</div>
+</div>
+</div>
+</article><aside class="toc sidebar">
+  <div class="toc-menu"></div>
+</aside>
+    </div>
+  </main>
+</div><script src="../../../_/js/site.js"></script>
+<script src="../../../_/js/vendor/highlight.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="../../../_/js/vendor/groups.js"></script>
+<script>hljs.initHighlighting()</script>
+  </body>
+</html>
