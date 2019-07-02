@@ -2,6 +2,14 @@
 
 Guide for deploying Lightbend applications to OpenShift.
 
+## Building
+
+This documentation is built using [Antora](https://antora.org/). To build it locally:
+
+- [Install Antora](https://docs.antora.org/antora/2.0/install/install-antora/) (and its prerequisites)
+- Run `antora site.yml`
+- Open `./build/site/index.html` in your web browser to view
+
 ## Copyright Notice
 
 Copyright 2019 Lightbend - All Rights Reserved
