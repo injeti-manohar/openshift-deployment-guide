@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Configuring an Akka Cluster :: Deploying Lightbend applications to OpenShift</title>
+	<link rel="canonical" href="https://developer.lightbend.com/guides/openshift-deployment/Tutorials/deploying-lagom/configuring-akka-cluster.html">
+	<meta name="generator" content="Antora 2.0.0">
+	<link rel="stylesheet" href="../../_/css/site.css">
+<meta name="author" content="Lightbend Inc.">
+<link rel="shortcut icon" href="../../_/img/favicons/favicon.ico" /><script src="https://optanon.blob.core.windows.net/consent/e66f3fbc-e5fe-4a3c-901d-6990021b334d.js" type="text/javascript" charset="UTF-8"></script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.lightbend.com"><img class="header-logo" src="../../_/img/lightbend-reverse.svg"></a>
+      <a href="https://developer.lightbend.com/guides/openshift-deployment" id="site-id" class="site-id">Documentation</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <span class="navbar-link">Documentation</span>
+          <div class="navbar-dropdown">
+            <a class="navbar-item section-title" href="/">Lightbend Platform</a>
+            <div class="columns">
+              <div class="navbar-dropdown-col mm-col-two">
+                <a class="navbar-item" href="/">Lightbend Platform Guide</a>
+                <a class="navbar-item" href="https://developer.lightbend.com/docs/pipelines/current/index.html">Pipelines</a>
+                <a class="navbar-item" href="https://developer.lightbend.com/docs/telemetry/latest/home.html">Telemetry</a>
+                <a class="navbar-item" href="https://developer.lightbend.com/docs/console/current/index.html">Console</a>
+                <a class="navbar-item" href="https://doc.akka.io/docs/akka-enhancements/current/akka-resilience-enhancements.html">Akka Resilience Enhancements</a>
+                <a class="navbar-item" href="https://doc.akka.io/docs/akka-enhancements/current/akka-persistence-enhancements.html">Akka Persistence Enhancements</a>
+                <a class="navbar-item" href="https://developer.lightbend.com/docs/fortify/latest/">Fortify SCA for Scala</a>
+              </div>
+              <div class="navbar-dropdown-col mm-col-two invisible-border">
+                <a class="navbar-item" href="https://akka.io/docs/">Akka</a>
+                <a class="navbar-item" href="https://doc.akka.io/docs/alpakka/current/">Alpakka</a>
+                <a class="navbar-item" href="https://www.lagomframework.com/documentation/">Lagom Framework</a>
+                <a class="navbar-item" href="https://www.playframework.com/documentation">Play Framework</a>
+                <a class="navbar-item" href="http://www.scala-sbt.org/documentation.html">sbt</a>
+                <a class="navbar-item" href="https://docs.scala-lang.org/">Scala</a>
+                <a class="navbar-item" href="http://slick.lightbend.com/doc/3.2.1/">Slick</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://portal.lightbend.com/">Customer Portal</a>
+            <a class="navbar-item" href="https://discuss.lightbend.com">Discussion Forums</a>
+            <a class="navbar-item" href="https://www.lightbend.com/blog">Blog</a>
+            <a class="navbar-item" href="https://www.lightbend.com/learn/lightbend-reactive-architecture">Free Training</a>
+            <a class="navbar-item" href="https://www.lightbend.com/certified-reactive-architect">Certification</a>
+            <a class="navbar-item" href="https://www.lightbend.com/contact">Ask A Question</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Lightbend</a>
+          <div class="navbar-dropdown">
+              <a class="navbar-item" href="https://www.lightbend.com/about-lightbend">Who Is Lightbend?</a>
+              <a class="navbar-item" href="https://www.lightbend.com/customers">Who Uses Lightbend?</a>
+              <a class="navbar-item" href="https://www.lightbend.com/lightbend-platform-subscription">Why Get A Subscription?</a>
+              <a class="navbar-item" href="https://www.lightbend.com/company/news">News & Press</a>
+              <a class="navbar-item" href="https://shop.lightbend.com/">Online Swag Shop</a>
+              <a class="navbar-item" href="https://www.lightbend.com/contact">Get In Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="main-wrapper">
+<div class="navigation-container" data-component="Tutorials" data-version="master">
+  <aside class="navigation">
+    <div class="panels">
+<div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Deploying microservices to OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../general-setup.html">General Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="example-prerequisites.html">Example prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="downloading-example.html">Downloading the example and getting started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setting-up-postgresql.html">Setting up PostgreSQL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setting-up-kafka.html">Setting up Kafka</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuring-shopping-cart.html">Configuring Shopping Cart</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="configuring-akka-cluster.html">Configuring an Akka Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="building-shopping-cart.html">Building Shopping Cart</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="building-with-sbt.html">Building with sbt</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="building-with-maven.html">Building with Maven</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-shopping-cart.html">Deploying Shopping Cart</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Tutorials</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Tutorials</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+  <main class="main">
+<div class="toolbar" role="navigation">
+  <button class="navigation-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a></li>
+    <li class="crumb"><a href="configuring-akka-cluster.html">Configuring an Akka Cluster</a></li>
+  </ul>
+</nav>
+</div>
+    <div class="col-content">
+<article id="page-content" class="doc">
+			<h1>Configuring an Akka Cluster</h1>
+
+		<fieldset class="supergroup-switch">
+
+
+
+
+
+
+		</fieldset>
+		
+		<div id="toc" class="toc">
+<div id="toctitle">ON THIS PAGE</div>
+<ul class="sectlevel1">
+<li><a href="#_overview_of_the_bootstrap_process">Overview of the bootstrap process</a></li>
+<li><a href="#_configure_akka_cluster_components">1. Configure Akka Cluster components</a>
+<ul class="sectlevel2">
+<li><a href="#_akka_cluster">1.1. Akka Cluster</a></li>
+<li><a href="#_akka_management_http">1.2. Akka Management HTTP</a></li>
+<li><a href="#_cluster_bootstrap">1.3. Cluster Bootstrap</a></li>
+</ul>
+</li>
+<li><a href="#_set_up_role_based_access_control">2. Set up Role-based Access Control</a></li>
+<li><a href="#_define_replicas_and_contact_points">3. Define replicas and contact points</a></li>
+<li><a href="#_enable_two_types_of_health_checks">4. Enable two types of health checks</a></li>
+<li><a href="#_whats_next">What&#8217;s next</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you’re using Lagom Persistence or Lagom Pub Sub, you will need to configure your Lagom services to form an Akka Cluster when they start up. An Akka Cluster is a group of <code>ActorSystem</code> nodes&mdash;usually running the same code base&mdash;that divide their state and work. In a Lagom application, each microservice forms its own Akka Cluster so that the workload can be distributed between microservice replicas. Lagom persistent entities are distributed across an Akka Cluster so that each entity only resides in memory on one replica at a time. This ensures that commands can be processed on that entity with high performance, strong consistency, and no need to coordinate with other replicas on every write.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_overview_of_the_bootstrap_process"><a class="anchor" href="#_overview_of_the_bootstrap_process"></a>Overview of the bootstrap process</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Services that use Akka Cluster have different requirements than a typical stateless microservice deployed to OpenShift. To form an Akka Cluster, each microservice replica needs to know which other replicas have been deployed so that they can connect to each other for communication. Akka provides a Cluster Bootstrap library for applications deployed on Kubernetes to discover each other automatically using the Kubernetes API.</p>
+</div>
+<div class="paragraph">
+<p>The general bootstrap process works as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>When Akka Cluster Boostrap starts on a replica, it polls the Kubernetes API to find deployed pods&mdash;until the minimum number of pods specified in configuration have been discovered.</p>
+</li>
+<li>
+<p>It then attempts to connect the Akka HTTP management API running on each discovered pod, and queries to discover whether any of them have already formed an Akka Cluster. If:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>An Akka Cluster has already been formed, the replica will join it.</p>
+</li>
+<li>
+<p>An Akka Cluster has not yet been formed on any of the replicas, a deterministic function decides which replica should initiate it - this function ensures that all replicas going through this process will decide on the same replica.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The replica that is chosen to start the Cluster, forms a Cluster with itself.</p>
+</li>
+<li>
+<p>The remaining replicas poll the chosen one until it reports that it has formed an Akka Cluster, then they join it.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>For a more detailed description of the Akka Cluster-forming process, see the <a href="https://developer.lightbend.com/docs/akka-management/current/bootstrap/details.html">Akka Cluster Bootstrap</a> documentation.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configure_akka_cluster_components"><a class="anchor" href="#_configure_akka_cluster_components"></a>1. Configure Akka Cluster components</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Three components need to be configured to create an Akka Cluster: Akka Cluster, Akka Management HTTP, and Akka Cluster Bootstrap. These components are automatically added by Lagom (v1.5 and higher) to microservices using Lagom Persistence or Lagom Pub Sub, or if you explicitly enable Akka Cluster. The following sections explain their roles, how they fit together, and the extra configuration required for production deployment.</p>
+</div>
+<div class="sect2">
+<h3 id="_akka_cluster"><a class="anchor" href="#_akka_cluster"></a>1.1. Akka Cluster</h3>
+<div class="paragraph">
+<p>Lagom handles most of the Akka Cluster configuration. However, we do need to configure a clean shutdown in the case where a microservice fails to join a cluster. Akka should shut down after a given timeout and we need to tell Lagom to exit the JVM when that happens.</p>
+</div>
+<div class="paragraph">
+<p>The shutdown configuration is very important. Cluster formation status determines when the microservice is ready to receive traffic with a readiness health check probe. Kubernetes won’t restart an application based on the readiness probe. Therefore, if the cluster fails to form, we must stop the container and let Kubernetes recreate it.</p>
+</div>
+<div class="paragraph">
+<p>To configure the timeout and JVM termination, <code>prod-application.conf</code> contains the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-conf hljs" data-lang="conf"># after 60s of unsuccessful attempts to form a cluster,
+# the actor system will shut down
+akka.cluster.shutdown-after-unsuccessful-join-seed-nodes = 60s
+
+# exit jvm on actor system termination
+# this will allow Kubernetes to restart the pod
+lagom.cluster.exit-jvm-when-system-terminated = on</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_akka_management_http"><a class="anchor" href="#_akka_management_http"></a>1.2. Akka Management HTTP</h3>
+<div class="paragraph">
+<p>Akka Management HTTP provides an HTTP API for querying the status of the Akka Cluster. The Cluster Bootstrap process uses this API, as do the health checks to ensure requests don’t get routed until the microservices have joined the cluster.</p>
+</div>
+<div class="paragraph">
+<p>The default configuration for Akka Management HTTP is suitable for use in Kubernetes, it will bind to a default port of <code>8558</code> on the pod&#8217;s external IP address. This component is already included and configured by Lagom, so nothing more is required.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cluster_bootstrap"><a class="anchor" href="#_cluster_bootstrap"></a>1.3. Cluster Bootstrap</h3>
+<div class="paragraph">
+<p>Cluster Bootstrap uses Akka discovery to find other <code>ActorSystem</code> nodes (microservice replicas). However, the discovery method and configuration used in Cluster Bootstrap will often be different from the method used for looking up other services during normal operation. Cluster Bootstrap needs to discover <code>ActorSystem</code> nodes even if they aren’t ready to handle requests yet, such as during cluster formation.</p>
+</div>
+<div class="paragraph">
+<p>This could create a chicken and egg problem if we were to use a method such as DNS. The Kubernetes DNS server, by default, will only return pods that are ready to handle requests. Hence, Kubernetes won’t tell us which microservice replicas are available to form an Akka Cluster with until they are ready, and those replicas won’t pass a readiness check until they’ve formed an Akka Cluster.</p>
+</div>
+<div class="paragraph">
+<p>The simplest solution is to use the Kubernetes API, which  returns all microservice replicas regardless of their readiness state. The build files have been modified with a dependency for the <code>akka-discovery-kubernetes-api</code>:</p>
+</div>
+<div class="dlist tabset">
+<dl>
+<dt class="hdlist1">Maven</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+  &lt;groupId&gt;com.lightbend.akka.discovery&lt;/groupId&gt;
+  &lt;artifactId&gt;akka-discovery-kubernetes-api_2.12&lt;/artifactId&gt;
+  &lt;version&gt;1.0.0&lt;/version&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div>
+</dd>
+<dt class="hdlist1">sbt</dt>
+<dd>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">libraryDependencies ++= Seq(
+  "com.lightbend.akka.discovery" %% "akka-discovery-kubernetes-api" % "1.0.0"
+)</code></pre>
+</div>
+</div>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>The discovery mechanism is also configured in <code>prod-application.conf</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-conf hljs" data-lang="conf">akka.management {
+  cluster.bootstrap {
+    contact-point-discovery {
+      discovery-method = kubernetes-api
+      service-name = "shopping-cart" <i class="conum" data-value="1"></i><b>(1)</b>
+      required-contact-point-nr = ${REQUIRED_CONTACT_POINT_NR} <i class="conum" data-value="2"></i><b>(2)</b>
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Note that:</p>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>The <code>service-name</code> needs to match the app label applied to your pods in the deployment spec.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>The <code>required-contact-point-nr</code> has been configured to read the <code>REQUIRED_CONTACT_POINT_NR</code> environment variable. This is the number of <code>ActorSystem</code> nodes that Akka Cluster Bootstrap must discover before it will form a cluster. It’s very important to get this number right. Let’s say it was configured to be two, and you deployed five for this application, and all five started at once. It’s possible, due to eventual consistency in the Kubernetes API, that two of the <code>ActorSystem</code> nodes might discover each other, and decide to form a Cluster, and the other two nodes might discover each other, and also decide to form a Cluster. The result will be two separate Akka Clusters, and this can have disastrous results. For this reason, we’ll pass the <code>required-contact-point-nr</code> in the deployment spec, which will be the same place that we’ll configure the number of replicas. This will help us ensure that the number of replicas equals the required contact point number&mdash;the safe way to form one, and only one, Akka Cluster on bootstrap.</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_set_up_role_based_access_control"><a class="anchor" href="#_set_up_role_based_access_control"></a>2. Set up Role-based Access Control</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>By default, pods are unable to use the Kubernetes API because they are not authenticated to do so. In order to allow the application&#8217;s microservice replicas to form an Akka Cluster using the Kubernetes API, we need to define some Role-Based Access Control (RBAC) roles and bindings.</p>
+</div>
+<div class="paragraph">
+<p>RBAC allows the configuration of access control using two key concepts: roles, and role bindings. A <em>role</em> is a set of permissions to use the Kubernetes API to access information. For example, you might give a <code>pod-reader</code> role permissions to list, to get, and to watch operations on the pods resource in a particular namespace. By default, permission applies to the same namespace that the role is configured in.</p>
+</div>
+<div class="paragraph">
+<p>The <code>shopping-cart.yaml</code> file defines pod-reader role as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: pod-reader
+rules:
+- apiGroups: [""]
+  resources: ["pods"]
+  verbs: ["get", "watch", "list"]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A <em>role_binding</em> binds a role to a subject. A <em>subject</em> can be a user or a group. A user can be a human, or a service account. A <em>service account</em> is an account created by Kubernetes for resources, such as applications running in pods, to access the Kubernetes API. Each namespace has a default service account that pods that don’t explicitly declare a service account can use. Otherwise, you can define your own service accounts. Kubernetes automatically injects the credentials of a pod&#8217;s service account into that pod&#8217;s filesystem, allowing the pod to use them to make authenticated requests on the Kubernetes API.</p>
+</div>
+<div class="paragraph">
+<p>Since we are just using the default service account, we need to bind our role to it so that our pod will be able to access the Kubernetes API as a pod-reader:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: read-pods
+subjects:
+- kind: User
+  name: system:serviceaccount:myproject:default
+roleRef:
+  kind: Role
+  name: pod-reader
+  apiGroup: rbac.authorization.k8s.io</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The service account name, <code>system:serviceaccount:myproject:default</code>, contains the <code>myproject</code> namespace. If you are using a different project name, you’ll need to update it accordingly.
+</td>
+</tr>
+</table>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Using secrets with RBAC
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>When using role-based access control, the <code>pod-reader</code> role will grant access to read all pods in the <code>myproject</code> namespace&mdash;not just the pods for your application. This includes the deployment specs, and any environment variables hard coded in them. If you pass secrets through  environment variables, rather than using the Kubernetes secrets API, then your application&dash;and every other app that uses the default service account&dash;will be able to see these secrets. This is a good reason to never pass secrets directly in deployment specs. Instead, pass them through the Kubernetes secrets API.</p>
+</div>
+<div class="paragraph">
+<p>If this is a concern, one solution might be to create a separate namespace for each application you wish to deploy. However, the configuration overhead of doing this is very high, and it’s not the intended use for namespaces.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_define_replicas_and_contact_points"><a class="anchor" href="#_define_replicas_and_contact_points"></a>3. Define replicas and contact points</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In the cluster bootstrap configuration, we used a <code>REQUIRED_CONTACT_POINT_NR</code> environment variable. Let’s configure that now in our spec. It needs to match the number of replicas that we’re going to deploy. If you’re really strapped for resources in your cluster, you might set this to 1, but for the purposes of this demo we strongly recommend that you set it to 3 or more so that you can see an Akka Cluster form.</p>
+</div>
+<div class="paragraph">
+<p>In <code>shopping-cart.yaml</code>, the following sets the replicas to 3:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: "apps/v1beta2"
+kind: Deployment
+metadata:
+  name: shopping-cart
+  labels:
+    app: shopping-cart
+spec:
+  replicas: 3</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the environment variables section, the <code>REQUIRED_CONTACT_POINT_NR</code> environment variable must match:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: REQUIRED_CONTACT_POINT_NR
+  value: "3"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_enable_two_types_of_health_checks"><a class="anchor" href="#_enable_two_types_of_health_checks"></a>4. Enable two types of health checks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Akka Management HTTP includes health check routes that will expose liveness and readiness health checks on the <code>/alive</code> and <code>/ready</code> routes, respectively. In Kubernetes, if an application is live, it means it is running and hasn’t crashed. But it may not necessarily be ready to serve requests. For example, it might not yet have connected to a database, or, it may not have formed a cluster.</p>
+</div>
+<div class="paragraph">
+<p>By separating liveness and readiness, Akka gives Kubernetes a better ability to distinguish between fatal and transient errors. A crash is a fatal error. Transient errors might include an inability to contact resources that the application depends on. In this way, Kubernetes can make more intelligent decisions about whether an application needs to be restarted, or if it just needs to be given time to sort itself out.</p>
+</div>
+<div class="paragraph">
+<p>The <code>/alive</code> and <code>/ready</code> routes expose information resulting from multiple internal checks. For example, by depending on <code>akka-management-cluster-http</code>, the health checks will take cluster membership status into consideration and check to ensure that an Akka Cluster has been formed. Lagom also includes these routes for <code>akka-management-cluster-http</code>. So, the readiness check will take the Cluster membership status into consideration.</p>
+</div>
+<div class="paragraph">
+<p>Finally, we need to tell Kubernetes the two different health checks by configuring the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A name for the management port. While not strictly necessary, this allows us to refer to it by name in the probes, rather than repeating the port number each time.</p>
+</li>
+<li>
+<p>A wait of 20 seconds before Kubernetes attempts to probe anything, this gives our cluster a chance to start before Kubernetes starts trying to ask us if it’s ready.</p>
+</li>
+<li>
+<p>A high failure threshold of 10, since in some scenarios, particularly if you haven’t assigned a lot of CPU to your pods, it can take a long time for the cluster to start.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">ports:
+  - name: management
+    containerPort: 8558
+readinessProbe:
+  httpGet:
+    path: "/ready"
+    port: management
+  periodSeconds: 10
+  failureThreshold: 10
+  initialDelaySeconds: 20
+livenessProbe:
+  httpGet:
+    path: "/alive"
+    port: management
+  periodSeconds: 10
+  failureThreshold: 10
+  initialDelaySeconds: 20</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that you&#8217;ve learned about many of the important configuration options, it&#8217;s time for <a href="building-shopping-cart.html" class="page">Building Shopping Cart</a>.</p>
+</div>
+</div>
+</div>
+</article><aside class="toc sidebar">
+  <div class="toc-menu"></div>
+</aside>
+    </div>
+  </main>
+</div><footer class="footer">
+	<nav>
+		<section>
+			<h3>Documentation</h3>
+			<h4><a href="/">Lightbend Platform</a></h4>
+			<ul>
+				<li><a href="">Lightbend Platform Guide</a></li>
+				<li><a href="https://developer.lightbend.com/docs/pipelines/current/index.html">Pipelines</a></li>
+				<li><a href="https://developer.lightbend.com/docs/telemetry/latest/home.html">Telemetry</a></li>
+				<li><a href="https://developer.lightbend.com/docs/console/current/index.html">Console</a></li>
+				<li><a href="https://doc.akka.io/docs/akka-enhancements/current/akka-resilience-enhancements.html">Akka Resilience Enhancements</a></li>
+				<li><a href="https://doc.akka.io/docs/akka-enhancements/current/akka-persistence-enhancements.html">Akka Persistence Enhancements</a></li>
+				<li><a href="https://developer.lightbend.com/docs/fortify/latest/">Fortify SCA for Scala</a></li>
+				<li><a class="navbar-item" href="https://akka.io/docs/">Akka</a></li>
+				<li><a class="navbar-item" href="https://doc.akka.io/docs/alpakka/current/">Alpakka</a></li>
+				<li><a class="navbar-item" href="https://www.lagomframework.com/documentation/">Lagom Framework</a></li>
+				<li><a class="navbar-item" href="https://www.playframework.com/documentation">Play Framework</a></li>
+				<li><a class="navbar-item" href="http://www.scala-sbt.org/documentation.html">sbt</a></li>
+				<li><a class="navbar-item" href="https://docs.scala-lang.org/">Scala</a></li>
+				<li><a class="navbar-item" href="http://slick.lightbend.com/doc/3.2.1/">Slick</a></li>
+			</ul>
+		</section>
+		<section>
+			<h3>Resources</h3>
+			<ul>
+				<li><a href="https://portal.lightbend.com/">Customer Portal</a></li>
+				<li><a href="https://discuss.lightbend.com">Discussion Forums</a></li>
+				<li><a href="https://www.lightbend.com/blog">Blog</a></li>
+				<li><a href="https://www.lightbend.com/learn/lightbend-reactive-architecture">Free Training</a></li>
+				<li><a href="https://www.lightbend.com/certified-reactive-architect">Certification</a></li>
+				<li><a href="https://www.lightbend.com/contact">Ask A Question</a></li>
+			</ul>
+		</section>
+		<section>
+			<h3>Lightbend</h3>
+			<ul>
+				<li><a href="https://www.lightbend.com/about-lightbend">Who Is Lightbend?</a></li>
+				<li><a href="https://www.lightbend.com/customers">Who Uses Lightbend?</a></li>
+				<li><a href="https://www.lightbend.com/lightbend-platform-subscription">Why Get A Subscription?</a></li>
+				<li><a href="https://www.lightbend.com/company/news">News & Press</a></li>
+				<li><a href="https://shop.lightbend.com/">Online Swag Shop</a></li>
+				<li><a href="https://www.lightbend.com/contact">Get In Contact</a></li>
+			</ul>
+		</section>
+	</nav>
+
+	<div class="legal-social">
+		<div class="legal">
+			<p>© Lightbend 2019 | <a href="https://www.lightbend.com/legal/licenses">Licenses</a> | <a href="https://www.lightbend.com/legal/terms">Terms</a> | <a href="https://www.lightbend.com/legal/privacy">Privacy Policy</a> | <a href="https://www.lightbend.com/legal/cookie">Cookie Listing</a> | <a class="optanon-toggle-display">Cookie Settings</a> 
+			<span class="footer-logo">
+				<svg class="lightbend-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 372 80">
+					<title>lightbend-logo</title>
+					<g id="lightbend-logo">
+						<path d="M1,59V76a3,3,0,0,0,3,3H88a3,3,0,0,0,3-3V59a167.38,167.38,0,0,1-45,6A167.38,167.38,0,0,1,1,59Z" fill="#ffffff"></path>
+						<path d="M88,1H4A3,3,0,0,0,1,4V53c14.57,4.2,29.65,7,45,7s30.43-2.8,45-7V4A3,3,0,0,0,88,1Z" fill="#ffffff"></path>
+						<g id="original_weight" data-name="original weight">
+							<path d="M107.2,20.08a2.14,2.14,0,1,1,4.27,0v32h13.6A2,2,0,0,1,127,54a1.94,1.94,0,0,1-1.94,2H109.31a2.15,2.15,0,0,1-2.11-2.16Z" fill="#ffffff"></path>
+							<path d="M135,19.32a2.47,2.47,0,0,1,4.91,0V20A2.47,2.47,0,0,1,135,20Zm.38,10.59a2.08,2.08,0,1,1,4.16,0V54.15a2,2,0,0,1-2.06,2.11,2.08,2.08,0,0,1-2.1-2.11Z" fill="#ffffff"></path>
+							<path d="M150.8,61.44a1.91,1.91,0,0,1-1.08-1.73,2,2,0,0,1,1.89-1.83,1.69,1.69,0,0,1,.92.27,17.63,17.63,0,0,0,9.88,3c6.15,0,10.15-3.4,10.15-9.93v-3.3c-2.43,3.24-5.83,5.89-11,5.89a12.9,12.9,0,0,1-13.12-13.07v-.11a13.21,13.21,0,0,1,24-7.56V29.91a2.07,2.07,0,0,1,2.06-2.11,2.11,2.11,0,0,1,2.1,2.11V51.13c0,4.32-1.29,7.61-3.56,9.88-2.49,2.48-6.21,3.73-10.64,3.73A21.87,21.87,0,0,1,150.8,61.44Zm21.87-20.73V40.6c0-5.72-5-9.45-10.26-9.45s-9.67,3.67-9.67,9.4v.1a9.45,9.45,0,0,0,9.67,9.51C167.7,50.16,172.67,46.32,172.67,40.71Z" fill="#ffffff"></path>
+							<path d="M186.22,18.41a2.08,2.08,0,1,1,4.16,0V32.93a10.57,10.57,0,0,1,9.56-5.45c6.75,0,10.69,4.53,10.69,11.18V54.15a2.08,2.08,0,1,1-4.16,0V39.68c0-5.18-2.81-8.42-7.72-8.42s-8.37,3.51-8.37,8.75V54.15a2,2,0,0,1-2,2.11,2.08,2.08,0,0,1-2.11-2.11Z" fill="#ffffff"></path>
+							<path d="M220.46,48.59V31.74h-2.27a1.89,1.89,0,0,1-1.84-1.83,1.86,1.86,0,0,1,1.84-1.84h2.27V21.48a2.06,2.06,0,0,1,2-2.1,2.14,2.14,0,0,1,2.1,2.1v6.59h7.24a1.91,1.91,0,0,1,1.89,1.84,1.86,1.86,0,0,1-1.89,1.83h-7.24V48.05c0,3.4,1.89,4.64,4.7,4.64a12,12,0,0,0,2.54-.37,1.8,1.8,0,0,1,1.78,1.78,1.73,1.73,0,0,1-1.19,1.62,10.57,10.57,0,0,1-4.1.75C223.86,56.47,220.46,54.26,220.46,48.59Z" fill="#ffffff"></path>
+							<path d="M242.65,18.41a2.08,2.08,0,1,1,4.16,0V33.69c2.27-3.35,5.56-6.21,10.69-6.21,6.7,0,13.34,5.29,13.34,14.47v.11c0,9.12-6.59,14.52-13.34,14.52a12.6,12.6,0,0,1-10.69-5.94v3.51a2.07,2.07,0,0,1-2.05,2.11,2.11,2.11,0,0,1-2.11-2.11Zm23.92,23.7V42c0-6.58-4.53-10.8-9.83-10.8A10.41,10.41,0,0,0,246.65,42v.11c0,6.48,4.91,10.8,10.09,10.8C262.14,52.86,266.57,48.86,266.57,42.11Z" fill="#ffffff"></path>
+							<path d="M290.17,56.64c-7.67,0-13.93-5.89-13.93-14.53V42c0-8,5.67-14.52,13.39-14.52,8.26,0,13,6.75,13,14.15a1.94,1.94,0,0,1-1.95,1.94H280.45c.59,6,4.86,9.45,9.83,9.45a11.4,11.4,0,0,0,8-3.24,1.83,1.83,0,0,1,1.19-.49,1.81,1.81,0,0,1,1.84,1.78,1.78,1.78,0,0,1-.65,1.35A14.2,14.2,0,0,1,290.17,56.64Zm8.26-16.15c-.43-5.07-3.35-9.5-8.91-9.5-4.86,0-8.53,4.05-9.07,9.5Z" fill="#ffffff"></path>
+							<path d="M309.5,29.91a2.08,2.08,0,1,1,4.16,0v3a10.57,10.57,0,0,1,9.56-5.45c6.75,0,10.69,4.53,10.69,11.18V54.15a2.08,2.08,0,1,1-4.16,0V39.68c0-5.18-2.81-8.42-7.72-8.42s-8.37,3.51-8.37,8.75V54.15a2,2,0,0,1-2.05,2.11,2.08,2.08,0,0,1-2.11-2.11Z" fill="#ffffff"></path>
+							<path d="M368.68,54.15a2.08,2.08,0,1,1-4.15,0V50.37c-2.27,3.35-5.57,6.21-10.7,6.21-6.69,0-13.33-5.29-13.33-14.47V42c0-9.12,6.64-14.52,13.33-14.52a12.61,12.61,0,0,1,10.7,5.94v-15a2,2,0,0,1,2.05-2.11,2.07,2.07,0,0,1,2.1,2.11ZM344.76,42v.11c0,6.58,4.59,10.8,9.83,10.8a10.43,10.43,0,0,0,10.1-10.8V42a10.38,10.38,0,0,0-10.1-10.75C349.19,31.2,344.76,35.2,344.76,42Z" fill="#ffffff"></path>
+						</g>
+					</g>
+				</svg>
+			</span>
+			</p>
+		</div>
+	</div>
+
+</footer>
+<script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/highlight.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="../../_/js/vendor/groups.js"></script>
+<script>hljs.initHighlighting()</script><script src="../../_/js/vendor/jquery.waypoints.min.js"></script>
+<script src="../../_/js/vendor/inview.min.js"></script>
+
+<script>
+(function($) {
+	$(function() {
+		
+		var pageViewedTriggerElement = '#page-content';
+		//override #page-content if a custom trigger is present in page
+		if($("#page-viewed-trigger").length){
+			pageViewedTriggerElement = '#page-viewed-trigger';
+		}
+
+		var inview = new Waypoint.Inview({
+			element: $(pageViewedTriggerElement)[0],
+				entered: function(direction) {
+				//fire custom Jquery event that Marketo can listen for
+				$.event.trigger({
+					type: "pageContentViewed"
+				});
+			}
+		})
+
+	});
+})(jQuery);
+</script>
+
+
+<!-- Google Tag Manager -->
+<script type="text/plain" class="optanon-category-2">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MC4WH2S');</script>
+<!-- End Google Tag Manager -->
+
+<!--Marketo-->
+<script>
+    (function() {
+      var didInit = false;
+      function initMunchkin() {
+        if(didInit === false) {
+          didInit = true;
+          Munchkin.init('558-NCX-702', { 'asyncOnly': true, 'disableClickDelay': true });
+        }
+      }
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.src = '//munchkin.marketo.net/munchkin.js';
+      s.onreadystatechange = function() {
+        if (this.readyState == 'complete' || this.readyState == 'loaded') {
+          initMunchkin();
+        }
+      };
+      s.onload = initMunchkin;
+      document.getElementsByTagName('head')[0].appendChild(s);
+    })();
+
+
+    (function($) {
+      $(function() {
+        var pageViewed = false;
+        $(document).on("pageContentViewed", handlePageContentViewed);
+        function handlePageContentViewed(e) {
+          var viewedPagePath = "viewed"+window.location.pathname;
+          if(!pageViewed){
+            Munchkin.munchkinFunction('visitWebPage', {
+              'url': viewedPagePath
+              }
+            );
+            pageViewed = true;
+          }
+        };
+      });
+    })(jQuery);
+
+</script>  </body>
+</html>

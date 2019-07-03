@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Not Found :: Deploying Lightbend applications to OpenShift</title>
-    <link rel="stylesheet" href="/_/css/site.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Deploy Lagom microservices to OpenShift :: Deploying Lightbend applications to OpenShift</title>
+	<link rel="canonical" href="https://developer.lightbend.com/guides/openshift-deployment/Tutorials/deploying-lagom/deploy-a-lagom-application-to-openshift.html">
+	<meta name="generator" content="Antora 2.0.0">
+	<link rel="stylesheet" href="../../_/css/site.css">
 <meta name="author" content="Lightbend Inc.">
-<link rel="shortcut icon" href="/_/img/favicons/favicon.ico" /><script src="https://optanon.blob.core.windows.net/consent/e66f3fbc-e5fe-4a3c-901d-6990021b334d.js" type="text/javascript" charset="UTF-8"></script>
+<link rel="shortcut icon" href="../../_/img/favicons/favicon.ico" /><script src="https://optanon.blob.core.windows.net/consent/e66f3fbc-e5fe-4a3c-901d-6990021b334d.js" type="text/javascript" charset="UTF-8"></script>
   </head>
-  <body class="status-404">
+  <body class="article">
 <header class="header">
   <nav class="navbar">
     <div class="navbar-brand">
-      <a class="navbar-item" href="https://www.lightbend.com"><img class="header-logo" src="/_/img/lightbend-reverse.svg"></a>
+      <a class="navbar-item" href="https://www.lightbend.com"><img class="header-logo" src="../../_/img/lightbend-reverse.svg"></a>
       <a href="https://developer.lightbend.com/guides/openshift-deployment" id="site-id" class="site-id">Documentation</a>
       <button class="navbar-burger" data-target="topbar-nav">
         <span></span>
@@ -75,16 +77,75 @@
   </nav>
 </header>
 <div class="main-wrapper">
-<div class="navigation-container">
+<div class="navigation-container" data-component="Tutorials" data-version="master">
   <aside class="navigation">
     <div class="panels">
-<div class="navigation-explore is-active" data-panel="explore">
+<div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Deploying microservices to OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../general-setup.html">General Setup</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="example-prerequisites.html">Example prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="downloading-example.html">Downloading the example and getting started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setting-up-postgresql.html">Setting up PostgreSQL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setting-up-kafka.html">Setting up Kafka</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuring-shopping-cart.html">Configuring Shopping Cart</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuring-akka-cluster.html">Configuring an Akka Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="building-shopping-cart.html">Building Shopping Cart</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="building-with-sbt.html">Building with sbt</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="building-with-maven.html">Building with Maven</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-shopping-cart.html">Deploying Shopping Cart</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Tutorials</span>
+    <span class="version">master</span>
+  </div>
   <ul class="components">
-    <li class="component">
+    <li class="component is-current">
       <span class="title">Tutorials</span>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="/Tutorials/index.html">master</a>
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -96,20 +157,80 @@
   <main class="main">
 <div class="toolbar" role="navigation">
   <button class="navigation-toggle"></button>
-  <a href="/Tutorials/index.html" class="home-link"></a>
+  <a href="../index.html" class="home-link"></a>
 <nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a></li>
+  </ul>
 </nav>
 </div>
     <div class="col-content">
 <article id="page-content" class="doc">
-		<h1>Page Not Found</h1>
-		<div class="paragraph">
-		<p>The page you're looking for does not exist. It may have been moved.</p>
-		</div>
-		<div class="paragraph">
-		<p>If you arrived on this page by clicking on a link, please notify the owner of the site that the link is broken.
-		If you typed the URL of this page manually, please double check that you entered the address correctly.</p>
-		</div>
+			<h1>Deploy Lagom microservices to OpenShift</h1>
+
+		<fieldset class="supergroup-switch">
+
+
+
+
+
+
+		</fieldset>
+		
+		<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>We will use the Lagom Shopping Cart example application for this tutorial. It is available for both Java and Scala, and uses a PostgreSQL database. Shopping Cart just provides a REST API, not a user interface, so we will interact with it using <code>curl</code>.</p>
+</div>
+<div class="paragraph">
+<p>The following shows the build artifacts and runtime deployment architecture for Shopping Cart. The Shopping Cart example has two microservices; one that manages shopping carts, and one that tracks inventory levels. The shopping cart microservice communicates with the inventory microservice using Kafka. When a user completes the purchase, the shopping cart microservice sends a message to the inventory microservice.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/ShoppingCartDeploy.png" alt="Shopping Cart artifacts and deployment architecture">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before you start this tutorial, be sure to complete the <a href="../general-setup.html" class="page">General Setup</a> instructions. Shopping Cart tutorial procedures include:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="example-prerequisites.html" class="page">Example-specific prerequisites</a></p>
+</li>
+<li>
+<p><a href="downloading-example.html" class="page">Downloading the example app and getting started</a></p>
+</li>
+<li>
+<p><a href="setting-up-postgresql.html" class="page">Setting up PostgreSQL</a></p>
+</li>
+<li>
+<p><a href="setting-up-kafka.html" class="page">Setting up Kafka</a></p>
+</li>
+<li>
+<p><a href="configuring-shopping-cart.html" class="page">Configuring Shopping Cart</a></p>
+</li>
+<li>
+<p><a href="configuring-akka-cluster.html" class="page">Configuring an Akka Cluster</a></p>
+</li>
+<li>
+<p><a href="building-shopping-cart.html" class="page">Building Shopping Cart</a></p>
+</li>
+<li>
+<p><a href="deploying-shopping-cart.html" class="page">Deploying Shopping Cart</a></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>First, take care of the <a href="example-prerequisites.html" class="page">Example-specific prerequisites</a>.</p>
+</div>
+</div>
+</div>
 </article><aside class="toc sidebar">
   <div class="toc-menu"></div>
 </aside>
@@ -189,12 +310,12 @@
 	</div>
 
 </footer>
-<script src="/_/js/site.js"></script>
-<script src="/_/js/vendor/highlight.js"></script>
+<script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/highlight.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="/_/js/vendor/groups.js"></script>
-<script>hljs.initHighlighting()</script><script src="/_/js/vendor/jquery.waypoints.min.js"></script>
-<script src="/_/js/vendor/inview.min.js"></script>
+<script src="../../_/js/vendor/groups.js"></script>
+<script>hljs.initHighlighting()</script><script src="../../_/js/vendor/jquery.waypoints.min.js"></script>
+<script src="../../_/js/vendor/inview.min.js"></script>
 
 <script>
 (function($) {

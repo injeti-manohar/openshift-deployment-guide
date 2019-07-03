@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Page Not Found :: Deploying Lightbend applications to OpenShift</title>
-    <link rel="stylesheet" href="/_/css/site.css">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Example-specific prerequisites :: Deploying Lightbend applications to OpenShift</title>
+	<link rel="canonical" href="https://developer.lightbend.com/guides/openshift-deployment/Tutorials/deploying-lagom/example-prerequisites.html">
+	<meta name="generator" content="Antora 2.0.0">
+	<link rel="stylesheet" href="../../_/css/site.css">
 <meta name="author" content="Lightbend Inc.">
-<link rel="shortcut icon" href="/_/img/favicons/favicon.ico" /><script src="https://optanon.blob.core.windows.net/consent/e66f3fbc-e5fe-4a3c-901d-6990021b334d.js" type="text/javascript" charset="UTF-8"></script>
+<link rel="shortcut icon" href="../../_/img/favicons/favicon.ico" /><script src="https://optanon.blob.core.windows.net/consent/e66f3fbc-e5fe-4a3c-901d-6990021b334d.js" type="text/javascript" charset="UTF-8"></script>
   </head>
-  <body class="status-404">
+  <body class="article">
 <header class="header">
   <nav class="navbar">
     <div class="navbar-brand">
-      <a class="navbar-item" href="https://www.lightbend.com"><img class="header-logo" src="/_/img/lightbend-reverse.svg"></a>
+      <a class="navbar-item" href="https://www.lightbend.com"><img class="header-logo" src="../../_/img/lightbend-reverse.svg"></a>
       <a href="https://developer.lightbend.com/guides/openshift-deployment" id="site-id" class="site-id">Documentation</a>
       <button class="navbar-burger" data-target="topbar-nav">
         <span></span>
@@ -75,16 +77,75 @@
   </nav>
 </header>
 <div class="main-wrapper">
-<div class="navigation-container">
+<div class="navigation-container" data-component="Tutorials" data-version="master">
   <aside class="navigation">
     <div class="panels">
-<div class="navigation-explore is-active" data-panel="explore">
+<div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Deploying microservices to OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../general-setup.html">General Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="example-prerequisites.html">Example prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="downloading-example.html">Downloading the example and getting started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setting-up-postgresql.html">Setting up PostgreSQL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setting-up-kafka.html">Setting up Kafka</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuring-shopping-cart.html">Configuring Shopping Cart</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuring-akka-cluster.html">Configuring an Akka Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="building-shopping-cart.html">Building Shopping Cart</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="building-with-sbt.html">Building with sbt</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="building-with-maven.html">Building with Maven</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-shopping-cart.html">Deploying Shopping Cart</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Tutorials</span>
+    <span class="version">master</span>
+  </div>
   <ul class="components">
-    <li class="component">
+    <li class="component is-current">
       <span class="title">Tutorials</span>
       <ul class="versions">
-        <li class="version is-latest">
-          <a href="/Tutorials/index.html">master</a>
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
         </li>
       </ul>
     </li>
@@ -96,20 +157,186 @@
   <main class="main">
 <div class="toolbar" role="navigation">
   <button class="navigation-toggle"></button>
-  <a href="/Tutorials/index.html" class="home-link"></a>
+  <a href="../index.html" class="home-link"></a>
 <nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a></li>
+    <li class="crumb"><a href="example-prerequisites.html">Example prerequisites</a></li>
+  </ul>
 </nav>
 </div>
     <div class="col-content">
 <article id="page-content" class="doc">
-		<h1>Page Not Found</h1>
-		<div class="paragraph">
-		<p>The page you're looking for does not exist. It may have been moved.</p>
-		</div>
-		<div class="paragraph">
-		<p>If you arrived on this page by clicking on a link, please notify the owner of the site that the link is broken.
-		If you typed the URL of this page manually, please double check that you entered the address correctly.</p>
-		</div>
+			<h1>Example-specific prerequisites</h1>
+
+		<fieldset class="supergroup-switch">
+
+
+
+
+
+
+		</fieldset>
+		
+		<div id="toc" class="toc">
+<div id="toctitle">ON THIS PAGE</div>
+<ul class="sectlevel1">
+<li><a href="#_installing_the_postgresql_client">Installing the PostgreSQL client</a></li>
+<li><a href="#_preparing_for_kafka">Preparing for Kafka</a></li>
+<li><a href="#_whats_next">What&#8217;s next</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The procedures in this tutorial require the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>PostgreSQL client</p>
+</li>
+<li>
+<p>The Strimzi operator to deploy Kafka</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The remaining sections on this page provide links and instructions for obtaining or installing any of these that you do not have.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_installing_the_postgresql_client"><a class="anchor" href="#_installing_the_postgresql_client"></a>Installing the PostgreSQL client</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can download the installer from: <a href="https://www.enterprisedb.com/advanced-downloads" class="bare">https://www.enterprisedb.com/advanced-downloads</a>. If you use an interactive installer, you can simply install the client without installing the complete database server.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_preparing_for_kafka"><a class="anchor" href="#_preparing_for_kafka"></a>Preparing for Kafka</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you have an existing Kafka installation, you can configure that to run the example app. You or an administrator will need to set up a Kafka service named <code>strimzi-kafka-brokers</code>, with a TCP port called <code>clients</code>, in the same namespace as the service being deployed.</p>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t have a Kafka available to use, Lightbend recommends using Strimzi, a Kubernetes operator that simplifies the installation and deployment process. Administrative privileges are required to install Strimzi. In addition, Strimzi requires Helm. <a href="https://www.lightbend.com/lightbend-platform">Lightbend Platform</a> provides a specially-configured Strimzi installation that is <em>required</em> for production support. The documentation for using the Lightbend supported Strimzi release for production can be found <a href="https://developer.lightbend.com/docs/fast-data-platform/current/index.html#strimzi-operator-kafka">here</a>.</p>
+</div>
+<div class="paragraph">
+<p>If your organization does not have Strimzi available, use the following commands to prepare for following this tutorial:</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The following steps are not for a general nor a production installation, but are specific to the instructions in this tutorial.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Using a command window, log into the OpenShift cluster as a user that has admin privileges. For Minishift use the following command:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>oc login -u system:admin</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If necessary, install the Helm client on your local machine following these instructions: <a href="https://github.com/helm/helm/releases" class="bare">https://github.com/helm/helm/releases</a></p>
+</li>
+<li>
+<p>If necessary, install the Helm Tiller server on the cluster:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Create a project for Helm Tiller: <code>oc new-project tiller</code></p>
+</li>
+<li>
+<p>Set a parameter to point to the Tiller project:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>export TILLER_NAMESPACE=tiller</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Check your Tiller version: <code>helm version</code></p>
+</li>
+<li>
+<p>Set a parameter with the Tiller version returned by the previous command, for example for version 2.13.1:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>export HELM_VERSION=v2.13.1</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Create and apply the Lightbend Tiller template:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>oc process -f https://developer.lightbend.com/docs/fast-data-platform/2.1.0-OpenShift/resources/OpenShift/helm-tiller-template.yaml \
+  -p TILLER_NAMESPACE="${TILLER_NAMESPACE}" \
+  -p HELM_VERSION=${HELM_VERSION} | oc create -f</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>+ Wait for this process to complete.</p>
+</div>
+</li>
+<li>
+<p>Add the Lightbend Helm chart:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>helm repo add lightbend https://repo.lightbend.com/helm-charts
+helm repo update</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you haven&#8217;t already, create a parameter that points at the example project you will be using:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code>export NAMESPACE=myproject</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Install Strimzi:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">helm install lightbend/strimzi-kafka-operator \
+  --name my-strimzi \
+  --namespace $NAMESPACE \
+  --version 0.8.2 \
+  --debug</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now you are ready to deploy Kafka as described later in this guide.</p>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Proceed by <a href="setting-up-postgresql.html" class="page">Setting up PostgreSQL</a></p>
+</div>
+</div>
+</div>
 </article><aside class="toc sidebar">
   <div class="toc-menu"></div>
 </aside>
@@ -189,12 +416,12 @@
 	</div>
 
 </footer>
-<script src="/_/js/site.js"></script>
-<script src="/_/js/vendor/highlight.js"></script>
+<script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/highlight.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-<script src="/_/js/vendor/groups.js"></script>
-<script>hljs.initHighlighting()</script><script src="/_/js/vendor/jquery.waypoints.min.js"></script>
-<script src="/_/js/vendor/inview.min.js"></script>
+<script src="../../_/js/vendor/groups.js"></script>
+<script>hljs.initHighlighting()</script><script src="../../_/js/vendor/jquery.waypoints.min.js"></script>
+<script src="../../_/js/vendor/inview.min.js"></script>
 
 <script>
 (function($) {

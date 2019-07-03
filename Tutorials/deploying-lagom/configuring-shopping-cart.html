@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Configuring Shopping Cart :: Deploying Lightbend applications to OpenShift</title>
+	<link rel="canonical" href="https://developer.lightbend.com/guides/openshift-deployment/Tutorials/deploying-lagom/configuring-shopping-cart.html">
+	<meta name="generator" content="Antora 2.0.0">
+	<link rel="stylesheet" href="../../_/css/site.css">
+<meta name="author" content="Lightbend Inc.">
+<link rel="shortcut icon" href="../../_/img/favicons/favicon.ico" /><script src="https://optanon.blob.core.windows.net/consent/e66f3fbc-e5fe-4a3c-901d-6990021b334d.js" type="text/javascript" charset="UTF-8"></script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.lightbend.com"><img class="header-logo" src="../../_/img/lightbend-reverse.svg"></a>
+      <a href="https://developer.lightbend.com/guides/openshift-deployment" id="site-id" class="site-id">Documentation</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item has-dropdown is-hoverable">
+          <span class="navbar-link">Documentation</span>
+          <div class="navbar-dropdown">
+            <a class="navbar-item section-title" href="/">Lightbend Platform</a>
+            <div class="columns">
+              <div class="navbar-dropdown-col mm-col-two">
+                <a class="navbar-item" href="/">Lightbend Platform Guide</a>
+                <a class="navbar-item" href="https://developer.lightbend.com/docs/pipelines/current/index.html">Pipelines</a>
+                <a class="navbar-item" href="https://developer.lightbend.com/docs/telemetry/latest/home.html">Telemetry</a>
+                <a class="navbar-item" href="https://developer.lightbend.com/docs/console/current/index.html">Console</a>
+                <a class="navbar-item" href="https://doc.akka.io/docs/akka-enhancements/current/akka-resilience-enhancements.html">Akka Resilience Enhancements</a>
+                <a class="navbar-item" href="https://doc.akka.io/docs/akka-enhancements/current/akka-persistence-enhancements.html">Akka Persistence Enhancements</a>
+                <a class="navbar-item" href="https://developer.lightbend.com/docs/fortify/latest/">Fortify SCA for Scala</a>
+              </div>
+              <div class="navbar-dropdown-col mm-col-two invisible-border">
+                <a class="navbar-item" href="https://akka.io/docs/">Akka</a>
+                <a class="navbar-item" href="https://doc.akka.io/docs/alpakka/current/">Alpakka</a>
+                <a class="navbar-item" href="https://www.lagomframework.com/documentation/">Lagom Framework</a>
+                <a class="navbar-item" href="https://www.playframework.com/documentation">Play Framework</a>
+                <a class="navbar-item" href="http://www.scala-sbt.org/documentation.html">sbt</a>
+                <a class="navbar-item" href="https://docs.scala-lang.org/">Scala</a>
+                <a class="navbar-item" href="http://slick.lightbend.com/doc/3.2.1/">Slick</a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Resources</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://portal.lightbend.com/">Customer Portal</a>
+            <a class="navbar-item" href="https://discuss.lightbend.com">Discussion Forums</a>
+            <a class="navbar-item" href="https://www.lightbend.com/blog">Blog</a>
+            <a class="navbar-item" href="https://www.lightbend.com/learn/lightbend-reactive-architecture">Free Training</a>
+            <a class="navbar-item" href="https://www.lightbend.com/certified-reactive-architect">Certification</a>
+            <a class="navbar-item" href="https://www.lightbend.com/contact">Ask A Question</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Lightbend</a>
+          <div class="navbar-dropdown">
+              <a class="navbar-item" href="https://www.lightbend.com/about-lightbend">Who Is Lightbend?</a>
+              <a class="navbar-item" href="https://www.lightbend.com/customers">Who Uses Lightbend?</a>
+              <a class="navbar-item" href="https://www.lightbend.com/lightbend-platform-subscription">Why Get A Subscription?</a>
+              <a class="navbar-item" href="https://www.lightbend.com/company/news">News & Press</a>
+              <a class="navbar-item" href="https://shop.lightbend.com/">Online Swag Shop</a>
+              <a class="navbar-item" href="https://www.lightbend.com/contact">Get In Contact</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="main-wrapper">
+<div class="navigation-container" data-component="Tutorials" data-version="master">
+  <aside class="navigation">
+    <div class="panels">
+<div class="navigation-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Deploying microservices to OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../general-setup.html">General Setup</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="example-prerequisites.html">Example prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="downloading-example.html">Downloading the example and getting started</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setting-up-postgresql.html">Setting up PostgreSQL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setting-up-kafka.html">Setting up Kafka</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="configuring-shopping-cart.html">Configuring Shopping Cart</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configuring-akka-cluster.html">Configuring an Akka Cluster</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-toggle"></button>
+    <a class="nav-link" href="building-shopping-cart.html">Building Shopping Cart</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="building-with-sbt.html">Building with sbt</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="building-with-maven.html">Building with Maven</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploying-shopping-cart.html">Deploying Shopping Cart</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="navigation-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Tutorials</span>
+    <span class="version">master</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Tutorials</span>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">master</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+  <main class="main">
+<div class="toolbar" role="navigation">
+  <button class="navigation-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="crumbs" aria-label="breadcrumbs">
+  <ul>
+    <li class="crumb"><a href="deploy-a-lagom-application-to-openshift.html">Deploy Lagom microservices to OpenShift</a></li>
+    <li class="crumb"><a href="configuring-shopping-cart.html">Configuring Shopping Cart</a></li>
+  </ul>
+</nav>
+</div>
+    <div class="col-content">
+<article id="page-content" class="doc">
+			<h1>Configuring Shopping Cart</h1>
+
+		<fieldset class="supergroup-switch">
+
+
+
+
+
+
+		</fieldset>
+		
+		<div id="toc" class="toc">
+<div id="toctitle">ON THIS PAGE</div>
+<ul class="sectlevel1">
+<li><a href="#_view_the_configuration_files">1. View the configuration files</a></li>
+<li><a href="#_add_play_application_secret">2. Add Play application secret</a></li>
+<li><a href="#_view_the_configuration_to_connect_to_postgresql">3. View the configuration to connect to PostgreSQL</a></li>
+<li><a href="#_view_the_configuration_to_connect_to_kafka">4. View the configuration to connect to Kafka</a></li>
+<li><a href="#_configure_the_service_locator">5. Configure the service locator</a></li>
+<li><a href="#_whats_next">What&#8217;s next</a></li>
+</ul>
+</div>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Shopping Cart example is already configured to run. In this section, we want to point your attention to the necessary pieces that you would need to provide for your own application. Preparation for production includes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Creating a production configuration file for the Shopping Cart microservice</p>
+</li>
+<li>
+<p>Defining a deployment spec for OpenShift</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The production configuration of Lagom and the deployment spec are tightly coupled; many items in the two files correspond. Rather than document the two types of configuration separately, this guide interweaves them, making it easier to understand the relationships between them.</p>
+</div>
+<div class="paragraph">
+<p>The sample app includes the complete configuration file and deployment spec in their final form. This guide includes just snippets to show you the most relevant configuration. In this guide, we&#8217;ll review the most details for the <code>shopping-cart</code> microservice. The <code>inventory</code> microservice is trivial, it doesn&#8217;t talk to a database, it doesn&#8217;t do any clustering, and everything it needs is a subset of what the <code>shopping-cart</code> microservice needs. You can refer to the sample app for the <code>inventory</code> microservice configuration.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_view_the_configuration_files"><a class="anchor" href="#_view_the_configuration_files"></a>1. View the configuration files</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>First, let&#8217;s look at the production configuration file for the Shopping Cart microservice and a barebones OpenShift deployment spec:</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>From the example&#8217;s <code>shopping-cart/src/main/resources</code> directory, open the file named <code>prod-application.conf</code>.</p>
+</li>
+<li>
+<p>Notice the following contents:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-conf hljs" data-lang="conf">include "application" <i class="conum" data-value="1"></i><b>(1)</b>
+
+play {
+ server {
+   pidfile.path = "/dev/null" <i class="conum" data-value="2"></i><b>(2)</b>
+  }
+}</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This line includes Shopping Cart&#8217;s main <code>application.conf</code> file. Any subsequent configuration will override the configuration from <code>application.conf</code>. This pattern allows us to keep our main, non-specific configuration in <code>application.conf</code>, while keeping production-specific configuration separate.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Setting <code>play.server.pidfile.path = /dev/null</code> <a href="https://www.playframework.com/documentation/2.7.x/ProductionConfiguration#Changing-the-path-of-RUNNING_PID">disables</a> the use of a <code>pidFile</code>. A <code>pidFile</code> is not necessary for a process running in a container.</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Open the <code>shopping-cart.yaml</code> from the <code>deploy</code> directory.</p>
+</li>
+<li>
+<p>Note the numbered items, which are explained below:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml"> apiVersion: "apps/v1"
+ kind: Deployment <i class="conum" data-value="1"></i><b>(1)</b>
+ metadata:
+  name: shopping-cart
+ spec:
+  selector:
+    matchLabels:
+      app: shopping-cart <i class="conum" data-value="2"></i><b>(2)</b>
+
+  template:
+    metadata:
+      labels:
+        app: shopping-cart
+    spec:
+      containers:
+        - name: shopping-cart
+          image: "shopping-cart:latest" <i class="conum" data-value="3"></i><b>(3)</b>
+          env:
+            - name: JAVA_OPTS <i class="conum" data-value="4"></i><b>(4)</b>
+              value: "-Xms256m -Xmx256m -Dconfig.resource=prod-application.conf"
+          resources:
+            limits:
+              memory: 512Mi <i class="conum" data-value="5"></i><b>(5)</b>
+            requests:
+              cpu: 0.25 <i class="conum" data-value="6"></i><b>(6)</b>
+              memory: 512Mi
+ ---
+ apiVersion: v1
+ kind: Service
+ metadata:
+  name: shopping-cart
+ spec:
+  ports:
+    - name: http
+      port: 80 <i class="conum" data-value="7"></i><b>(7)</b>
+      targetPort: 9000
+  selector:
+    app: shopping-cart
+  type: LoadBalancer</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>This line defines a Kubernetes <code>Deployment</code>, a logical grouping of pods that represent a single microservice using the same template. They support <a href="https://kubernetes.io/docs/reference/generated/kubernetes-api/v1.11/#deploymentstrategy-v1-apps">configurable rolling updates</a>, meaning that the deployment will be gradually upgraded, rather than upgrading every pod at once and incurring an outage.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>We label the pod in the <code>template</code> with <code>app: shopping-cart</code>. This must match the the deployment&#8217;s <code>matchLabels</code> and also the <code>selector</code> in the Kubernetes Service configuration, so that the deployment knows which pods it owns and should maintain and upgrade, and so the Kubernetes Service knows which pods to include in its Service resolution.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>The image we&#8217;re using is <code>shopping-cart:latest</code>. This corresponds to the name and version of the microservice in our build. We discuss how to select an appropriate version number below.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>We use the <code>JAVA_OPTS</code> environment variable to pass the configuration to tell Lagom to use the <code>prod-application.conf</code> configuration file, rather than the default <code>application.conf</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>We&#8217;ve configured a maximum of 256mb of memory for the JVM heap size, while the container gets 512mb. The container gets more memory than the JVM heap because the JVM will consume other memory for: class file metadata, thread stacks, compiled code, and JVM specific libraries.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>We&#8217;ve only requested minimal CPU for the container. This is suitable for a local deployment, but you should increase it for real production deployments. Note that we also haven&#8217;t set a CPU limit, this is because the Akka documentation <a href="https://doc.akka.io/docs/akka/2.5/additional/deploy.html#resource-limits">recommends that JVMs do not set a CPU limit</a>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="7"></i><b>7</b></td>
+<td>The Kubernetes Service exposes HTTP on port <code>80</code>, and directs it to port <code>9000</code> on the pods. Port <code>9000</code> is Lagom&#8217;s default HTTP port.</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Image version number
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The deployment spec above uses an image version tag of <code>latest</code>. The <code>latest</code> tag does not automatically refer to the latest deployed version of an image, it simply is the default tag that is used when no tag is specified. We could have just used <code>shopping-cart</code>, and this would mean the same thing as <code>shopping-cart:latest</code>. For development, this is convenient.</p>
+</div>
+<div class="paragraph">
+<p>For production, the use of the <code>latest</code> tag is considered bad practice. We recommend using actual version number, one that gets updated each time you deploy. In the <a href="building-shopping-cart.html" class="page">Building Shopping Cart</a> section of this guide we will describe how to configure your build to base its version number off the current <code>git</code> commit hash. This is especially convenient for continuous deployment scenarios, since a human doesn&#8217;t need to be involved in selecting a unique version number. After building the image, you can take the version number generated in that step and update the image referenced in the spec accordingly.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_add_play_application_secret"><a class="anchor" href="#_add_play_application_secret"></a>2. Add Play application secret</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Play Framework requires a secret key which is used to sign its session cookie, a JSON Web Token. To do this, we&#8217;ll generate a secret, store it in the Kubernetes Secret API, and then update our configuration and spec to consume it.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Generate the secret:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">oc create secret generic shopping-cart-application-secret --from-literal=secret="$(openssl rand -base64 48)"</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Note that the <code>prod-application.conf</code> file contains the logic to consume the secret via an environment variable:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-conf hljs" data-lang="conf">play {
+  http.secret.key = "${APPLICATION_SECRET}"
+}</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Note that the <code>shopping-cart.yaml</code> file also uses the secret:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: APPLICATION_SECRET
+  valueFrom:
+    secretKeyRef:
+        name: shopping-cart-application-secret
+        key: secret</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_view_the_configuration_to_connect_to_postgresql"><a class="anchor" href="#_view_the_configuration_to_connect_to_postgresql"></a>3. View the configuration to connect to PostgreSQL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In <a href="setting-up-postgresql.html" class="page">Setting up PostgreSQL</a> we described the requirements the sample app and this guide have for a PostgreSQL service, including the requirement for the service to be called <code>postgresql</code>, and for there to be a secret called <code>postgres-shopping-cart</code>. Now we need to check that Shopping Cart is configure to connect to that service and consume the secret.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>In <code>prod-application.conf</code>, find the following configuration:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-conf hljs" data-lang="conf">db.default {
+    url = ${POSTGRESQL_URL}
+    username = ${POSTGRESQL_USERNAME}
+    password = ${POSTGRESQL_PASSWORD}
+}
+
+lagom.persistence.jdbc.create-tables.auto = false</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This will override the defaults defined for development in <code>application.conf</code>. You can see that we&#8217;ve disabled the automatic creating of tables, since we&#8217;ve already created them.</p>
+</div>
+</li>
+<li>
+<p>The <code>shopping-cart.yaml</code> file also needs three environment variables: the URL, username, and password. The first is hard coded into the spec, and the second two we&#8217;ll consume as secrets. Find the following lines to verify:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: POSTGRESQL_URL
+  value: "jdbc:postgresql://postgresql/shopping_cart"
+- name: POSTGRESQL_USERNAME
+  valueFrom:
+    secretKeyRef:
+        name: postgres-shopping-cart
+        key: username
+- name: POSTGRESQL_PASSWORD
+  valueFrom:
+    secretKeyRef:
+        name: postgres-shopping-cart
+        key: password</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you used a different name for the PostgreSQL database deployment, or for the Kubernetes secrets, you&#8217;ll need to update the spec accordingly.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_view_the_configuration_to_connect_to_kafka"><a class="anchor" href="#_view_the_configuration_to_connect_to_kafka"></a>4. View the configuration to connect to Kafka</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In <a href="setting-up-kafka.html" class="page">Setting up Kafka</a>, we described the requirements for a Kafka instance. Lagom will automatically read an environment variable called <code>KAFKA_SERVICE_NAME</code> if present, so there&#8217;s nothing to add in the Shopping Cart configuration file.</p>
+</div>
+<div class="paragraph">
+<p>We just need <code>shopping-cart.yaml</code> to pass the environment variable, pointing to the Kafka service we provisioned. The actual service name that we need to configure needs to match the SRV lookup for the Kafka broker. Our Kafka broker defines a TCP port called <code>clients</code>. To lookup the IP address or host name and port number, we need to use a service name of <code>_clients._tcp.strimzi-kafka-brokers</code>.</p>
+</div>
+<div class="paragraph">
+<p>Find the following lines in <code>shopping-cart.yaml</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">- name: KAFKA_SERVICE_NAME
+  value: "_clients._tcp.strimzi-kafka-brokers"</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configure_the_service_locator"><a class="anchor" href="#_configure_the_service_locator"></a>5. Configure the service locator</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Lagom uses a service locator to look up other microservices. The service locator takes the service name defined in a Lagom service descriptor and translates it into an address to use for communication. In development, when you are running with the <code>runAll</code> command, Lagom starts up its own development service locator, and injects that into each microservice. You don&#8217;t have to worry about service lookup until production. Once out of the development environment, you need to provide a service locator yourself.</p>
+</div>
+<div class="paragraph">
+<p>Akka provides an API called <a href="https://doc.akka.io/docs/akka/current/discovery/index.html">Akka Discovery</a> that includes a number of backends. Several are compatible with a Kubernetes environment. We&#8217;re going to use a service locator implementation built on Akka Discovery, and then we&#8217;re going to use the DNS implementation of Akka discovery to discover other services.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If using Maven, check the project <code>pom.xml</code> to make sure the value <code>scala.binary.version</code> is defined there and set to the value of <code>2.12</code>.</p>
+</li>
+<li>
+<p>Check the <code>pom.xml</code> in each microservice implementation project or the declaration for each microservice implementation project in <code>build.sbt</code> to make sure the following dependency exists:</p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 85.7143%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java with Maven</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="xml">&lt;dependency&gt;
+  &lt;groupId&gt;com.lightbend.lagom&lt;/groupId&gt;
+  &lt;artifactId&gt;lagom-javadsl-akka-discovery-service-locator_${scala.binary.version}&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Java with sbt</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">libraryDependencies +=
+  "com.lightbend.lagom" %% "lagom-javadsl-akka-discovery-service-locator" % "1.5.1"</code></pre>
+</div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scala with sbt</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">libraryDependencies +=
+  "com.lightbend.lagom" %% "lagom-scaladsl-akka-discovery-service-locator" % "1.5.1"</code></pre>
+</div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>In the <code>prod-application.conf</code> file, the following configures Akka discovery to use DNS as the discovery method:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-conf hljs" data-lang="conf">akka.discovery.method = akka-dns</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you&#8217;re using Java with Lagom&#8217;s Guice backend, this completes the service locator configuration. The <code>lagom-javadsl-akka-discovery</code> module automatically loads a Guice module that provides the service locator implementation. If you&#8217;re using Scala, you will need to wire in the service locator yourself.</p>
+</div>
+</li>
+<li>
+<p>For Scala, modify your production application cake to mix the Akka discovery service locator components in. Open <code>com/example/shoppingcart/impl/ShoppingCartLoader.scala</code> from the <code>shopping-cart/src/main/scala</code> directory, and modify the <code>load</code> method as follows:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-scala hljs" data-lang="scala">import com.lightbend.lagom.scaladsl.akkadiscovery.AkkaDiscoveryComponents
+
+override def load(context: LagomApplicationContext): LagomApplication =
+    new ShoppingCartApplication(context) with AkkaDiscoveryComponents</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_whats_next"><a class="anchor" href="#_whats_next"></a>What&#8217;s next</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>With the microservice configuration and the deployment spec ready, we need to add the Shopping Cart configuration necessary for <a href="configuring-akka-cluster.html" class="page">Forming an Akka Cluster</a>.</p>
+</div>
+</div>
+</div>
+</article><aside class="toc sidebar">
+  <div class="toc-menu"></div>
+</aside>
+    </div>
+  </main>
+</div><footer class="footer">
+	<nav>
+		<section>
+			<h3>Documentation</h3>
+			<h4><a href="/">Lightbend Platform</a></h4>
+			<ul>
+				<li><a href="">Lightbend Platform Guide</a></li>
+				<li><a href="https://developer.lightbend.com/docs/pipelines/current/index.html">Pipelines</a></li>
+				<li><a href="https://developer.lightbend.com/docs/telemetry/latest/home.html">Telemetry</a></li>
+				<li><a href="https://developer.lightbend.com/docs/console/current/index.html">Console</a></li>
+				<li><a href="https://doc.akka.io/docs/akka-enhancements/current/akka-resilience-enhancements.html">Akka Resilience Enhancements</a></li>
+				<li><a href="https://doc.akka.io/docs/akka-enhancements/current/akka-persistence-enhancements.html">Akka Persistence Enhancements</a></li>
+				<li><a href="https://developer.lightbend.com/docs/fortify/latest/">Fortify SCA for Scala</a></li>
+				<li><a class="navbar-item" href="https://akka.io/docs/">Akka</a></li>
+				<li><a class="navbar-item" href="https://doc.akka.io/docs/alpakka/current/">Alpakka</a></li>
+				<li><a class="navbar-item" href="https://www.lagomframework.com/documentation/">Lagom Framework</a></li>
+				<li><a class="navbar-item" href="https://www.playframework.com/documentation">Play Framework</a></li>
+				<li><a class="navbar-item" href="http://www.scala-sbt.org/documentation.html">sbt</a></li>
+				<li><a class="navbar-item" href="https://docs.scala-lang.org/">Scala</a></li>
+				<li><a class="navbar-item" href="http://slick.lightbend.com/doc/3.2.1/">Slick</a></li>
+			</ul>
+		</section>
+		<section>
+			<h3>Resources</h3>
+			<ul>
+				<li><a href="https://portal.lightbend.com/">Customer Portal</a></li>
+				<li><a href="https://discuss.lightbend.com">Discussion Forums</a></li>
+				<li><a href="https://www.lightbend.com/blog">Blog</a></li>
+				<li><a href="https://www.lightbend.com/learn/lightbend-reactive-architecture">Free Training</a></li>
+				<li><a href="https://www.lightbend.com/certified-reactive-architect">Certification</a></li>
+				<li><a href="https://www.lightbend.com/contact">Ask A Question</a></li>
+			</ul>
+		</section>
+		<section>
+			<h3>Lightbend</h3>
+			<ul>
+				<li><a href="https://www.lightbend.com/about-lightbend">Who Is Lightbend?</a></li>
+				<li><a href="https://www.lightbend.com/customers">Who Uses Lightbend?</a></li>
+				<li><a href="https://www.lightbend.com/lightbend-platform-subscription">Why Get A Subscription?</a></li>
+				<li><a href="https://www.lightbend.com/company/news">News & Press</a></li>
+				<li><a href="https://shop.lightbend.com/">Online Swag Shop</a></li>
+				<li><a href="https://www.lightbend.com/contact">Get In Contact</a></li>
+			</ul>
+		</section>
+	</nav>
+
+	<div class="legal-social">
+		<div class="legal">
+			<p>© Lightbend 2019 | <a href="https://www.lightbend.com/legal/licenses">Licenses</a> | <a href="https://www.lightbend.com/legal/terms">Terms</a> | <a href="https://www.lightbend.com/legal/privacy">Privacy Policy</a> | <a href="https://www.lightbend.com/legal/cookie">Cookie Listing</a> | <a class="optanon-toggle-display">Cookie Settings</a> 
+			<span class="footer-logo">
+				<svg class="lightbend-logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 372 80">
+					<title>lightbend-logo</title>
+					<g id="lightbend-logo">
+						<path d="M1,59V76a3,3,0,0,0,3,3H88a3,3,0,0,0,3-3V59a167.38,167.38,0,0,1-45,6A167.38,167.38,0,0,1,1,59Z" fill="#ffffff"></path>
+						<path d="M88,1H4A3,3,0,0,0,1,4V53c14.57,4.2,29.65,7,45,7s30.43-2.8,45-7V4A3,3,0,0,0,88,1Z" fill="#ffffff"></path>
+						<g id="original_weight" data-name="original weight">
+							<path d="M107.2,20.08a2.14,2.14,0,1,1,4.27,0v32h13.6A2,2,0,0,1,127,54a1.94,1.94,0,0,1-1.94,2H109.31a2.15,2.15,0,0,1-2.11-2.16Z" fill="#ffffff"></path>
+							<path d="M135,19.32a2.47,2.47,0,0,1,4.91,0V20A2.47,2.47,0,0,1,135,20Zm.38,10.59a2.08,2.08,0,1,1,4.16,0V54.15a2,2,0,0,1-2.06,2.11,2.08,2.08,0,0,1-2.1-2.11Z" fill="#ffffff"></path>
+							<path d="M150.8,61.44a1.91,1.91,0,0,1-1.08-1.73,2,2,0,0,1,1.89-1.83,1.69,1.69,0,0,1,.92.27,17.63,17.63,0,0,0,9.88,3c6.15,0,10.15-3.4,10.15-9.93v-3.3c-2.43,3.24-5.83,5.89-11,5.89a12.9,12.9,0,0,1-13.12-13.07v-.11a13.21,13.21,0,0,1,24-7.56V29.91a2.07,2.07,0,0,1,2.06-2.11,2.11,2.11,0,0,1,2.1,2.11V51.13c0,4.32-1.29,7.61-3.56,9.88-2.49,2.48-6.21,3.73-10.64,3.73A21.87,21.87,0,0,1,150.8,61.44Zm21.87-20.73V40.6c0-5.72-5-9.45-10.26-9.45s-9.67,3.67-9.67,9.4v.1a9.45,9.45,0,0,0,9.67,9.51C167.7,50.16,172.67,46.32,172.67,40.71Z" fill="#ffffff"></path>
+							<path d="M186.22,18.41a2.08,2.08,0,1,1,4.16,0V32.93a10.57,10.57,0,0,1,9.56-5.45c6.75,0,10.69,4.53,10.69,11.18V54.15a2.08,2.08,0,1,1-4.16,0V39.68c0-5.18-2.81-8.42-7.72-8.42s-8.37,3.51-8.37,8.75V54.15a2,2,0,0,1-2,2.11,2.08,2.08,0,0,1-2.11-2.11Z" fill="#ffffff"></path>
+							<path d="M220.46,48.59V31.74h-2.27a1.89,1.89,0,0,1-1.84-1.83,1.86,1.86,0,0,1,1.84-1.84h2.27V21.48a2.06,2.06,0,0,1,2-2.1,2.14,2.14,0,0,1,2.1,2.1v6.59h7.24a1.91,1.91,0,0,1,1.89,1.84,1.86,1.86,0,0,1-1.89,1.83h-7.24V48.05c0,3.4,1.89,4.64,4.7,4.64a12,12,0,0,0,2.54-.37,1.8,1.8,0,0,1,1.78,1.78,1.73,1.73,0,0,1-1.19,1.62,10.57,10.57,0,0,1-4.1.75C223.86,56.47,220.46,54.26,220.46,48.59Z" fill="#ffffff"></path>
+							<path d="M242.65,18.41a2.08,2.08,0,1,1,4.16,0V33.69c2.27-3.35,5.56-6.21,10.69-6.21,6.7,0,13.34,5.29,13.34,14.47v.11c0,9.12-6.59,14.52-13.34,14.52a12.6,12.6,0,0,1-10.69-5.94v3.51a2.07,2.07,0,0,1-2.05,2.11,2.11,2.11,0,0,1-2.11-2.11Zm23.92,23.7V42c0-6.58-4.53-10.8-9.83-10.8A10.41,10.41,0,0,0,246.65,42v.11c0,6.48,4.91,10.8,10.09,10.8C262.14,52.86,266.57,48.86,266.57,42.11Z" fill="#ffffff"></path>
+							<path d="M290.17,56.64c-7.67,0-13.93-5.89-13.93-14.53V42c0-8,5.67-14.52,13.39-14.52,8.26,0,13,6.75,13,14.15a1.94,1.94,0,0,1-1.95,1.94H280.45c.59,6,4.86,9.45,9.83,9.45a11.4,11.4,0,0,0,8-3.24,1.83,1.83,0,0,1,1.19-.49,1.81,1.81,0,0,1,1.84,1.78,1.78,1.78,0,0,1-.65,1.35A14.2,14.2,0,0,1,290.17,56.64Zm8.26-16.15c-.43-5.07-3.35-9.5-8.91-9.5-4.86,0-8.53,4.05-9.07,9.5Z" fill="#ffffff"></path>
+							<path d="M309.5,29.91a2.08,2.08,0,1,1,4.16,0v3a10.57,10.57,0,0,1,9.56-5.45c6.75,0,10.69,4.53,10.69,11.18V54.15a2.08,2.08,0,1,1-4.16,0V39.68c0-5.18-2.81-8.42-7.72-8.42s-8.37,3.51-8.37,8.75V54.15a2,2,0,0,1-2.05,2.11,2.08,2.08,0,0,1-2.11-2.11Z" fill="#ffffff"></path>
+							<path d="M368.68,54.15a2.08,2.08,0,1,1-4.15,0V50.37c-2.27,3.35-5.57,6.21-10.7,6.21-6.69,0-13.33-5.29-13.33-14.47V42c0-9.12,6.64-14.52,13.33-14.52a12.61,12.61,0,0,1,10.7,5.94v-15a2,2,0,0,1,2.05-2.11,2.07,2.07,0,0,1,2.1,2.11ZM344.76,42v.11c0,6.58,4.59,10.8,9.83,10.8a10.43,10.43,0,0,0,10.1-10.8V42a10.38,10.38,0,0,0-10.1-10.75C349.19,31.2,344.76,35.2,344.76,42Z" fill="#ffffff"></path>
+						</g>
+					</g>
+				</svg>
+			</span>
+			</p>
+		</div>
+	</div>
+
+</footer>
+<script src="../../_/js/site.js"></script>
+<script src="../../_/js/vendor/highlight.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="../../_/js/vendor/groups.js"></script>
+<script>hljs.initHighlighting()</script><script src="../../_/js/vendor/jquery.waypoints.min.js"></script>
+<script src="../../_/js/vendor/inview.min.js"></script>
+
+<script>
+(function($) {
+	$(function() {
+		
+		var pageViewedTriggerElement = '#page-content';
+		//override #page-content if a custom trigger is present in page
+		if($("#page-viewed-trigger").length){
+			pageViewedTriggerElement = '#page-viewed-trigger';
+		}
+
+		var inview = new Waypoint.Inview({
+			element: $(pageViewedTriggerElement)[0],
+				entered: function(direction) {
+				//fire custom Jquery event that Marketo can listen for
+				$.event.trigger({
+					type: "pageContentViewed"
+				});
+			}
+		})
+
+	});
+})(jQuery);
+</script>
+
+
+<!-- Google Tag Manager -->
+<script type="text/plain" class="optanon-category-2">(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-MC4WH2S');</script>
+<!-- End Google Tag Manager -->
+
+<!--Marketo-->
+<script>
+    (function() {
+      var didInit = false;
+      function initMunchkin() {
+        if(didInit === false) {
+          didInit = true;
+          Munchkin.init('558-NCX-702', { 'asyncOnly': true, 'disableClickDelay': true });
+        }
+      }
+      var s = document.createElement('script');
+      s.type = 'text/javascript';
+      s.src = '//munchkin.marketo.net/munchkin.js';
+      s.onreadystatechange = function() {
+        if (this.readyState == 'complete' || this.readyState == 'loaded') {
+          initMunchkin();
+        }
+      };
+      s.onload = initMunchkin;
+      document.getElementsByTagName('head')[0].appendChild(s);
+    })();
+
+
+    (function($) {
+      $(function() {
+        var pageViewed = false;
+        $(document).on("pageContentViewed", handlePageContentViewed);
+        function handlePageContentViewed(e) {
+          var viewedPagePath = "viewed"+window.location.pathname;
+          if(!pageViewed){
+            Munchkin.munchkinFunction('visitWebPage', {
+              'url': viewedPagePath
+              }
+            );
+            pageViewed = true;
+          }
+        };
+      });
+    })(jQuery);
+
+</script>  </body>
+</html>
