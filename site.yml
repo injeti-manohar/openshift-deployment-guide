@@ -10,7 +10,8 @@ content:
 
 ui:
   bundle:
-    url: ./ui-bundle.beta.zip
+    url: https://github.com/lightbend/antora-ui-lightbend-theme/raw/master/build/ui-bundle.zip
+    snapshot: true
 
 output:
    clean: true
