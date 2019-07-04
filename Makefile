@@ -10,7 +10,7 @@ todos:
 
 html:
 	@echo "Building openshift-deployment-guide:"
-	antora generate site.yml
+	antora generate --fetch site.yml
 	@echo "Success! Open ${site}/index.html"
 	# The site directory must be output as the last line
 	# to be compatible with the Tech Hub build process
