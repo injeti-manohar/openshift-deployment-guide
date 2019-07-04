@@ -84,18 +84,15 @@ do
   rm -f $file1 $file2
 done
 
-let found=$(wc -l $file3 | sed -e 's/  */ /g' | cut -f2 -d' ')
-if [[ $found -gt 0 ]]
-then
-  cat <<EOF
+let found=0
+[[ -s $file3 ]] && found=1 && cat <<EOF
 
 **** ERROR:
-**** ERROR: $found TODO and/or FIXME lines found in the directories: ${root_locations[@]}.
+**** ERROR: TODO and/or FIXME lines found in the directories: ${root_locations[@]}.
 **** ERROR:
 
 EOF
-  cat $file3
-  echo ""
-fi
+cat $file3
+echo ""
 rm $file3
 exit $found
