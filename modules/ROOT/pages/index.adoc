@@ -1,4 +1,4 @@
-= Deploying Lightbend applications to OpenShift
+= Deploying Lightbend Platform applications to OpenShift
 :toc:
 :toc-title: ON THIS PAGE
 :toclevels: 3

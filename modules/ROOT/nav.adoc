@@ -1,8 +1,8 @@
 
 
-* xref:index.adoc[Deploying microservices to OpenShift]
+* xref:index.adoc[Deploying Lightbend Platform applications to OpenShift]
 * xref:general-setup.adoc[General Setup]
-* xref:deploying-lagom:deploy-a-lagom-application-to-openshift.adoc[Deploy Lagom microservices to OpenShift]
+* xref:deploying-lagom:deploying-a-lagom-application-to-openshift.adoc[Deploying Lagom applications to OpenShift]
 ** xref:deploying-lagom:example-prerequisites.adoc[Example prerequisites]
 ** xref:deploying-lagom:downloading-example.adoc[Downloading the example and getting started]
 ** xref:deploying-lagom:setting-up-postgresql.adoc[Setting up PostgreSQL]

@@ -81,5 +81,5 @@ IMPORTANT: Since these commands just modify environment variables in your curren
 Choose one of the following examples:
 
 * Akka HTTP (coming soon!)
-* xref:deploying-lagom:deploy-a-lagom-application-to-openshift.adoc[Deploy Lagom microservices to OpenShift]
+* xref:deploying-lagom:deploying-a-lagom-application-to-openshift.adoc[Deploying Lagom applications to OpenShift]
 * Play (coming soon!)

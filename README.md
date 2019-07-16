@@ -1,6 +1,6 @@
-# Lightbend OpenShift Deployment guide
+# Deploying Lightbend Platform applications to OpenShift
 
-Guide for deploying Lightbend applications to OpenShift.
+Currently covers Lagom, with Play and Akka to be added in a later version.
 
 ## Building
 

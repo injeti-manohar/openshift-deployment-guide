@@ -1,5 +1,5 @@
 site:
-  title: Deploying Lightbend applications to OpenShift
+  title: Deploying Lightbend Platform applications to OpenShift
   url: https://developer.lightbend.com/guides/openshift-deployment/
   start_page: tutorials:ROOT:index.adoc
 

@@ -1,4 +1,4 @@
-= Deploy Lagom microservices to OpenShift
+= Deploying a Lagom application to OpenShift
 
 We will use the Lagom Shopping Cart example application for this tutorial. It is available for both Java and Scala, and uses a PostgreSQL database. Shopping Cart just provides a REST API, not a user interface, so we will interact with it using `curl`.
 
