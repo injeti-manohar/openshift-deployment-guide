@@ -16,7 +16,7 @@ then
 helm install lightbend/strimzi-kafka-operator \
   --name my-strimzi \
   --namespace $NAMESPACE \
-  --version 0.8.2 \
+  --version 0.11.3 \
   --debug
 # end::install-strimzi[]
 fi

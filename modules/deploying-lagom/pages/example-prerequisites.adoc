@@ -45,25 +45,30 @@ export HELM_VERSION=v2.13.1
 ```
 .. Create and apply the Lightbend Tiller template:
 +
-```
-oc process -f https://developer.lightbend.com/docs/fast-data-platform/2.1.0-OpenShift/resources/OpenShift/helm-tiller-template.yaml \
+```sh
+oc process -f https://developer.lightbend.com/docs/fast-data-platform/2.1.1-OpenShift/resources/helm-tiller-template.yaml \
   -p TILLER_NAMESPACE="${TILLER_NAMESPACE}" \
-  -p HELM_VERSION=${HELM_VERSION} | oc create -f 
+  -p HELM_VERSION=${HELM_VERSION} | oc create -f -
 ```
-+ Wait for this process to complete.
-.. Add the Lightbend Helm chart:
++
+.. Wait for this process to complete:
++
+```sh
+oc rollout status deployment tiller
+```
+. Add the Lightbend Helm chart:
 +
 ```
 helm repo add lightbend https://repo.lightbend.com/helm-charts
 helm repo update
 ```
-.. If you haven't already, create a parameter that points at the example project you will be using:
+. If you haven't already, create a parameter that points at the example project you will be using:
 +
 ```
 export NAMESPACE=myproject
 ```
 
-.. Install Strimzi:
+. Install Strimzi:
 +
 ```sh
 include::{examplesdir}/kafka.sh[tag=install-strimzi]
