@@ -27,12 +27,12 @@ then
     if [ $KAFKA_NODES == 1 ]
     then
 # tag::install-kafka-single[]
-oc apply -f deploy/kafka-single.yaml -n $NAMESPACE
+oc apply -f ../deploy/specs/common/kafka.yaml -n $NAMESPACE
 # end::install-kafka-single[]
     elif [ $KAFKA_NODES == 3 ]
     then
 # tag::install-kafka-multi[]
-oc apply -f deploy/kafka.yaml -n $NAMESPACE
+oc apply -f ../deploy/specs/common/kafka-single.yaml -n $NAMESPACE
 # end::install-kafka-multi[]
     else
         echo "Kafka nodes must either be 1 or 3"

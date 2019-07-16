@@ -5,7 +5,7 @@
 
 Before deploying Kafka, you should have followed the steps in xref:example-prerequisites.adoc#_preparing_for_kafka[Preparing for Kafka].
 
-If you're deploying to a real cluster with many physical machines, it's best to deploy with three Kafka replicas to get the feel for a realistic production setup. The spec below deploys three Kafka replicas, one ZooKeeper, and uses ephemeral storage (so if your pods are destroyed, they lose their data). The Shopping Cart example contains this configuration in the file `deploy/kafka.yaml`.
+If you're deploying to a real cluster with many physical machines, it's best to deploy with three Kafka replicas to get the feel for a realistic production setup. The spec below deploys three Kafka replicas, one ZooKeeper, and uses ephemeral storage (so if your pods are destroyed, they lose their data). The Shopping Cart example contains this configuration in the file https://github.com/lagom/lagom-samples/blob/1.5.x/shopping-cart/deploy/specs/common/kafka.yaml[`kafka.yaml`].
 
 ```yaml
 apiVersion: kafka.strimzi.io/v1alpha1
@@ -34,7 +34,7 @@ spec:
 ```
 
 
-If you're deploying to Minishift, you'll likely find that by the time all the ZooKeeper and Kafka instances are deployed, along with all the auxiliary services deployed by the operator, your machine has no resources left for anything else, such as your application, to use. So instead you can use a spec that only deploys one Kafka replica and one ZooKeeper replica. In addition, we'll need to change the replication factors to one, since with only one replica, we can't replicate more than once. The following shows the relevant sections of the `deploy\kafka-single.yaml`
+If you're deploying to Minishift, you'll likely find that by the time all the ZooKeeper and Kafka instances are deployed, along with all the auxiliary services deployed by the operator, your machine has no resources left for anything else, such as your application, to use. So instead you can use a spec that only deploys one Kafka replica and one ZooKeeper replica. In addition, we'll need to change the replication factors to one, since with only one replica, we can't replicate more than once. The following shows the relevant sections of the https://github.com/lagom/lagom-samples/blob/1.5.x/shopping-cart/deploy/specs/common/kafka-single.yaml[`kafka-single.yaml`]
 
 ```yaml
 ...
