@@ -2,7 +2,7 @@
 if [ $INSTALL_SHOPPING_CART == 1 ]
 then
     #apply-shopping-cart
-    kubectl apply -f deploy/shopping-cart.yaml
+    kubectl apply -f deploy/specs/shopping-cart.yaml
     #apply-shopping-cart
 
     #expose-shopping-cart
@@ -36,7 +36,6 @@ then
     waitForApp app=inventory 1
 fi
 
-// FIXME - route is an open shift command
 #shopping-cart-host
 SHOPPING_CART_HOST=$(kubectl get route shopping-cart -o jsonpath='{.spec.host}')
 #shopping-cart-host
