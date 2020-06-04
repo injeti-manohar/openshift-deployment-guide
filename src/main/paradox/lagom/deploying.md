@@ -3,7 +3,7 @@ actor.system.name = application
 ---
 # Deploying
 
-With the docker image built and pushed to the OpenShift registry, we can now deploy the deployment config that we've built.
+With the docker image built and pushed either to a registry or to the Minikube VM, we can now deploy the deployment config that we've built.
 
 Run the following command:
 
@@ -115,85 +115,3 @@ If your cluster is failing to form, carefully check over the logs for the follow
 * Ensure that the required contact point number matches your configuration and the number of replicas you have deployed.
 * Ensure that pods are successfully polling each other, looking for messages such as `Contact point [...] returned...` for outgoing polls and `Bootstrap request from ...` for incoming polls from other pods.
 
-## Interacting with the service
-
-Once the service is running, and a cluster has formed, the state should change to ready, this can be seen when running `oc get pods`:
-
-@@@vars
-```
-shopping-cart-756894d68d-9sltd         1/1       Running   0          9s
-shopping-cart-756894d68d-bccdv         1/1       Running   0          9s
-shopping-cart-756894d68d-d8h5j         1/1       Running   0          9s
-```
-@@@
-
-Now you can interact with the service. First we need to expose it to the outside world. We can do this using the `oc expose` command.
-
-@@snip[deploying.sh](scripts/deploying.sh) { #expose-shopping-cart }
-
-You can then see the hostname to access it by getting the routes:
-
-@@@vars
-```
-$ oc get routes/shopping-cart
-```
-@@@
-
-You should see something like this:
-
-@@@vars
-```
-shopping-cart   shopping-cart-myproject.192.168.42.246.nip.io  shopping-cart  http   None
-```
-@@@
-
-If you're using Minishift, your hostname will contain a domain name like `192.168.42.246.nip.io`, but not exactly the same as the Minishift IP address is selected at random on startup. Otherwise, it will be the domain name that your OpenShift cluster is running on. For convenient, let's put the hostname in an environment variable, this will allow you to copy/paste the following commands:
-
-@@snip[deploying.sh](scripts/deploying.sh) { #shopping-cart-host }
-
-Now let's try a simple GET request on the shopping cart service:
-
-```
-curl http://$SHOPPING_CART_HOST/shoppingcart/123
-{"id":"123","items":[],"checkedOut":false}
-```
-
-Now let's try adding some items to the shopping cart:
-
-```
-curl -H "Content-Type: application/json" -X POST -d '{"productId": "456", "quantity": 2}' \
- http://$SHOPPING_CART_HOST/shoppingcart/123
-curl -H "Content-Type: application/json" -X POST -d '{"productId": "789", "quantity": 3}' \
- http://$SHOPPING_CART_HOST/shoppingcart/123
-curl http://$SHOPPING_CART_HOST/shoppingcart/123
-```
-
-Finally, let's checkout the shopping cart
-
-```
-curl http://$SHOPPING_CART_HOST/shoppingcart/123/checkout -X POST
-```
-
-At this point, the shopping cart service should publish a message to Kafka. Let's deploy the inventory service to consume that message. We won't go into the details of how to configure it and its deployment descriptor since it's just a subset of what's needed for the shopping cart service - it doesn't need to form a cluster, it doesn't have a database, it just has a single node and needs to connect to Kafka. First, if you haven't already, build and push the inventory service to the docker registry:
-
-sbt
-:    @@snip[deploying.sh](scripts/deploying.sh) { #sbt-publish-inventory }
-
-Maven
-:    @@snip[deploying.sh](scripts/deploying.sh) { #maven-publish-inventory }
-
-Now, we can configure the image lookup, create the application secret, apply the deployment spec, and expose the service:
-
-@@snip[deploying.sh](scripts/deploying.sh) { #inventory-deploy }
-
-Now find out the hostname that the inventory service is exposed on and set it in an environment variable:
-
-@snip[deploying.sh](scripts/deploying.sh) { #inventory-host }
-
-And use that to query the inventory of one of the products that we just checked out from the shopping cart:
-
-```
-curl http://$INVENTORY_HOST/inventory/456
-```
-
-Since earlier we added two of product `456` to our shopping cart, and we haven't added anything to the inventory for that product id, if the inventory service has successfully consumed the checkout message, we expect the current inventory to be -2.

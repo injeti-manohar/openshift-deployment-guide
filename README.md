@@ -1,6 +1,6 @@
-# Lightbend OpenShift Deployment guide
+# Lightbend Kubernetes Deployment guide
 
-Guide for deploying Lightbend applications to OpenShift.
+Guide for deploying Lightbend applications to Kubernetes.
 
 ## Copyright Notice
 

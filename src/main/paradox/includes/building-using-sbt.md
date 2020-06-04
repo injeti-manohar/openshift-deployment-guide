@@ -68,14 +68,15 @@ dockerUpdateLatest := true
 
 ### Configuring deployment
 
-After building the docker image, we will need to deploy it to the built in OpenShift docker registry. To do that, we need to configure both the docker username, which should equal the OpenShift project/namespace, as well as the registry. This can be done by configuring the `dockerUsername` and `dockerRepository` settings:
+After building the docker image, we will need to deploy it to your Docker registry. To do that, we need to configure both the docker username as well as the registry. 
+This can be done by configuring the `dockerUsername` and `dockerRepository` settings:
 
 ```scala
 dockerUsername := sys.props.get("docker.username")
 dockerRepository := sys.props.get("docker.registry")
 ```
 
-In this case, we're reading both variables from system properties, which ensures that the build is not tied to any particular OpenShift installation. We'll supply these system properties when we invoke sbt.
+In this case, we're reading both variables from system properties, which ensures that the build is not tied to any particular registry. We'll supply these system properties when we invoke sbt.
 
 ## Building the docker image
 
@@ -83,7 +84,6 @@ Now that we're setup, we can build our docker image. Run the following:
 
 @@snip[building.sh](scripts/building.sh) { #sbt }
 
-This will build the project that you wish to build, tag it, and then push it to the configured OpenShift registry.
+This will build the project that you wish to build, tag it, and then push it to the configured Docker registry.
 
-@@include[building.md](building.md) { #image-stream }
 <!--- #no-setup --->

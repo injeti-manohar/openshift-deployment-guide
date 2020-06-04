@@ -1,4 +1,4 @@
-# Deploying a Lagom application to OpenShift
+# Deploying a Lagom application to Kubernees
 
 For this guide we will be using the Lagom shopping cart sample application. It is available for both [Java](https://github.com/lagom/lagom-samples/tree/1.5.x/shopping-cart/shopping-cart-java) and [Scala](https://github.com/lagom/lagom-samples/tree/1.5.x/shopping-cart/shopping-cart-scala), and uses a PostgreSQL database. This guide covers how to deploy a Lagom 1.5.0 application.
 
@@ -9,7 +9,8 @@ The shopping cart sample application can be cloned from the following GitHub rep
 * **Java**: https://github.com/lagom/lagom-samples/tree/1.5.x/shopping-cart/shopping-cart-java
 * **Scala**: https://github.com/lagom/lagom-samples/tree/1.5.x/shopping-cart/shopping-cart-scala
 
-Before you proceed, it is strongly recommended that you clone the repository, read the README, familiarise yourself with the code, and run it in development to get an understanding for what the sample app is and what it does. This will help put more context around the rest of the guide.
+Before you proceed, it is strongly recommended that you clone the repository, read the README, familiarise yourself with the code, and run it in development to get an understanding for what the sample app is and what it does. 
+This will help put more context around the rest of the guide.
 
 @@toc { depth=2 }
 

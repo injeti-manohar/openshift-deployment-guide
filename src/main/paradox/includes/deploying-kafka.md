@@ -92,7 +92,7 @@ Save the above YAML to a file called `deploy/kafka-single.yaml`, and run:
 Once you've deployed your Kafka instance, you can watch it come up by running:
 
 ```sh
-oc get pods -w -n myproject
+kubectl get pods -w -n myproject
 ```
 
 You should eventually see something like the following output, with the number of Kafka and ZooKeeper pods corresponding to how many you configured above.
@@ -109,7 +109,7 @@ strimzi-cluster-operator-78f8bf857-kpmhb   1/1     Running   0          3m10s
 It's also useful to see what services have been deployed:
 
 ```sh
-oc get services -n myproject
+kubectl get services -n myproject
 ```
 
 This should show at least:

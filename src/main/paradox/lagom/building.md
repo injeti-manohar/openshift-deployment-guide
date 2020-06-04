@@ -1,6 +1,6 @@
 # Building your application
 
-With the application prepared to run in OpenShift, and the Kubernetes specs written for its deployment, we are now ready to build and deploy it.
+With the application prepared to run in Kubernetes, and the Kubernetes specs written for its deployment, we are now ready to build and deploy it.
 
 @@include[building.md](../includes/building.md) { #intro }
 

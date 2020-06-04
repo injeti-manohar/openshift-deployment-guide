@@ -1,10 +1,8 @@
-# Deploying Lightbend applications to OpenShift
+# Deploying Lightbend applications to Kubernetes 
 
-This guide describes how to deploy Lagom applications to OpenShift. In future, we hope to expand the scope of this guide to include Akka and Play applications, in the meantime, much of this guide will be applicable to Akka and Play, but will need to be adapted.
+This guide describes how to deploy Lagom applications to Kubernetes. In future, we hope to expand the scope of this guide to include Akka and Play applications, in the meantime, much of this guide will be applicable to Akka and Play, but will need to be adapted.
 
-It is intended to be used by people who have a cursory understanding of OpenShift or Kubernetes - you should know what Kubernetes and OpenShift are, have a basic understanding of what a pods, services and containers are, and you should have interacted with the `oc` or `kubectl` commands before. You are not however expected to be an expert.
-
-While this guide is targeted at OpenShift, much of it will be applicable to Kubernetes in general. Where the guide depends on OpenShift specific features, we will generally mention this. Although this guide uses the OpenShift client command, `oc`, in most cases it can be substituted with `kubectl`, since `oc` for the most part provides a superset of commands supported by `kubectl`.
+It is intended to be used by people who have a cursory understanding of  Kubernetes - you should know what Kubernetes is, have a basic understanding of what a pods, services and containers are, and you should have interacted with the `kubectl` command before. You are not however expected to be an expert.
 
 ## Following this guide
 
@@ -12,32 +10,31 @@ There are multiple different configurations that this guide documents, such as, 
 
 There are two ways to use this guide. The first is to follow along using the sample applications that we have provided. This is great if you are evaluating the technologies, or just want to get a feel for deployment to production before you deploy your own apps. The second is to follow along with your own application, applying the steps we document to your application. Careful attention will need to be paid to ensuring that all config, in particular, names, get updated to match your application.
 
-Ideally, you should follow along using a realistic OpenShift cluster, something deployed to AWS, GCP or Azure for example, as this will provide a more realistic demonstration of the technologies, allowing you to see many services running across a cluster. However, due to the hosting cost of running such a cluster, this may not always be feasible, and perhaps you are just evaluating these technologies with no budget for hosting them yet. In that case, you can follow this guide using [Minishift](https://www.okd.io/minishift/), running on your local machine. Running this guide in Minishift has some significant limitations, primarily around resources such as memory and CPU. In some cases, you will have to deploy things with only one replica, when in production you should really use at least three. And often you will have to assign only small fractions of CPU resources to an application, especially if you are running many, and this will make the application very slow to start up.
+Ideally, you should follow along using a realistic Kubernetes cluster, something deployed to AWS, GCP or Azure for example, as this will provide a more realistic demonstration of the technologies, allowing you to see many services running across a cluster. 
+However, due to the hosting cost of running such a cluster, this may not always be feasible, and perhaps you are just evaluating these technologies with no budget for hosting them yet. 
+In that case, you can follow this guide using [Minikube](https://kubernetes.io/docs/tasks/tools/install-minikube/) or [Minishift](https://www.okd.io/minishift/), running on your local machine. 
+Running this guide in Minikube has some significant limitations, primarily around resources such as memory and CPU. In some cases, you will have to deploy things with only one replica, when in production you should really use at least three. 
+And often you will have to assign only small fractions of CPU resources to an application, especially if you are running many, and this will make the application very slow to start up.
 
-## Installing OpenShift
+## Installing Kubernetes
 
-We will not actually document installing OpenShift or Minishift in this guide, since there are already resources on the web for doing this. You may already have an OpenShift installation that you can use, in which case, you can simply use that. These instructions have been tested with OpenShift 3.11.
+We will not actually document installing Kubernetes, OpenShift, Minishift, or Minikube in this guide, since there are already resources on the web for doing this. 
 
-### Installing a full cluster
+### Installing Minikube
 
-If you wish to install a full OpenShift cluster from scratch, you can follow one of the following:
+Minikube can be installed following [these instructions](https://kubernetes.io/docs/tasks/tools/install-minikube/).
 
-* [OKD](https://docs.okd.io/latest/getting_started/administrators.html) - These are instructions for installing OKD, the open source distribution of OpenShift.
-* [OpenShift Container Platform](https://docs.openshift.com/container-platform/latest/getting_started/install_openshift.html) - These are instructions for installing OpenShift Container Platform, RedHats commercially supported OpenShift distribution. It requires a RedHat license to run it.
+Once installed you can start minikube:
 
-In this guide, we will assume that you have created a project called `myproject`, and will use this as the default namespace that all applications get deployed to. For convenience, all the commands we use that need the namespace will use a variable called `NAMESPACE`, so if you set this in your shell, like so:
-
-```sh
-NAMESPACE=myproject
+```
+minikube start
 ```
 
-Then you'll just be able to copy and paste all the commands. That said, there are some configuration files that will have `myproject` hard coded and may need to be updated, so if you're not using the `myproject` project, you'll need to update these.
+Once Minikube is started you can setup your Docker environment to publish to minikube:
 
-#### Setting up docker
-
-You will need to ensure that you set your environment up to be able to push docker images to your OpenShift installation. This requires exposing your OpenShift installations internal registry to the outside world and then logging in. For more information, see [here](https://docs.openshift.com/container-platform/latest/dev_guide/managing_images.html#accessing-the-internal-registry) for how to expose the registry, and [here](https://docs.openshift.com/container-platform/latest/install_config/registry/accessing_registry.html#access-logging-in-to-the-registry) for how to log in once the registry is exposed.
-
-Typically, once this is done, your docker registry will be available at a URL like `docker-registry-default.myopenshift.example.com`.
+```
+eval $(minikube -p minikube docker-env)
+```
 
 ### Installing Minishift
 
@@ -76,7 +73,7 @@ The first command modifies your `PATH` to ensure the `oc` binary is on it, the s
 
 @@@ index
 
-* [Deploying a Lagom application to OpenShift](lagom/index.md)
+* [Deploying a Lagom application to Kubernetes](lagom/index.md)
 
 @@@
 

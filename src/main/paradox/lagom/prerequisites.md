@@ -4,7 +4,7 @@ The sample application in this guide depends on a Postgres database, and a Kafka
 
 ## Postgres
 
-If you have an existing Postgres database, you can use that. @ref[Appendix A - Deploying Postgres](deploying-postgres.md) describes one way of deploying Postgres to a OpenShift environment if you don't.
+If you have an existing Postgres database, you can use that. @ref[Appendix A - Deploying Postgres](deploying-postgres.md) describes one way of deploying Postgres to a Kubernetes environment if you don't.
 
 For this guide, we will assume the following:
 

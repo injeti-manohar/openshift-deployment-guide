@@ -2,11 +2,11 @@
 if [ $INSTALL_SHOPPING_CART == 1 ]
 then
     #apply-shopping-cart
-    oc apply -f deploy/shopping-cart.yaml
+    kubectl apply -f deploy/shopping-cart.yaml
     #apply-shopping-cart
 
     #expose-shopping-cart
-    oc expose svc/shopping-cart
+    kubectl expose svc/shopping-cart
     #expose-shopping-cart
 
     waitForApp app=shopping-cart 3
@@ -27,21 +27,22 @@ then
     fi
 
     #inventory-deploy
-    oc set image-lookup inventory
-    oc create secret generic inventory-application-secret --from-literal=secret="$(openssl rand -base64 48)"
-    oc apply -f deploy/inventory.yaml
-    oc expose svc/inventory
+    kubectl set image-lookup inventory
+    kubectl create secret generic inventory-application-secret --from-literal=secret="$(openssl rand -base64 48)"
+    kubectl apply -f deploy/inventory.yaml
+    kubectl expose svc/inventory
     #inventory-deploy
 
     waitForApp app=inventory 1
 fi
 
+// FIXME - route is an open shift command
 #shopping-cart-host
-SHOPPING_CART_HOST=$(oc get route shopping-cart -o jsonpath='{.spec.host}')
+SHOPPING_CART_HOST=$(kubectl get route shopping-cart -o jsonpath='{.spec.host}')
 #shopping-cart-host
 
 #inventory-host
-INVENTORY_HOST=$(oc get route inventory -o jsonpath='{.spec.host}')
+INVENTORY_HOST=$(kubectl get route inventory -o jsonpath='{.spec.host}')
 #inventory-host
 
 SHOPPING_CART_ID=$(openssl rand -base64 6 | tr -- '+=/' '-_~')

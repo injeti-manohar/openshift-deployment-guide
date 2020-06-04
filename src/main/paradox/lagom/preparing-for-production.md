@@ -3,7 +3,7 @@
 In preparation for production, we need to do two main things:
 
 1. Configure our Lagom app for the production environment
-2. Write a deployment spec for deploying it to OpenShift
+2. Write a deployment spec for deploying it to Kubernetes
 
 Rather than describe these two steps completely and in sequence, this guide will take you through more incrementally, jumping back and forth between the Lagom configuration file and the deployment spec. The reason for this is that the production configuration of Lagom and the deployment spec are tightly coupled, things in Lagom's configuration file typically correspond to something configured in the deployment spec. To understand these configuration options and their coupling, it's best to do one and then the other.
 

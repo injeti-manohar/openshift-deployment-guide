@@ -31,7 +31,7 @@ We recommend adding and configuring the Docker plugin in your builds parent POM,
 </plugin>
 ```
 
-There are two things to pay careful attention to here. Firstly, the base image we're using is `adoptopenjdk/openjdk8`. You can use any Docker image that provides a JDK, this is the one we recommend for open source users of OpenShift and is certified by Lightbend for running our products. If you're a RedHat customer, you will likely prefer to use the RedHat certified OpenJDK base images, which use a RedHat certified OpenJDK build on RHEL, which is also certified by Lightbend for running our products:
+There are two things to pay careful attention to here. Firstly, the base image we're using is `adoptopenjdk/openjdk8`. You can use any Docker image that provides a JDK, this is the one we recommend for open source users of Kubernetes and is certified by Lightbend for running our products. If you're a RedHat customer, you will likely prefer to use the RedHat certified OpenJDK base images, which use a RedHat certified OpenJDK build on RHEL, which is also certified by Lightbend for running our products:
 
 ```xml
 <from>registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift</from>
@@ -131,6 +131,6 @@ Now that we're setup, we can build our docker image. To do so, we need to tell t
 
 @@snip[building.sh](scripts/building.sh) { #maven }
 
-This will package your project, build the docker images, tag them and push them to the OpenShift repository. The first time you run this it may take some time as it downloads the docker base image layers to your repository, but subsequent runs will be fast.
+This will package your project, build the docker images, tag them and push them to the your Docker registry. 
+The first time you run this it may take some time as it downloads the docker base image layers to your repository, but subsequent runs will be fast.
 
-@@include[building](building.md) { #image-stream }
