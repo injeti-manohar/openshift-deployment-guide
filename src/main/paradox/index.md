@@ -1,4 +1,4 @@
-# Deploying Lightbend applications to Kubernetes 
+# Deploying Lagom applications to Kubernetes 
 
 This guide describes how to deploy Lagom applications to Kubernetes. In future, we hope to expand the scope of this guide to include Akka and Play applications, in the meantime, much of this guide will be applicable to Akka and Play, but will need to be adapted.
 

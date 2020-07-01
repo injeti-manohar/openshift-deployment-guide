@@ -15,7 +15,7 @@ DOCKER_REPO_URL=docker-registry-default.example.com
 
 Then you will be able to copy and paste commands from this guide.
 
-## A node on using Minikube
+## A note on using Minikube
 
 Images can be published directly to the Minikube VMs docker host. This is done by running `eval $(minikube docker-env)`,
 which sets up a number of environment variables so that the `docker` command will use that instead of the docker host on your host machine.

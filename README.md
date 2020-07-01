@@ -1,6 +1,6 @@
-# Lightbend Kubernetes Deployment guide
+# Lagom Kubernetes Deployment guide
 
-Guide for deploying Lightbend applications to Kubernetes.
+Guide for deploying Lagom applications to Kubernetes.
 
 ## Copyright Notice
 
