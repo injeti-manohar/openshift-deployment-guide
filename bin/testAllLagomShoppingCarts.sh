@@ -15,7 +15,7 @@ runTest() {
     git clone $REPO $NAME
     cd $NAME
     cd $PROJECT
-    sed -i "s/myproject/$NAME/" deploy/specs/shopping-cart.yaml
+    sed -i "s/myproject/$NAME/" ../deploy/specs/shopping-cart.yaml
     oc new-project $NAME
     $THIS_SCRIPT_DIR/testLagomShoppingCart.sh -namespace $NAME $@
     oc delete project $NAME

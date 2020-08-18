@@ -2,7 +2,7 @@
 if [ $INSTALL_SHOPPING_CART == 1 ]
 then
     #apply-shopping-cart
-    kubectl apply -f deploy/specs/shopping-cart.yaml
+    kubectl apply -f ../deploy/specs/shopping-cart.yaml
     #apply-shopping-cart
 
     #expose-shopping-cart
@@ -29,7 +29,7 @@ then
     #inventory-deploy
     kubectl set image-lookup inventory
     kubectl create secret generic inventory-application-secret --from-literal=secret="$(openssl rand -base64 48)"
-    kubectl apply -f deploy/inventory.yaml
+    kubectl apply -f ../deploy/inventory.yaml
     kubectl expose svc/inventory
     #inventory-deploy
 
